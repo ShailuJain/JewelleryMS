@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2019 at 03:52 PM
+-- Generation Time: Mar 17, 2019 at 08:50 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -31,6 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `category` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(255) NOT NULL,
+  `quantity` int(11) NOT NULL,
   `hsn_code` int(11) NOT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
@@ -45,12 +46,12 @@ CREATE TABLE `category` (
 -- Dumping data for table `category`
 --
 
-INSERT INTO `category` (`category_id`, `category_name`, `hsn_code`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
-(1, 'Hard-drive', 1234, 0, '0000-00-00 00:00:00', '2018-08-28 19:51:41', '0000-00-00 00:00:00', 1, 1, 0),
-(2, 'cd-rom', 4567, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(3, 'card', 5678, 0, '0000-00-00 00:00:00', '2018-08-28 19:30:19', '0000-00-00 00:00:00', 1, 1, 0),
-(4, 'camera', 1564, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(5, 'RAM', 123123, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-08-28 19:04:14', 1, 0, 1);
+INSERT INTO `category` (`category_id`, `category_name`, `quantity`, `hsn_code`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
+(1, 'Hard-drive', 0, 1234, 0, '0000-00-00 00:00:00', '2018-08-28 19:51:41', '0000-00-00 00:00:00', 1, 1, 0),
+(2, 'cd-rom', 0, 4567, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
+(3, 'card', 0, 5678, 0, '0000-00-00 00:00:00', '2018-08-28 19:30:19', '0000-00-00 00:00:00', 1, 1, 0),
+(4, 'camera', 0, 1564, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
+(5, 'RAM', 0, 123123, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '2018-08-28 19:04:14', 1, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -64,7 +65,6 @@ CREATE TABLE `customer` (
   `customer_address` text NOT NULL,
   `customer_email` varchar(255) NOT NULL,
   `customer_contact` varchar(10) NOT NULL,
-  `gst_no` varchar(255) NOT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL,
@@ -82,7 +82,8 @@ CREATE TABLE `customer` (
 
 CREATE TABLE `gst` (
   `hsn_code` int(11) NOT NULL,
-  `gst_rate` int(5) NOT NULL,
+  `sgst_rate` int(5) NOT NULL,
+  `cgst_rate` int(5) NOT NULL,
   `wef` date NOT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -97,31 +98,12 @@ CREATE TABLE `gst` (
 -- Dumping data for table `gst`
 --
 
-INSERT INTO `gst` (`hsn_code`, `gst_rate`, `wef`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `deleted_by`, `updated_by`) VALUES
-(1234, 12, '2018-08-21', 0, '2018-08-21 15:51:33', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(4567, 12, '2018-08-21', 0, '2018-08-21 15:56:20', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(5678, 12, '0000-00-00', 0, '2018-08-21 16:09:10', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0),
-(1564, 12, '2018-08-23', 0, '2018-08-23 01:11:04', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
-(123123, 12, '2018-08-28', 0, '2018-08-28 18:11:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0);
-
--- --------------------------------------------------------
-
---
--- Table structure for table `inventory`
---
-
-CREATE TABLE `inventory` (
-  `product_id` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL DEFAULT '0',
-  `eoq` int(5) NOT NULL,
-  `deleted` int(1) NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL,
-  `deleted_at` datetime NOT NULL,
-  `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `deleted_by` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `gst` (`hsn_code`, `sgst_rate`, `cgst_rate`, `wef`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `deleted_by`, `updated_by`) VALUES
+(1234, 0, 0, '2018-08-21', 0, '2018-08-21 15:51:33', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
+(1564, 0, 0, '2018-08-23', 0, '2018-08-23 01:11:04', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
+(4567, 0, 0, '2018-08-21', 0, '2018-08-21 15:56:20', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
+(5678, 0, 0, '0000-00-00', 0, '2018-08-21 16:09:10', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0),
+(123123, 0, 0, '2018-08-28', 0, '2018-08-28 18:11:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -131,12 +113,23 @@ CREATE TABLE `inventory` (
 
 CREATE TABLE `invoice` (
   `invoice_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
-  `rate` int(11) NOT NULL,
-  `quantity` int(11) NOT NULL,
   `gst_rate` int(11) NOT NULL,
   `total_amount` int(11) NOT NULL,
-  `is_amount_pending` tinyint(1) NOT NULL
+  `is_amount_pending` tinyint(1) NOT NULL,
+  `invoice_date` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice_product`
+--
+
+CREATE TABLE `invoice_product` (
+  `rate` double NOT NULL,
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -165,6 +158,7 @@ CREATE TABLE `pending_amount` (
   `interval_in_days` int(11) NOT NULL,
   `updated_at` datetime NOT NULL,
   `updated_by` int(11) NOT NULL,
+  `deleted` int(2) NOT NULL,
   `deleted_at` datetime NOT NULL,
   `deleted_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -178,6 +172,7 @@ CREATE TABLE `pending_amount` (
 CREATE TABLE `product` (
   `product_id` int(11) NOT NULL,
   `product_name` varchar(255) NOT NULL,
+  `quantity` int(11) NOT NULL,
   `additional_specifications` text NOT NULL,
   `category_id` int(11) NOT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
@@ -197,7 +192,8 @@ CREATE TABLE `product` (
 
 CREATE TABLE `product_supplier` (
   `product_id` int(11) NOT NULL,
-  `supplier_id` int(11) NOT NULL
+  `supplier_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -209,7 +205,7 @@ CREATE TABLE `product_supplier` (
 CREATE TABLE `purchase` (
   `purchase_id` int(11) NOT NULL,
   `date_of_purchase` date NOT NULL,
-  `gst_type` int(1) NOT NULL,
+  `hsn_code` int(11) NOT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL,
@@ -260,43 +256,6 @@ CREATE TABLE `role` (
   `created_by` int(11) NOT NULL,
   `updated_by` int(11) NOT NULL,
   `deleted_by` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `sales`
---
-
-CREATE TABLE `sales` (
-  `sale_id` int(11) NOT NULL,
-  `customer_id` int(11) NOT NULL,
-  `date_of_sale` date NOT NULL,
-  `employee_id` int(11) NOT NULL,
-  `paymode` int(11) NOT NULL,
-  `cheque_number` int(11) NOT NULL,
-  `cheque_date` text NOT NULL,
-  `bank_name` varchar(255) NOT NULL,
-  `deleted` int(1) NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` datetime NOT NULL,
-  `deleted_at` datetime NOT NULL,
-  `created_by` int(11) NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `deleted_by` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `settings`
---
-
-CREATE TABLE `settings` (
-  `settings_id` int(11) NOT NULL,
-  `gst_type` int(11) NOT NULL,
-  `currency` varchar(10) NOT NULL,
-  `currency_append_mode` varchar(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -368,10 +327,10 @@ ALTER TABLE `customer`
   ADD PRIMARY KEY (`customer_id`);
 
 --
--- Indexes for table `inventory`
+-- Indexes for table `gst`
 --
-ALTER TABLE `inventory`
-  ADD PRIMARY KEY (`product_id`);
+ALTER TABLE `gst`
+  ADD PRIMARY KEY (`hsn_code`);
 
 --
 -- Indexes for table `invoice`
@@ -422,18 +381,6 @@ ALTER TABLE `role`
   ADD PRIMARY KEY (`employee_type`);
 
 --
--- Indexes for table `sales`
---
-ALTER TABLE `sales`
-  ADD PRIMARY KEY (`sale_id`);
-
---
--- Indexes for table `settings`
---
-ALTER TABLE `settings`
-  ADD PRIMARY KEY (`settings_id`);
-
---
 -- Indexes for table `supplier`
 --
 ALTER TABLE `supplier`
@@ -459,7 +406,7 @@ ALTER TABLE `category`
 -- AUTO_INCREMENT for table `customer`
 --
 ALTER TABLE `customer`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `invoice`
@@ -490,12 +437,6 @@ ALTER TABLE `purchase`
 --
 ALTER TABLE `role`
   MODIFY `employee_type` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `settings`
---
-ALTER TABLE `settings`
-  MODIFY `settings_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `supplier`
