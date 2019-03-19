@@ -39,5 +39,3 @@
 
 </div>
 <!-- /.container-fluid -->
-
-</div>
