@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3bdedbed-7593-4a39-967e-9af850eaf684" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/db/database/Database.class.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/db/database/constants.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/db/utils/functions.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/db/jms.sql" beforeDir="false" afterPath="$PROJECT_DIR$/db/jms.sql" afterDir="false" />
+    <list default="true" id="3bdedbed-7593-4a39-967e-9af850eaf684" name="Default Changelist" comment="Started database coding.">
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,8 +15,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/db/database/Database.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="17" column="131" selection-start-line="17" selection-start-column="131" selection-end-line="17" selection-end-column="131" />
+            <state relative-caret-position="425">
+              <caret line="35" column="97" lean-forward="true" selection-start-line="35" selection-start-column="97" selection-end-line="35" selection-end-column="97" />
             </state>
           </provider>
         </entry>
@@ -140,17 +136,6 @@
               <item name="JewelleryMS" type="b2602c69:ProjectViewProjectNode" />
               <item name="JewelleryMS" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="JewelleryMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="JewelleryMS" type="462c0819:PsiDirectoryNode" />
-              <item name="db" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="JewelleryMS" type="b2602c69:ProjectViewProjectNode" />
-              <item name="JewelleryMS" type="462c0819:PsiDirectoryNode" />
-              <item name="db" type="462c0819:PsiDirectoryNode" />
-              <item name="database" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -207,15 +192,21 @@
       <option name="project" value="LOCAL" />
       <updated>1552813489867</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Started database coding.">
+      <created>1553112448416</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1553112448416</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="34027000" />
+    <option name="totallyTimeSpent" value="34358000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21785174" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -247,7 +238,8 @@
     <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Creted new pages" />
-    <option name="LAST_COMMIT_MESSAGE" value="Creted new pages" />
+    <MESSAGE value="Started database coding." />
+    <option name="LAST_COMMIT_MESSAGE" value="Started database coding." />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/css/sb-admin-2.min.css">
@@ -587,8 +579,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/db/database/Database.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="17" column="131" selection-start-line="17" selection-start-column="131" selection-end-line="17" selection-end-column="131" />
+        <state relative-caret-position="425">
+          <caret line="35" column="97" lean-forward="true" selection-start-line="35" selection-start-column="97" selection-end-line="35" selection-end-column="97" />
         </state>
       </provider>
     </entry>
