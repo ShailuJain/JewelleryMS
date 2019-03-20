@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 19, 2019 at 11:21 PM
+-- Generation Time: Mar 20, 2019 at 07:17 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -25,10 +25,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `category`
+-- Table structure for table `categories`
 --
 
-CREATE TABLE `category` (
+CREATE TABLE `categories` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(255) NOT NULL,
   `quantity` int(11) NOT NULL,
@@ -45,10 +45,10 @@ CREATE TABLE `category` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `customer`
+-- Table structure for table `customers`
 --
 
-CREATE TABLE `customer` (
+CREATE TABLE `customers` (
   `customer_id` int(11) NOT NULL,
   `customer_name` varchar(255) NOT NULL,
   `customer_address` text NOT NULL,
@@ -96,10 +96,10 @@ INSERT INTO `gst` (`hsn_code`, `gst_rate`, `wef`, `deleted`, `created_at`, `upda
 -- --------------------------------------------------------
 
 --
--- Table structure for table `invoice`
+-- Table structure for table `invoices`
 --
 
-CREATE TABLE `invoice` (
+CREATE TABLE `invoices` (
   `invoice_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `total_amount` int(11) NOT NULL,
@@ -145,10 +145,10 @@ CREATE TABLE `invoice_product` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `product`
+-- Table structure for table `products`
 --
 
-CREATE TABLE `product` (
+CREATE TABLE `products` (
   `product_id` int(11) NOT NULL,
   `product_name` varchar(255) NOT NULL,
   `quantity` int(11) NOT NULL,
@@ -166,10 +166,10 @@ CREATE TABLE `product` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `purchase`
+-- Table structure for table `purchases`
 --
 
-CREATE TABLE `purchase` (
+CREATE TABLE `purchases` (
   `purchase_id` int(11) NOT NULL,
   `date_of_purchase` date NOT NULL,
   `hsn_code` int(11) NOT NULL,
@@ -209,10 +209,10 @@ CREATE TABLE `purchase_supplier` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `role`
+-- Table structure for table `roles`
 --
 
-CREATE TABLE `role` (
+CREATE TABLE `roles` (
   `employee_type` int(11) NOT NULL,
   `role_name` varchar(255) NOT NULL,
   `access_rights` text NOT NULL,
@@ -228,10 +228,10 @@ CREATE TABLE `role` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `supplier`
+-- Table structure for table `suppliers`
 --
 
-CREATE TABLE `supplier` (
+CREATE TABLE `suppliers` (
   `supplier_id` int(11) NOT NULL,
   `supplier_name` varchar(255) NOT NULL,
   `supplier_address` text NOT NULL,
@@ -294,15 +294,15 @@ INSERT INTO `users` (`user_id`, `username`, `user_contact`, `user_email`, `user_
 --
 
 --
--- Indexes for table `category`
+-- Indexes for table `categories`
 --
-ALTER TABLE `category`
+ALTER TABLE `categories`
   ADD PRIMARY KEY (`category_id`);
 
 --
--- Indexes for table `customer`
+-- Indexes for table `customers`
 --
-ALTER TABLE `customer`
+ALTER TABLE `customers`
   ADD PRIMARY KEY (`customer_id`);
 
 --
@@ -312,21 +312,21 @@ ALTER TABLE `gst`
   ADD PRIMARY KEY (`hsn_code`);
 
 --
--- Indexes for table `invoice`
+-- Indexes for table `invoices`
 --
-ALTER TABLE `invoice`
+ALTER TABLE `invoices`
   ADD PRIMARY KEY (`invoice_id`);
 
 --
--- Indexes for table `product`
+-- Indexes for table `products`
 --
-ALTER TABLE `product`
+ALTER TABLE `products`
   ADD PRIMARY KEY (`product_id`);
 
 --
--- Indexes for table `purchase`
+-- Indexes for table `purchases`
 --
-ALTER TABLE `purchase`
+ALTER TABLE `purchases`
   ADD PRIMARY KEY (`purchase_id`);
 
 --
@@ -342,15 +342,15 @@ ALTER TABLE `purchase_supplier`
   ADD PRIMARY KEY (`purhase_id`);
 
 --
--- Indexes for table `role`
+-- Indexes for table `roles`
 --
-ALTER TABLE `role`
+ALTER TABLE `roles`
   ADD PRIMARY KEY (`employee_type`);
 
 --
--- Indexes for table `supplier`
+-- Indexes for table `suppliers`
 --
-ALTER TABLE `supplier`
+ALTER TABLE `suppliers`
   ADD PRIMARY KEY (`supplier_id`);
 
 --
@@ -370,45 +370,45 @@ ALTER TABLE `users`
 --
 
 --
--- AUTO_INCREMENT for table `category`
+-- AUTO_INCREMENT for table `categories`
 --
-ALTER TABLE `category`
+ALTER TABLE `categories`
   MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `customer`
+-- AUTO_INCREMENT for table `customers`
 --
-ALTER TABLE `customer`
+ALTER TABLE `customers`
   MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `invoice`
+-- AUTO_INCREMENT for table `invoices`
 --
-ALTER TABLE `invoice`
+ALTER TABLE `invoices`
   MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `product`
+-- AUTO_INCREMENT for table `products`
 --
-ALTER TABLE `product`
+ALTER TABLE `products`
   MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `purchase`
+-- AUTO_INCREMENT for table `purchases`
 --
-ALTER TABLE `purchase`
+ALTER TABLE `purchases`
   MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `role`
+-- AUTO_INCREMENT for table `roles`
 --
-ALTER TABLE `role`
+ALTER TABLE `roles`
   MODIFY `employee_type` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `supplier`
+-- AUTO_INCREMENT for table `suppliers`
 --
-ALTER TABLE `supplier`
+ALTER TABLE `suppliers`
   MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
