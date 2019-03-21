@@ -9,12 +9,11 @@
 require_once 'constants.php';
 require_once '../utils/functions.php';
 
-class Database
+class Table
 {
     private static $pdo;
     private static $dsn = "mysql:host=".HOST.";dbname=".DB;
     private static $isInitialized = false;
-    private static $associativeArray;
 
     /**
      * This method is the database initialization method. This method must be called before calling any other method of this class.
@@ -92,6 +91,7 @@ class Database
      * updates the table specified with the respective values provided in the associativeArray
      * @param $tableName - table to update
      * @param $associativeArray - array of columns and values to be updated
+     * @return bool - return true if the update query was successfully executed.
      */
     public static function update($tableName, $associativeArray)
     {
@@ -99,10 +99,16 @@ class Database
         {
             $columnStatement = getString($associativeArray, UPDATE_QUERY_FORMAT);
             $query = "UPDATE {$tableName} SET {$columnStatement}";
-            die($query);
+            $pdoStmt = self::$pdo->prepare($query);
+            $keys = array_keys($associativeArray);
+            for($i = 0; $i<count($associativeArray); $i++)
+                $pdoStmt->bindParam($i+1, $associativeArray[$keys[$i]]);
+            if($pdoStmt->execute())
+                return true;
         }
+        return false;
     }
-
+    
     public static function delete($tableName, $condition)
     {
         if(self::isInitialized())
