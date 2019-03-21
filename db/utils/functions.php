@@ -1,5 +1,5 @@
 <?php
-require_once '../database/constants.php';
+require_once '../core/constants.php';
 
 /**
  * THis function is basically a utility function which is used to convert associativeArray
