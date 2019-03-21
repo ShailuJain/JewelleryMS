@@ -6,17 +6,27 @@
  * Time: 04:31 PM
  */
 
-require_once 'CRUD.class.php';
-class Table
+abstract class Table
 {
-    public $table_name;
-    public $columns_values;
-    public function __construct($table_name)
+    protected $table_name;
+    protected $columns_values;
+    public function __construct($table_name, $result = null)
     {
         $this->table_name = $table_name;
-        CRUD::init();
+        $this->resultSetToThis($result);
     }
 
+
+    private function resultSetToThis($result)
+    {
+        if($result!=null)
+        {
+            $keys = array_keys( (array) $result);
+            foreach ($keys as $item) {
+                $this->$item = $result->$item;
+            }
+        }
+    }
     //MAGIC Functions
     /**
      * Sets the variable to the given value.
@@ -45,4 +55,7 @@ class Table
     {
         unset($this->columns_values[$name]);
     }
+    public function insert(){}
+    public function update(){}
+    public function delete(){}
 }

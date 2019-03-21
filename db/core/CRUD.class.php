@@ -8,7 +8,7 @@
 
 require_once 'constants.php';
 require_once '../utils/functions.php';
-
+require_once '../models/Category.class.php';
 class CRUD
 {
     protected static $columns;
@@ -17,7 +17,7 @@ class CRUD
     private static $isInitialized = false;
 
     /**
-     * This method is the database initialization method. This method must be called before calling any other method of this class.
+     * This method is the core initialization method. This method must be called before calling any other method of this class.
      */
     public static function init()
     {
@@ -35,35 +35,24 @@ class CRUD
     }
 
     /**
-     * This method checks if the init() method was called or not before calling any other method.
-     * @return bool returns true if the init() method was called as the first method.
-     */
-    private static function isInitialized()
-    {
-        if(!self::$isInitialized)
-            throw new BadMethodCallException("init() method must be called first");
-        return true;
-    }
-
-    /**
-     * Checks if the table exists or not in the database.
+     * Checks if the table exists or not in the core.
      * @param $tableName - name of the table to check if it exists or not.
      * @return bool - returns true if exists else false.
      */
     private static function tableExists($tableName)
     {
-        if(self::isInitialized())
-        {
-            $query = "SHOW TABLES FROM ".DB." LIKE '{$tableName}'";
-            $tablesInDB = self::$pdo->query($query);
-            if($tablesInDB)
-            {
-                if($tablesInDB->rowCount() == 1){
-                    return true;
-                }
-            }
-            return false;
+        if(!self::$isInitialized) {
+            self::init();
         }
+        $query = "SHOW TABLES FROM ".DB." LIKE '{$tableName}'";
+        $tablesInDB = self::$pdo->query($query);
+        if($tablesInDB)
+        {
+            if($tablesInDB->rowCount() == 1){
+                return true;
+            }
+        }
+        return false;
     }
     /**
      * This method will select rows from the table specified.
@@ -71,20 +60,31 @@ class CRUD
      * @param string $rows the rows to be selected
      * @param int $condition the condition according to which the rows will be selected
      * @param null $order it specifies the order in which the rows will be selected it will be "asc" or "desc"
-     * @return bool
+     * @return mixed - returns the result set
      */
     public static function select($tableName, $rows = "*", $condition = 1, $order = NULL)
     {
-        if(self::isInitialized() && self::tableExists($tableName)){
-            $query = "SELECT ".$rows." FROM ".$tableName." WHERE ".$condition;
+        require_once '../utils/mappings.php';
+        $resultObj = array();
+        if(!self::$isInitialized)
+            self::init();
+        if(self::tableExists($tableName)){
+            $query = "SELECT ".$rows." FROM ".$tableName." WHERE ".$condition ." AND deleted=0";
             if($order!=NULL)
                 $query.=" ORDER BY ".$order;
-            $pdoStmt = self::$pdo->query($query);
-            if($pdoStmt->execute()){
-                return true;
+            $result = self::$pdo->query($query);
+            if($result)
+            {
+                $count = $result->rowCount();
+                if($count == 1)
+                    $resultObj = new $tableMappings[$tableName]($result->fetch());
+                else
+                    for($i = 0; $i<$count;$i++)
+                        $resultObj[$i] = new $tableMappings[$tableName]($result->fetch());
+                return $resultObj;
             }
         }
-        return false;
+        return null;
     }
 
     /**
@@ -95,7 +95,9 @@ class CRUD
      */
     public static function insert($tableName, $associativeArray)
     {
-        if(self::isInitialized() && self::tableExists($tableName))
+        if(!self::$isInitialized)
+            self::init();
+        if(self::tableExists($tableName))
         {
             $columnStatement = getString($associativeArray, INSERT_QUERY_FORMAT);
             $query = "INSERT INTO {$tableName}{$columnStatement}";
@@ -118,7 +120,9 @@ class CRUD
      */
     public static function update($tableName, $associativeArray, $condition)
     {
-        if (self::isInitialized() && self::tableExists($tableName))
+        if(!self::$isInitialized)
+            self::init();
+        if (self::tableExists($tableName))
         {
             $columnStatement = getString($associativeArray, UPDATE_QUERY_FORMAT);
             $query = "UPDATE {$tableName} SET {$columnStatement} WHERE {$condition}";
@@ -134,6 +138,6 @@ class CRUD
 
     public static function delete($tableName, $condition)
     {
-        self::update($tableName, array("deleted"=>1), $condition);
+        return self::update($tableName, array("deleted"=>1), $condition);
     }
 }
