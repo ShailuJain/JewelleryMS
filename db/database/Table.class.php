@@ -66,6 +66,28 @@ class Table
     }
 
     /**
+     * This method will select rows from the table specified.
+     * @param $tableName the table from which the rows has to be selected
+     * @param string $rows the rows to be selected
+     * @param int $condition the condition according to which the rows will be selected
+     * @param null $order it specifies the order in which the rows will be selected it will be "asc" or "desc"
+     * @return bool
+     */
+    public static function select($tableName,
+                                  $rows = "*",
+                                  $condition = 1,
+                                  $order = NULL){
+        if(self::isInitialized() && self::tableExists($tableName)){
+            $query = "SELECT ".$rows." FROM ".$tableName." WHERE ".$condition." ORDER BY ".$order;
+            $pdoStmt = self::$pdo->query($query);
+            if($pdoStmt->execuute()){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * this method inserts into table specified with the respective columns and values provided in the associativeArray
      * @param $tableName - table in which to insert
      * @param $associativeArray - array of columns and values to be inserted
