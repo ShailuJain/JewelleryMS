@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 20, 2019 at 07:17 AM
+-- Generation Time: Mar 21, 2019 at 04:17 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `categories` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(255) NOT NULL,
-  `quantity` int(11) NOT NULL,
+  `category_quantity` int(11) NOT NULL,
   `hsn_code` int(11) NOT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
@@ -41,6 +41,17 @@ CREATE TABLE `categories` (
   `updated_by` int(11) NOT NULL,
   `deleted_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`category_id`, `category_name`, `category_quantity`, `hsn_code`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
+(1, 'UPDATE_CATEGORY', 100, 65432, 1, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0),
+(2, 'GOLD', 100, 12345, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0),
+(3, 'NEW_CATEGORY', 100, 12345, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0),
+(4, 'NEW_CATEGORY', 100, 12345, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0),
+(5, 'NEW_CATEGORY', 100, 12345, 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -373,7 +384,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `customers`
