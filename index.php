@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
+$title = "DashBoard";
     include_once ("includes/header.php");
     ?>
 

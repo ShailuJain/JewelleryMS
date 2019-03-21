@@ -36,7 +36,7 @@
         <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="pages/user/add-user.php">Add user</a>
-                <a class="collapse-item" href="pages/user/view-all-users.php">View all users</a>
+                <a class="collapse-item" href="pages/user/view-all-users.php">View All Users</a>
             </div>
         </div>
     </li>
@@ -52,7 +52,7 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="pages/categories/add-category.php">Add category</a>
-                <a class="collapse-item" href="pages/categories/view-all-category.php">view all category</a>
+                <a class="collapse-item" href="pages/categories/view-all-category.php">View All Categories</a>
             </div>
         </div>
     </li>
@@ -66,7 +66,7 @@
         <div id="collapseProducts" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="pages/product/add-product.php">Add product</a>
-                <a class="collapse-item" href="pages/product/view-all-product.php">view all products</a>
+                <a class="collapse-item" href="pages/product/view-all-product.php">View All Products</a>
             </div>
         </div>
     </li>
@@ -80,7 +80,7 @@
         <div id="collapseSupplier" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="pages/suppliers/add-supplier.php">Add Supplier</a>
-                <a class="collapse-item" href="pages/suppliers/view-all-supplier.php">view all Suppliers</a>
+                <a class="collapse-item" href="pages/suppliers/view-all-supplier.php">View All Suppliers</a>
             </div>
         </div>
     </li>
@@ -94,7 +94,7 @@
         <div id="collapsePurchase" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="pages/purchase/add-purchase.php">Add Purchase</a>
-                <a class="collapse-item" href="pages/purchase/view-all-purchase.php">view all purchases</a>
+                <a class="collapse-item" href="pages/purchase/view-all-purchase.php">View All Purchases</a>
             </div>
         </div>
     </li>
@@ -108,7 +108,7 @@
         <div id="collapseCustomer" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item" href="pages/customers/add-customer.php">Add Customer</a>
-                <a class="collapse-item" href="pages/customers/view-all-customer.php">view all Customers</a>
+                <a class="collapse-item" href="pages/customers/view-all-customer.php">View All Customers</a>
             </div>
         </div>
     </li>
@@ -121,7 +121,8 @@
         </a>
         <div id="collapseInvoice" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="utilities-color.html">Create invoice</a>
+                <a class="collapse-item" href="pages/invoices/add-invoice.php">Create Invoice</a>
+                <a class="collapse-item" href="pages/invoices/view-all-invoice.php">View All Invoices</a>
             </div>
         </div>
     </li>

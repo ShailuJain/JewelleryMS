@@ -19,7 +19,11 @@
                 <input type="number" class="form-control" name="cat_quantity" id="cat_quantity" placeholder="Enter quantity">
             </div>
 
-            <button type="submit" name="add_user" id="add_user" class="btn btn-primary">Add user</button>
+            <div class="form-group">
+                <label for="cat_gst_rate">GST Rate</label>
+                <input type="number" class="form-control" name="cat_gst_rate" id="cat_gst_rate" placeholder="Enter GST rate">
+            </div>
+            <button type="submit" name="add_category" id="add_category" class="btn btn-primary">Add Category</button>
         </form>
     </div>
 </div>
