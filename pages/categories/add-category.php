@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="offset-1 col-md-10">
         <form action="" method="" role="form" enctype="multipart/form-data">
             <legend>Add New Category</legend>
             <hr>

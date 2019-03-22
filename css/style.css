@@ -10917,7 +10917,9 @@ a:focus {
   height: 2rem;
   width: 2rem;
 }
-
+a.ajax-link:hover{
+  cursor: pointer;
+}
 .topbar {
   height: 4.375rem;
 }

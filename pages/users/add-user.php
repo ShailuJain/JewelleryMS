@@ -1,5 +1,5 @@
 <div class="row">
-    <div class="col-md-12">
+    <div class="offset-1 col-md-10">
         <form action="" method="" role="form" enctype="multipart/form-data">
             <legend>Add New User</legend>
             <hr>
@@ -15,7 +15,7 @@
             </div>
 
             <div class="form-group">
-                <label for="confirm_password">Password</label>
+                <label for="confirm_password">Repeat Password</label>
                 <input type="password" class="form-control" name="confirm_password" id="confirm_password" placeholder="Confirm password">
             </div>
 
