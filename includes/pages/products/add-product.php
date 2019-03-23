@@ -1,12 +1,21 @@
 <?php
+require_once ('db/models/Product.class.php');
 if(isset($_POST['add_product']))
 {
-    require_once ('db/models/Product.class.php');
-    $product = new Product();
-    $product->product_name = $_POST['product_name'];
-    $product->product_quantity = $_POST['product_quantity'];
-    $product->additional_specifications = $_POST['additional_specifications'];
-    echo $product->insert();
+    try
+    {
+        //creating a new product object and adding the fields.
+        $product = new Product();
+        $product->product_name = $_POST['product_name'];
+        $product->product_quantity = $_POST['product_quantity'];
+        $product->additional_specifications = $_POST['additional_specifications'];
+
+
+        $product->insert();
+    }catch (Exception $ex)
+    {
+        print_r($ex);
+    }
 }
 ?>
 <div class="row">
@@ -32,9 +41,15 @@ if(isset($_POST['add_product']))
 
 
             <div class="form-group">
-                <label for="product_cat_name">Category Name</label>
-                <select name="category_id" id="category_id" class="form-control">
+                <label for="category_id">Category Name</label>
+                <select name="category_id" id="category_id" class="form-control" autocomplete="on" type="text">
                     <option value="0">Select Category Name</option>
+                    <?php
+                        $result = CRUD::select("categories");
+                        foreach ($result as $cat){
+                            echo "<option value='$cat->category_id'>$cat->category_name</option>";
+                        }
+                    ?>
                 </select>
             </div>
 
