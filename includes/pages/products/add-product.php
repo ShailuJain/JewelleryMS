@@ -1,7 +1,6 @@
-
 <div class="row">
     <div class="offset-1 col-md-10">
-        <form action="" method="" role="form" enctype="multipart/form-data">
+        <form action="" method="post" role="form" enctype="multipart/form-data">
             <legend>Add New Product</legend>
             <hr>
 
