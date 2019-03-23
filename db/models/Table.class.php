@@ -6,6 +6,7 @@
  * Time: 04:31 PM
  */
 
+require_once 'db/core/CRUD.class.php';
 abstract class Table
 {
     protected $table_name;
