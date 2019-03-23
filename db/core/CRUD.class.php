@@ -7,22 +7,6 @@
  */
 
 require_once 'constants.php';
-require_once '../utils/functions.php';
-require_once '../models/Category.class.php';
-require_once '../models/Customer.class.php';
-require_once '../models/GST.class.php';
-require_once '../models/Invoice.class.php';
-require_once '../models/InvoicePending.class.php';
-require_once '../models/InvoiceProduct.class.php';
-require_once '../models/Product.class.php';
-require_once '../models/Purchase.class.php';
-require_once '../models/PurchaseProduct.class.php';
-require_once '../models/PurchaseSupplier.class.php';
-require_once '../models/Role.class.php';
-require_once '../models/Supplier.class.php';
-require_once '../models/SupplierProduct.class.php';
-require_once '../models/Table.class.php';
-require_once '../models/User.class.php';
 
 
 class CRUD
@@ -70,6 +54,17 @@ class CRUD
         }
         return false;
     }
+
+    public static function findById($tableName)
+    {
+        global $tableMappings;
+        $result = self::select($tableName);
+        if($result->rowCount() == 1)
+            $resultObj = new $tableMappings[$tableName]($result[0]);
+        else
+            $resultObj = null;
+        return $resultObj;
+    }
     /**
      * This method will select rows from the table specified.
      * @param $tableName the table from which the rows has to be selected
@@ -80,8 +75,6 @@ class CRUD
      */
     public static function select($tableName, $rows = "*", $condition = 1, $order = NULL,$deleted=0)
     {
-        require_once '../utils/mappings.php';
-        $resultObj = array();
         if(!self::$isInitialized)
             self::init();
         if(self::tableExists($tableName)){
@@ -91,13 +84,7 @@ class CRUD
             $result = self::$pdo->query($query);
             if($result)
             {
-                $count = $result->rowCount();
-                if($count == 1)
-                    $resultObj = new $tableMappings[$tableName]($result->fetch());
-                else
-                    for($i = 0; $i<$count;$i++)
-                        $resultObj[$i] = new $tableMappings[$tableName]($result->fetch());
-                return $resultObj;
+                return $result;
             }
         }
         return null;

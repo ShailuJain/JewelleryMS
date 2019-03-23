@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2019 at 03:19 PM
+-- Generation Time: Mar 23, 2019 at 09:27 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -154,7 +154,7 @@ CREATE TABLE `payment` (
 CREATE TABLE `products` (
   `product_id` int(11) NOT NULL,
   `product_name` varchar(255) NOT NULL,
-  `quantity` double NOT NULL,
+  `product_quantity` double NOT NULL,
   `additional_specifications` text NOT NULL,
   `category_id` int(11) NOT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
