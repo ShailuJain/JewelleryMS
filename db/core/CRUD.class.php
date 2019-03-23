@@ -65,6 +65,16 @@ class CRUD
             $resultObj = null;
         return $resultObj;
     }
+
+    /**
+     * executes the provided query.
+     * @param $query - the query to be executed.
+     * @return mixed - returns the result of query.
+     */
+    public static function query($query)
+    {
+        return self::$pdo->query($query);
+    }
     /**
      * This method will select rows from the table specified.
      * @param $tableName the table from which the rows has to be selected
@@ -151,6 +161,12 @@ class CRUD
         return false;
     }
 
+    /**
+     * sets the deleted column to true in the tableName
+     * @param $tableName - name of the table from which the row is to be deleted
+     * @param $condition - condition of rows to be deleted.
+     * @return bool - returns true if the operation was successful
+     */
     public static function delete($tableName, $condition)
     {
         return self::update($tableName, array("deleted"=>1), $condition);
