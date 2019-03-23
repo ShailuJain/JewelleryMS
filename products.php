@@ -1,7 +1,7 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: admin
- * Date: 3/18/2019
- * Time: 10:33 PM
- */
+if(isset($_GET['src']))
+{
+    $src = $_GET['src'];
+    $include_page = "pages/products/".$src.".php";
+    require_once ('helpers/static-components.php');
+}
