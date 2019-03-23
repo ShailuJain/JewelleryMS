@@ -1,0 +1,31 @@
+<?php
+/**
+ * Created by PhpStorm.
+ * User: Tarun
+ * Date: 21-03-201 9
+ * Time: 04:18 PM
+ */
+require_once 'Table.class.php';
+
+class SupplierProduct extends Table
+{
+    public function __construct($result = null)
+    {
+        parent::__construct("supplier_product", $result);
+    }
+
+    public function insert()
+    {
+        return CRUD::insert($this->table_name, $this->columns_values);
+    }
+
+    public function update()
+    {
+        return CRUD::update($this->table_name, $this->columns_values, "product_id={$this->product_id}");
+    }
+
+    public function delete()
+    {
+        return CRUD::delete($this->table_name, "product_id={$this->product_id}");
+    }
+}

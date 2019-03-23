@@ -35,9 +35,9 @@ abstract class Table
      */
     public function __set($name, $value)
     {
-        $this->columns_values[$name] = $value;
+        $this->columns_values[$name] = $value;//"Category_id"=>"2"
     }
-
+    //
     /**
      * Returns the value for the variable name
      * @param $name - name of the variable of which the value is wanted

@@ -9,6 +9,22 @@
 require_once 'constants.php';
 require_once '../utils/functions.php';
 require_once '../models/Category.class.php';
+require_once '../models/Customer.class.php';
+require_once '../models/GST.class.php';
+require_once '../models/Invoice.class.php';
+require_once '../models/InvoicePending.class.php';
+require_once '../models/InvoiceProduct.class.php';
+require_once '../models/Product.class.php';
+require_once '../models/Purchase.class.php';
+require_once '../models/PurchaseProduct.class.php';
+require_once '../models/PurchaseSupplier.class.php';
+require_once '../models/Role.class.php';
+require_once '../models/Supplier.class.php';
+require_once '../models/SupplierProduct.class.php';
+require_once '../models/Table.class.php';
+require_once '../models/User.class.php';
+
+
 class CRUD
 {
     protected static $columns;
@@ -62,14 +78,14 @@ class CRUD
      * @param null $order it specifies the order in which the rows will be selected it will be "asc" or "desc"
      * @return mixed - returns the result set
      */
-    public static function select($tableName, $rows = "*", $condition = 1, $order = NULL)
+    public static function select($tableName, $rows = "*", $condition = 1, $order = NULL,$deleted=0)
     {
         require_once '../utils/mappings.php';
         $resultObj = array();
         if(!self::$isInitialized)
             self::init();
         if(self::tableExists($tableName)){
-            $query = "SELECT ".$rows." FROM ".$tableName." WHERE ".$condition ." AND deleted=0";
+            $query = "SELECT ".$rows." FROM ".$tableName." WHERE ".$condition ." AND deleted=".$deleted;
             if($order!=NULL)
                 $query.=" ORDER BY ".$order;
             $result = self::$pdo->query($query);
