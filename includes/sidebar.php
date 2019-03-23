@@ -28,8 +28,8 @@
         </a>
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item ajax-link" data-path="pages/categories/add-category.php">Add category</a>
-                <a class="collapse-item ajax-link" data-path="pages/categories/view-all-category.php">View All Categories</a>
+                <a class="collapse-item ajax-link" href="categories.php?src=add-category">Add category</a>
+                <a class="collapse-item ajax-link" href="categories.php?src=view-all-category">View All Categories</a>
             </div>
         </div>
     </li>
@@ -42,8 +42,8 @@
         </a>
         <div id="collapseProducts" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item ajax-link" data-path="pages/product/add-product.php">Add product</a>
-                <a class="collapse-item ajax-link" data-path="pages/product/view-all-product.php">View All Products</a>
+                <a class="collapse-item ajax-link" href="products.php?src=add-product">Add product</a>
+                <a class="collapse-item ajax-link" href="products.php?src=view-all-product">View All Products</a>
             </div>
         </div>
     </li>
@@ -56,8 +56,8 @@
         </a>
         <div id="collapsePurchase" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item ajax-link" data-path="pages/purchase/add-purchase.php">Add Purchase</a>
-                <a class="collapse-item ajax-link" data-path="pages/purchase/view-all-purchase.php">View All Purchases</a>
+                <a class="collapse-item ajax-link" href="purchases.php?src=add-purchase">Add Purchase</a>
+                <a class="collapse-item ajax-link" href="purchases.php?src=view-all-purchase">View All Purchases</a>
             </div>
         </div>
     </li>
@@ -70,8 +70,8 @@
         </a>
         <div id="collapseSupplier" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item ajax-link" data-path="pages/suppliers/add-supplier.php">Add Supplier</a>
-                <a class="collapse-item ajax-link" data-path="pages/suppliers/view-all-supplier.php">View All Suppliers</a>
+                <a class="collapse-item ajax-link" href="suppliers.php?src=add-supplier">Add Supplier</a>
+                <a class="collapse-item ajax-link" href="suppliers.php?src=view-all-supplier">View All Suppliers</a>
             </div>
         </div>
     </li>
@@ -85,8 +85,8 @@
         </a>
         <div id="collapseCustomer" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item ajax-link" data-path="pages/customers/add-customer.php">Add Customer</a>
-                <a class="collapse-item ajax-link" data-path="pages/customers/view-all-customer.php">View All Customers</a>
+                <a class="collapse-item ajax-link" href="customers.php?src=add-customer">Add Customer</a>
+                <a class="collapse-item ajax-link" href="customers.php?src=view-all-customer">View All Customers</a>
             </div>
         </div>
     </li>
@@ -99,8 +99,8 @@
         </a>
         <div id="collapseInvoice" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item ajax-link" data-path="pages/invoices/add-invoice.php">Create Invoice</a>
-                <a class="collapse-item ajax-link" data-path="pages/invoices/view-all-invoice.php">View All Invoices</a>
+                <a class="collapse-item ajax-link" href="invoices.php?src=add-invoice">Create Invoice</a>
+                <a class="collapse-item ajax-link" href="invoices.php?src=view-all-invoice">View All Invoices</a>
             </div>
         </div>
     </li>
@@ -121,15 +121,15 @@
         </a>
         <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item ajax-link" data-path="pages/users/add-user-2.php">Add user</a>
-                <a class="collapse-item ajax-link" data-path="pages/users/view-all-users.php">View All Users</a>
+                <a class="collapse-item ajax-link" href="users.php?src=add-user-2">Add user</a>
+                <a class="collapse-item ajax-link" href="users.php?src=view-all-users">View All Users</a>
             </div>
         </div>
     </li>
 
     <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link ajax-link" data-path="charts.html">
+        <a class="nav-link ajax-link" href="charts.html">
             <i class="fas fa-fw fa-chart-area"></i>
             <span>GST Settings</span></a>
     </li>
