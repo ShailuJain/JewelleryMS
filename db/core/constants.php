@@ -8,7 +8,7 @@
 //Database related constants
 define("HOST","localhost");
 define("DB","jms");
-define("USERNAME","tarun");
-define("PASSWORD","tarun123");
+define("USERNAME","jainshailesh91");
+define("PASSWORD","shailujain123");
 define("INSERT_QUERY_FORMAT",1);
 define("UPDATE_QUERY_FORMAT",2);

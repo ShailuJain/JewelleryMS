@@ -1,11 +1,12 @@
 <?php
-if($_POST['add_button'])
+if(isset($_POST['add_product']))
 {
     require_once ('db/models/Product.class.php');
     $product = new Product();
     $product->product_name = $_POST['product_name'];
     $product->product_quantity = $_POST['product_quantity'];
-    $product->product_quantity = $_POST['product_quantity'];
+    $product->additional_specifications = $_POST['additional_specifications'];
+    echo $product->insert();
 }
 ?>
 <div class="row">
@@ -32,9 +33,8 @@ if($_POST['add_button'])
 
             <div class="form-group">
                 <label for="product_cat_name">Category Name</label>
-                <select name="product_cat_name" id="product_cat_name" class="form-control">
-                    <option value="-1">Select Category Name</option>
-                    <option value="1">Gold</option>
+                <select name="category_id" id="category_id" class="form-control">
+                    <option value="0">Select Category Name</option>
                 </select>
             </div>
 

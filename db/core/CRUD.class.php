@@ -7,7 +7,7 @@
  */
 
 require_once 'constants.php';
-
+require_once 'functions.php';
 
 class CRUD
 {
@@ -78,13 +78,17 @@ class CRUD
         if(!self::$isInitialized)
             self::init();
         if(self::tableExists($tableName)){
-            $query = "SELECT ".$rows." FROM ".$tableName." WHERE ".$condition ." AND deleted=".$deleted;
-            if($order!=NULL)
-                $query.=" ORDER BY ".$order;
-            $result = self::$pdo->query($query);
-            if($result)
-            {
-                return $result;
+            try{
+                $query = "SELECT ".$rows." FROM ".$tableName." WHERE ".$condition ." AND deleted=".$deleted;
+                if($order!=NULL)
+                    $query.=" ORDER BY ".$order;
+                $result = self::$pdo->query($query);
+                if($result)
+                {
+                    return $result;
+                }
+            }catch (Exception $e){
+                print_r($e);
             }
         }
         return null;
@@ -102,14 +106,18 @@ class CRUD
             self::init();
         if(self::tableExists($tableName))
         {
-            $columnStatement = getString($associativeArray, INSERT_QUERY_FORMAT);
-            $query = "INSERT INTO {$tableName}{$columnStatement}";
-            $pdoStmt = self::$pdo->prepare($query);
-            $keys = array_keys($associativeArray);
-            for($i = 0; $i<count($associativeArray); $i++)
-                $pdoStmt->bindParam($i+1, $associativeArray[$keys[$i]]);
-            if($pdoStmt->execute())
-                return true;
+            try{
+                $columnStatement = getString($associativeArray, INSERT_QUERY_FORMAT);
+                $query = "INSERT INTO {$tableName}{$columnStatement}";
+                $pdoStmt = self::$pdo->prepare($query);
+                $keys = array_keys($associativeArray);
+                for($i = 0; $i<count($associativeArray); $i++)
+                    $pdoStmt->bindParam($i+1, $associativeArray[$keys[$i]]);
+                if($pdoStmt->execute())
+                    return true;
+            }catch (Exception $e){
+                print_r("Insert Error " . $e);
+            }
         }
         return false;
     }
@@ -127,14 +135,18 @@ class CRUD
             self::init();
         if (self::tableExists($tableName))
         {
-            $columnStatement = getString($associativeArray, UPDATE_QUERY_FORMAT);
-            $query = "UPDATE {$tableName} SET {$columnStatement} WHERE {$condition}";
-            $pdoStmt = self::$pdo->prepare($query);
-            $keys = array_keys($associativeArray);
-            for($i = 0; $i<count($associativeArray); $i++)
-                $pdoStmt->bindParam($i+1, $associativeArray[$keys[$i]]);
-            if($pdoStmt->execute())
-                return true;
+            try{
+                $columnStatement = getString($associativeArray, UPDATE_QUERY_FORMAT);
+                $query = "UPDATE {$tableName} SET {$columnStatement} WHERE {$condition}";
+                $pdoStmt = self::$pdo->prepare($query);
+                $keys = array_keys($associativeArray);
+                for($i = 0; $i<count($associativeArray); $i++)
+                    $pdoStmt->bindParam($i+1, $associativeArray[$keys[$i]]);
+                if($pdoStmt->execute())
+                    return true;
+            }catch (Exception $e){
+                print_r("Update Error " . $e);
+            }
         }
         return false;
     }
