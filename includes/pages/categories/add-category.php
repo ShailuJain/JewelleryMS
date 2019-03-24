@@ -45,7 +45,7 @@
 <div class="row">
     <div class="offset-1 col-md-10">
         <form action="" method="POST" role="form" enctype="multipart/form-data">
-            <legend>Add New Category</legend>
+            <h3>Add New Category</h3>
             <hr>
 
             <div class="form-group">

@@ -57,12 +57,14 @@ class CRUD
         return false;
     }
 
-    public static function findById($tableName)
+    public static function find($tableName, $condition)
     {
+        if(!self::$isInitialized)
+            self::init();
         global $tableMappings;
-        $result = self::select($tableName);
+        $result = self::select($tableName, "*", $condition);
         if($result->rowCount() == 1)
-            $resultObj = new $tableMappings[$tableName]($result[0]);
+            $resultObj = new $tableMappings[$tableName]($result->fetch());
         else
             $resultObj = null;
         return $resultObj;
@@ -82,12 +84,11 @@ class CRUD
 
     /**
      * This method will select rows from the table specified.
-     * @param $tableName the table from which the rows has to be selected
+     * @param $tableName - the table from which the rows has to be selected
      * @param string $rows the rows to be selected
      * @param int $condition the condition according to which the rows will be selected
      * @param null $order it specifies the order in which the rows will be selected it will be "asc" or "desc"
      * @return mixed - returns the result set
-     * @throws Exception
      */
     public static function select($tableName, $rows = "*", $condition = 1, $order = NULL,$deleted=0)
     {
@@ -111,7 +112,6 @@ class CRUD
      * @param $tableName - table in which to insert
      * @param $associativeArray - array of columns and values to be inserted
      * @return bool - returns true if insertion was successful
-     * @throws Exception - throws exception
      */
     public static function insert($tableName, $associativeArray)
     {
