@@ -10,7 +10,6 @@ require_once 'db/core/CRUD.class.php';
 require_once 'db/core/mappings.php';
 abstract class Table
 {
-    public static $table_name;
     protected $columns_values;
     public function __construct($result = null)
     {
