@@ -7,16 +7,15 @@
  */
 
 require_once 'db/core/CRUD.class.php';
+require_once 'db/core/mappings.php';
 abstract class Table
 {
-    public $table_name;
+    public static $table_name;
     protected $columns_values;
-    public function __construct($table_name, $result = null)
+    public function __construct($result = null)
     {
-        $this->table_name = $table_name;
         $this->resultSetToThis($result);
     }
-
 
     private function resultSetToThis($result)
     {
@@ -36,7 +35,7 @@ abstract class Table
      */
     public function __set($name, $value)
     {
-        $this->columns_values[$name] = $value;//"Category_id"=>"2"
+        $this->columns_values[$name] = $value;
     }
     //
     /**
@@ -59,6 +58,7 @@ abstract class Table
     public function insert(){}
     public function update(){}
     public function delete(){}
+    public function exists(){}
 
     /**
      * Adding time when the row was created in the table

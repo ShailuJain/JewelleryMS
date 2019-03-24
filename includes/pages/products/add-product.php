@@ -1,21 +1,25 @@
 <?php
-function test_input()
-{
-
-}
 require_once ('db/models/Product.class.php');
+require_once ('db/models/Category.class.php');
 if(isset($_POST['add_product']))
 {
     try
     {
+        $arr = $_POST;
+        unset($arr['add_product']);
+        $arrKeys = array_keys($arr);
+
         //creating a new product object and adding the fields.
         $product = new Product();
-        $product->product_name = $_POST['product_name'];
-        $product->product_quantity = $_POST['product_quantity'];
-        $product->additional_specifications = $_POST['additional_specifications'];
 
+        //finding category object
+        $category = Category::find("category_id = {$arr['category_id']}");
 
-        $product->insert();
+        foreach ($arrKeys as $item) {
+            $product->$item = $arr[$item];
+        }
+
+//        $product->insert();
     }catch (Exception $ex)
     {
         print_r($ex);
@@ -24,8 +28,8 @@ if(isset($_POST['add_product']))
 ?>
 <div class="row">
     <div class="offset-1 col-md-10">
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]) ?>" method="post" role="form" enctype="multipart/form-data">
-            <legend>Add New Product</legend>
+        <form action="" method="post" role="form" enctype="multipart/form-data">
+            <h3>Add New Product</h3>
             <hr>
             <div class="form-group">
                 <label for="category_id">Category Name</label>

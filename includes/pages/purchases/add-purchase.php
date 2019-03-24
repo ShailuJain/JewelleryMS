@@ -1,7 +1,7 @@
 <div class="row">
     <div class="offset-1 col-md-10">
     <form action="" method="" role="form" enctype="multipart/form-data">
-        <legend>Add New Purchase</legend>
+        <h3>Add New Purchase</h3>
         <hr>
 
         <div class="form-group">

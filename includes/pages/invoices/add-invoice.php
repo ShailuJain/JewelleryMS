@@ -1,7 +1,7 @@
 <div class="row">
     <div class="offset-1 col-md-10">
         <form action="" method="" role="form" enctype="multipart/form-data">
-            <legend>Add New Invoice</legend>
+            <h3>Add New Invoice</h3>
             <hr>
             <div class="form-group">
                 <label for="invoice_total_amt">Total Amount</label>
