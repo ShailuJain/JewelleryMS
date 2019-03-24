@@ -9,7 +9,7 @@
 require_once 'db/core/CRUD.class.php';
 abstract class Table
 {
-    protected $table_name;
+    public $table_name;
     protected $columns_values;
     public function __construct($table_name, $result = null)
     {
@@ -59,4 +59,43 @@ abstract class Table
     public function insert(){}
     public function update(){}
     public function delete(){}
+
+    /**
+     * Adding time when the row was created in the table
+     */
+    public function addCreated()
+    {
+        try {
+            $this->created_at = new DateTime();
+            $this->created_by = 0;
+        } catch (Exception $e) {
+            print_r($e);
+        }
+    }
+
+    /**
+     * Adding time when the row was deleted in the table
+     */
+    public function addDeleted()
+    {
+        try {
+            $this->deleted_at = new DateTime();
+            $this->deleted_by = 0;
+        } catch (Exception $e) {
+            print_r($e);
+        }
+    }
+
+    /**
+     * Adding time when the row was updated in the table
+     */
+    public function addUpdated()
+    {
+        try {
+            $this->updated_at = new DateTime();
+            $this->updated_by = 0;
+        } catch (Exception $e) {
+            print_r($e);
+        }
+    }
 }
