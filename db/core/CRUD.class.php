@@ -18,6 +18,7 @@ class CRUD
 
     /**
      * This method is the core initialization method. This method must be called before calling any other method of this class.
+     * @throws PDOException
      */
     public static function init()
     {
@@ -26,10 +27,11 @@ class CRUD
             self::$isInitialized = true;
             self::$pdo = new PDO(self::$dsn, USERNAME, PASSWORD);
             self::$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
+            self::setDefaultTimezone('Asia/Kolkata');
         }
         catch (PDOException $ex)
         {
-             die("There was an connection error");
+             throw $ex;
         }
 
     }
@@ -55,19 +57,34 @@ class CRUD
         return false;
     }
 
-    public static function findById($tableName)
+    public static function find($tableName, $condition)
     {
+        if(!self::$isInitialized)
+            self::init();
         global $tableMappings;
-        $result = self::select($tableName);
+        $result = self::select($tableName, "*", $condition);
         if($result->rowCount() == 1)
-            $resultObj = new $tableMappings[$tableName]($result[0]);
+            $resultObj = new $tableMappings[$tableName]($result->fetch());
         else
             $resultObj = null;
         return $resultObj;
     }
+
+    /**
+     * executes the provided query.
+     * @param $query - the query to be executed.
+     * @return mixed - returns the result of query.
+     */
+    public static function query($query)
+    {
+        if(!self::$isInitialized)
+            self::init();
+        return self::$pdo->query($query);
+    }
+
     /**
      * This method will select rows from the table specified.
-     * @param $tableName the table from which the rows has to be selected
+     * @param $tableName - the table from which the rows has to be selected
      * @param string $rows the rows to be selected
      * @param int $condition the condition according to which the rows will be selected
      * @param null $order it specifies the order in which the rows will be selected it will be "asc" or "desc"
@@ -78,17 +95,13 @@ class CRUD
         if(!self::$isInitialized)
             self::init();
         if(self::tableExists($tableName)){
-            try{
-                $query = "SELECT ".$rows." FROM ".$tableName." WHERE ".$condition ." AND deleted=".$deleted;
-                if($order!=NULL)
-                    $query.=" ORDER BY ".$order;
-                $result = self::$pdo->query($query);
-                if($result)
-                {
-                    return $result;
-                }
-            }catch (Exception $e){
-                print_r($e);
+            $query = "SELECT ".$rows." FROM ".$tableName." WHERE ".$condition ." AND deleted=".$deleted;
+            if($order!=NULL)
+                $query.=" ORDER BY ".$order;
+            $result = self::$pdo->query($query);
+            if($result)
+            {
+                return $result;
             }
         }
         return null;
@@ -106,18 +119,14 @@ class CRUD
             self::init();
         if(self::tableExists($tableName))
         {
-            try{
-                $columnStatement = getString($associativeArray, INSERT_QUERY_FORMAT);
-                $query = "INSERT INTO {$tableName}{$columnStatement}";
-                $pdoStmt = self::$pdo->prepare($query);
-                $keys = array_keys($associativeArray);
-                for($i = 0; $i<count($associativeArray); $i++)
-                    $pdoStmt->bindParam($i+1, $associativeArray[$keys[$i]]);
-                if($pdoStmt->execute())
-                    return true;
-            }catch (Exception $e){
-                print_r("Insert Error " . $e);
-            }
+            $columnStatement = getString($associativeArray, INSERT_QUERY_FORMAT);
+            $query = "INSERT INTO {$tableName}{$columnStatement}";
+            $pdoStmt = self::$pdo->prepare($query);
+            $keys = array_keys($associativeArray);
+            for($i = 0; $i<count($associativeArray); $i++)
+                $pdoStmt->bindParam($i+1, $associativeArray[$keys[$i]]);
+            if($pdoStmt->execute())
+                return true;
         }
         return false;
     }
@@ -135,24 +144,39 @@ class CRUD
             self::init();
         if (self::tableExists($tableName))
         {
-            try{
-                $columnStatement = getString($associativeArray, UPDATE_QUERY_FORMAT);
-                $query = "UPDATE {$tableName} SET {$columnStatement} WHERE {$condition}";
-                $pdoStmt = self::$pdo->prepare($query);
-                $keys = array_keys($associativeArray);
-                for($i = 0; $i<count($associativeArray); $i++)
-                    $pdoStmt->bindParam($i+1, $associativeArray[$keys[$i]]);
-                if($pdoStmt->execute())
-                    return true;
-            }catch (Exception $e){
-                print_r("Update Error " . $e);
-            }
+            $columnStatement = getString($associativeArray, UPDATE_QUERY_FORMAT);
+            $query = "UPDATE {$tableName} SET {$columnStatement} WHERE {$condition}";
+            $pdoStmt = self::$pdo->prepare($query);
+            $keys = array_keys($associativeArray);
+            for($i = 0; $i<count($associativeArray); $i++)
+                $pdoStmt->bindParam($i+1, $associativeArray[$keys[$i]]);
+            if($pdoStmt->execute())
+                return true;
         }
         return false;
     }
 
+    /**
+     * sets the deleted column to true in the tableName
+     * @param $tableName - name of the table from which the row is to be deleted
+     * @param $condition - condition of rows to be deleted.
+     * @return bool - returns true if the operation was successful
+     */
     public static function delete($tableName, $condition)
     {
         return self::update($tableName, array("deleted"=>1), $condition);
+    }
+
+    public static function setDefaultTimezone($timezone)
+    {
+        date_default_timezone_set($timezone);
+        $now = new DateTime();
+        $mins = $now->getOffset() / 60;
+        $sgn = ($mins < 0 ? -1 : 1);
+        $mins = abs($mins);
+        $hrs = floor($mins / 60);
+        $mins -= $hrs * 60;
+        $offset = sprintf('%+d:%02d', $hrs*$sgn, $mins);
+        return self::query("SET time_zone='$offset'");
     }
 }

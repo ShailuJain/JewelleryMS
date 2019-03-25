@@ -9,23 +9,32 @@ require_once 'Table.class.php';
 
 class Purchase extends Table
 {
+    public static $table_name = "purchases";
+    public static function select($rows="*",$condition = 1, $order = null,$deleted=0)
+    {
+        CRUD::select(self::$table_name, $rows, $condition, $order, $deleted);
+    }
+    public static function find($condition)
+    {
+        return CRUD::find(self::$table_name, $condition);
+    }
     public function __construct($result = null)
     {
-        parent::__construct("purchases", $result);
+        parent::__construct($result);
     }
 
     public function insert()
     {
-        return CRUD::insert($this->table_name, $this->columns_values);
+        return CRUD::insert(self::$table_name, $this->columns_values);
     }
 
     public function update()
     {
-        return CRUD::update($this->table_name, $this->columns_values, "purchase_id={$this->purchase_id}");
+        return CRUD::update(self::$table_name, $this->columns_values, "purchase_id={$this->purchase_id}");
     }
 
     public function delete()
     {
-        return CRUD::delete($this->table_name, "purchase_id={$this->purchase_id}");
+        return CRUD::delete(self::$table_name, "purchase_id={$this->purchase_id}");
     }
 }
