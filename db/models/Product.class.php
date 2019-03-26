@@ -25,8 +25,11 @@ class Product extends Table
 
     public function insert()
     {
-        parent::addCreated();
-        return CRUD::insert(self::$table_name, $this->columns_values);
+        if(!$this->exists()){
+            parent::addCreated();
+            return CRUD::insert(self::$table_name, $this->columns_values);
+        }
+        return false;
     }
 
     public function update()
@@ -43,12 +46,9 @@ class Product extends Table
 
     public function exists()
     {
-        if(isset($this->product_id))
-        {
-            $result = CRUD::query("SELECT * FROM (SELECT * FROM products WHERE category_id = $this->category_id) AS CATEGORY_PRODUCT WHERE product_name='$this->product_name'");
-        }
-        else{
-            throw new BadMethodCallException("Please set the primary key first");
-        }
+        $result = CRUD::query("SELECT * FROM (SELECT * FROM products WHERE category_id = $this->category_id) AS CATEGORY_PRODUCT WHERE product_name='$this->product_name'");
+        if($result->rowCount() >= 1)
+            return true;
+        return false;
     }
 }
