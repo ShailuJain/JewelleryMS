@@ -1,11 +1,23 @@
 $(function(){
-    // $('a.ajax-link').click(function(event){
-    //     page = $(event.currentTarget).attr('data-path');
-    //     $.ajax({
-    //         url: "http://localhost/JewelleryMS/php/ajax-handler.php?src="+ page,
-    //         success: function(result){
-    //             $("#include").html(result);
-    //         }
-    //     });
-    // });
+    $('#validate-form').submit(function(event){
+        event.preventDefault();
+
+        var $form  = $(this),
+            url = $form.attr('action');
+        // alert($form.serialize());
+        var button = $form.find("button[type=submit]");
+        var formData = $form.serialize()
+            + '&'
+            + encodeURI(button.attr('name'))
+            + '='
+            + encodeURI(button.attr('value'));
+        var $posting = $.post(url, formData);
+        $posting.done(function(result){
+            if(result.success !== undefined){
+
+            }else if(result.error !== undefined){
+                
+            }
+        });
+    });
 });
