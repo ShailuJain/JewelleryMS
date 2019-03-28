@@ -12,7 +12,7 @@ class Product extends Table
     public static $table_name = "products";
     public static function select($rows="*",$condition = 1, $order = null,$deleted=0)
     {
-        CRUD::select(self::$table_name, $rows, $condition, $order, $deleted);
+        return CRUD::select(self::$table_name, $rows, $condition, $order, $deleted);
     }
     public static function find($condition)
     {

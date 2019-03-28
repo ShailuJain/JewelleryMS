@@ -36,7 +36,7 @@ if(isset($_POST['add_product']))
                 <select name="category_id" id="category_id" class="form-control" required>
                     <option value="">Select Category Name</option>
                     <?php
-                    $result = CRUD::select("categories");
+                    $result = Category::select();
                     foreach ($result as $cat){
                         echo "<option value='$cat->category_id'>$cat->category_name</option>";
                     }
