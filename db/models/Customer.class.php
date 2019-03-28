@@ -10,9 +10,9 @@ require_once 'Table.class.php';
 class Customer extends Table
 {
     public static $table_name = "customers";
-    public static function select($rows="*",$condition = 1, $order = null,$deleted=0)
+    public static function select($rows="*", $condition = 1, $order = null, $deleted=0)
     {
-        CRUD::select(self::$table_name, $rows, $condition, $order, $deleted);
+        return CRUD::select(self::$table_name, $rows, $condition, $order, $deleted);
     }
     public static function find($condition)
     {
@@ -25,7 +25,9 @@ class Customer extends Table
 
     public function insert()
     {
-        return CRUD::insert(self::$table_name, $this->columns_values);
+        if(!$this->exists())
+            return CRUD::insert(self::$table_name, $this->columns_values);
+        return false;
     }
 
     public function update()
@@ -36,5 +38,15 @@ class Customer extends Table
     public function delete()
     {
         return CRUD::delete(self::$table_name, "customer_id={$this->customer_id}");
+    }
+
+    public function exists()
+    {
+        $result = CRUD::query("SELECT * FROM customers WHERE customer_contact = '{$this->customer_contact}' AND customer_name = '{$this->customer_name}'");
+
+        if($result->rowCount() >= 1){
+            return true;
+        }
+        return false;
     }
 }

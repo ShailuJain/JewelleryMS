@@ -1,34 +1,10 @@
 <?php
 require_once ('db/models/Product.class.php');
 require_once ('db/models/Category.class.php');
-if(isset($_POST['add_product']))
-{
-    try
-    {
-        $arr = $_POST;
-        unset($arr['add_product']);
-        $arrKeys = array_keys($arr);
-
-        //creating a new product object and adding the fields.
-        $product = new Product();
-
-        //finding category object
-        $category = Category::find("category_id = {$arr['category_id']}");
-
-        foreach ($arrKeys as $item) {
-            $product->$item = $arr[$item];
-        }
-
-//        $product->insert();
-    }catch (Exception $ex)
-    {
-        print_r($ex);
-    }
-}
 ?>
 <div class="row">
     <div class="offset-1 col-md-10">
-        <form action="" method="post" role="form" enctype="multipart/form-data">
+        <form id="validate-form" action="validations.php?form=products" method="post" role="form" enctype="multipart/form-data">
             <h3>Add New Product</h3>
             <hr>
             <div class="form-group">
@@ -36,7 +12,7 @@ if(isset($_POST['add_product']))
                 <select name="category_id" id="category_id" class="form-control" required>
                     <option value="">Select Category Name</option>
                     <?php
-                    $result = CRUD::select("categories");
+                    $result = Category::select();
                     foreach ($result as $cat){
                         echo "<option value='$cat->category_id'>$cat->category_name</option>";
                     }

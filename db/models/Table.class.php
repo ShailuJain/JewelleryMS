@@ -10,7 +10,6 @@ require_once 'db/core/CRUD.class.php';
 require_once 'db/core/mappings.php';
 abstract class Table
 {
-    public static $table_name;
     protected $columns_values;
     public function __construct($result = null)
     {
@@ -66,7 +65,8 @@ abstract class Table
     public function addCreated()
     {
         try {
-            $this->created_at = new DateTime();
+            $date = new DateTime();
+            $this->created_at = $date->format('Y-m-d H:i:s');
             $this->created_by = 0;
         } catch (Exception $e) {
             print_r($e);
@@ -79,7 +79,8 @@ abstract class Table
     public function addDeleted()
     {
         try {
-            $this->deleted_at = new DateTime();
+            $date = new DateTime();
+            $this->deleted_at = $date->format('Y-m-d H:i:s');
             $this->deleted_by = 0;
         } catch (Exception $e) {
             print_r($e);
@@ -92,7 +93,8 @@ abstract class Table
     public function addUpdated()
     {
         try {
-            $this->updated_at = new DateTime();
+            $date = new DateTime();
+            $this->updated_at = $date->format('Y-m-d H:i:s');
             $this->updated_by = 0;
         } catch (Exception $e) {
             print_r($e);
