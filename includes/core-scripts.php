@@ -16,5 +16,6 @@
 <script src="js/demo/chart-area-demo.js"></script>
 <script src="js/demo/chart-pie-demo.js"></script>
 <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
+<script src="vendor/izi-toast/js/iziToast.min.js"></script>
 
 <script src="js/script.js"></script>

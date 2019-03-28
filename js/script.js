@@ -4,7 +4,6 @@ $(function(){
 
         var $form  = $(this),
             url = $form.attr('action');
-        // alert($form.serialize());
         var button = $form.find("button[type=submit]");
         var formData = $form.serialize()
             + '&'
@@ -13,12 +12,22 @@ $(function(){
             + encodeURI(button.attr('value'));
         var $posting = $.post(url, formData);
         $posting.done(function(result){
-            if(result.success !== undefined){
-
-            }else if(result.error !== undefined){
-
+            if(result.status === "success"){
+                iziToast.success({
+                    message: result.msg,
+                    position: "bottomRight",
+                });
+            }else if(result.status === "error"){
+                iziToast.error({
+                    message: result.msg,
+                    position: "bottomRight",
+                });
             }
         });
     });
-    $('#tables').DataTable();
+    $('#tables').DataTable({
+        select: {
+            style: 'single'
+        },
+    });
 });
