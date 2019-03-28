@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 23, 2019 at 09:27 PM
+-- Generation Time: Mar 20, 2019 at 07:17 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -31,7 +31,7 @@ SET time_zone = "+00:00";
 CREATE TABLE `categories` (
   `category_id` int(11) NOT NULL,
   `category_name` varchar(255) NOT NULL,
-  `category_quantity` double NOT NULL,
+  `quantity` int(11) NOT NULL,
   `hsn_code` int(11) NOT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL,
@@ -87,6 +87,10 @@ CREATE TABLE `gst` (
 --
 
 INSERT INTO `gst` (`hsn_code`, `gst_rate`, `wef`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `deleted_by`, `updated_by`) VALUES
+(1234, 0, '2018-08-21', 0, '2018-08-21 15:51:33', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
+(1564, 0, '2018-08-23', 0, '2018-08-23 01:11:04', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
+(4567, 0, '2018-08-21', 0, '2018-08-21 15:56:20', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0),
+(5678, 0, '0000-00-00', 0, '2018-08-21 16:09:10', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0),
 (123123, 0, '2018-08-28', 0, '2018-08-28 18:11:32', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 1, 0, 0);
 
 -- --------------------------------------------------------
@@ -98,17 +102,31 @@ INSERT INTO `gst` (`hsn_code`, `gst_rate`, `wef`, `deleted`, `created_at`, `upda
 CREATE TABLE `invoices` (
   `invoice_id` int(11) NOT NULL,
   `customer_id` int(11) NOT NULL,
-  `total_amount` double NOT NULL,
-  `pending_amount` double NOT NULL,
-  `due_date` date NOT NULL,
+  `total_amount` int(11) NOT NULL,
+  `is_amount_pending` tinyint(1) NOT NULL,
   `invoice_date` datetime NOT NULL,
-  `deleted` int(1) NOT NULL,
+  `cancelled` int(1) NOT NULL,
   `created_at` datetime NOT NULL,
-  `deleted_at` datetime NOT NULL,
+  `cancelled_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
-  `deleted_by` int(11) NOT NULL,
-  `updated_at` date NOT NULL,
-  `updated_by` int(11) NOT NULL
+  `cancelled_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoice_pending`
+--
+
+CREATE TABLE `invoice_pending` (
+  `invoice_id` int(11) NOT NULL,
+  `pending_amount` int(11) NOT NULL,
+  `last_date_payment` date NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `updated_by` int(11) NOT NULL,
+  `deleted` int(2) NOT NULL,
+  `deleted_at` datetime NOT NULL,
+  `deleted_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -121,28 +139,7 @@ CREATE TABLE `invoice_product` (
   `invoice_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `rate` double NOT NULL,
-  `quantity` double NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `payment`
---
-
-CREATE TABLE `payment` (
-  `payment_id` int(11) NOT NULL,
-  `invoice_id` int(11) NOT NULL,
-  `payment_amount` double NOT NULL,
-  `payment_date` datetime NOT NULL,
-  `payment_mode` varchar(15) NOT NULL,
-  `created_at` datetime NOT NULL,
-  `created_by` int(11) NOT NULL,
-  `updated_at` datetime NOT NULL,
-  `updated_by` int(11) NOT NULL,
-  `deleted` int(2) NOT NULL,
-  `deleted_at` datetime NOT NULL,
-  `deleted_by` int(11) NOT NULL
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -154,7 +151,7 @@ CREATE TABLE `payment` (
 CREATE TABLE `products` (
   `product_id` int(11) NOT NULL,
   `product_name` varchar(255) NOT NULL,
-  `product_quantity` double NOT NULL,
+  `quantity` int(11) NOT NULL,
   `additional_specifications` text NOT NULL,
   `category_id` int(11) NOT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
@@ -194,8 +191,8 @@ CREATE TABLE `purchases` (
 CREATE TABLE `purchase_product` (
   `purchase_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `rate_of_purchase` double NOT NULL,
-  `quantity_purchased` double NOT NULL
+  `rate_of_purchase` int(11) NOT NULL,
+  `quantity_purchased` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -205,7 +202,7 @@ CREATE TABLE `purchase_product` (
 --
 
 CREATE TABLE `purchase_supplier` (
-  `purchase_id` int(11) NOT NULL,
+  `purhase_id` int(11) NOT NULL,
   `supplier_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -248,6 +245,18 @@ CREATE TABLE `suppliers` (
   `created_by` int(11) NOT NULL,
   `updated_by` int(11) NOT NULL,
   `deleted_by` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `supplier_product`
+--
+
+CREATE TABLE `supplier_product` (
+  `product_id` int(11) NOT NULL,
+  `supplier_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -309,18 +318,6 @@ ALTER TABLE `invoices`
   ADD PRIMARY KEY (`invoice_id`);
 
 --
--- Indexes for table `invoice_product`
---
-ALTER TABLE `invoice_product`
-  ADD PRIMARY KEY (`invoice_id`,`product_id`);
-
---
--- Indexes for table `payment`
---
-ALTER TABLE `payment`
-  ADD PRIMARY KEY (`payment_id`);
-
---
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -342,7 +339,7 @@ ALTER TABLE `purchase_product`
 -- Indexes for table `purchase_supplier`
 --
 ALTER TABLE `purchase_supplier`
-  ADD PRIMARY KEY (`purchase_id`);
+  ADD PRIMARY KEY (`purhase_id`);
 
 --
 -- Indexes for table `roles`
@@ -355,6 +352,12 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `suppliers`
   ADD PRIMARY KEY (`supplier_id`);
+
+--
+-- Indexes for table `supplier_product`
+--
+ALTER TABLE `supplier_product`
+  ADD PRIMARY KEY (`product_id`,`supplier_id`);
 
 --
 -- Indexes for table `users`
@@ -370,7 +373,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `customers`
@@ -383,12 +386,6 @@ ALTER TABLE `customers`
 --
 ALTER TABLE `invoices`
   MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `payment`
---
-ALTER TABLE `payment`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`

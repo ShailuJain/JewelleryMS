@@ -16,8 +16,9 @@ $(function(){
             if(result.success !== undefined){
 
             }else if(result.error !== undefined){
-                
+
             }
         });
     });
+    $('#tables').DataTable();
 });
