@@ -5,3 +5,5 @@ if(isset($_GET['src']))
     $include_page = "pages/categories/".$src.".php";
     require_once ('helpers/static-components.php');
 }
+?>
+
