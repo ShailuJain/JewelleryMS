@@ -21,7 +21,7 @@ if(isset($_POST['add_product']))
         $product = new Product();
 
         //finding category object
-        $category = Category::find("category_id = {$arr['category_id']}");
+        $category = Category::find("category_id = ?", $arr['category_id']);
         if($category){
             foreach ($arrKeys as $item) {
                 $product->$item = $arr[$item];
@@ -29,7 +29,6 @@ if(isset($_POST['add_product']))
             $category->category_quantity += $product->product_quantity;
             $res = CRUD::query("SET AUTOCOMMIT = OFF");
             if($res){
-                CRUD::query("START TRANSACTION");
                 if($product->insert() && $category->update()){
                     if(CRUD::query("COMMIT"))
                         echoStatus("success","Product added successfully");

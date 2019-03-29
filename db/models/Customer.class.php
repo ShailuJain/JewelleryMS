@@ -12,11 +12,11 @@ class Customer extends Table
     public static $table_name = "customers";
     public static function select($rows="*", $condition = 1, $order = null, $deleted=0)
     {
-        return CRUD::select(self::$table_name, $rows, $condition, $order, $deleted);
+        return CRUD::select(self::$table_name, $rows, $order, $condition, $deleted);
     }
-    public static function find($condition)
+    public static function find($condition, ...$params)
     {
-        return CRUD::find(self::$table_name, $condition);
+        return CRUD::find(self::$table_name, $condition, ...$params);
     }
     public function __construct($result = null)
     {

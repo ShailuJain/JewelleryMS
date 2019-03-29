@@ -22,7 +22,7 @@ require_once ('db/models/Category.class.php');
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="product_name">Product Name</label>
-                    <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Enter name of product" required>
+                    <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Enter name of product" required maxlength="150" pattern="^[a-zA-z][a-zA-Z0-9 \(\)]*$" title="Product name is not valid">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="product_quantity">Opening Stock</label>

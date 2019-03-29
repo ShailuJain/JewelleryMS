@@ -10,13 +10,13 @@ require_once 'Table.class.php';
 class User extends Table
 {
     public static $table_name = "users";
-    public static function select($rows="*",$condition = 1, $order = null,$deleted=0)
+    public static function select($rows="*", $deleted=0, $condition = 1, ...$params)
     {
-        return CRUD::select(self::$table_name, $rows, $condition, $order, $deleted);
+        return CRUD::select(self::$table_name, $rows, $deleted, $condition, ...$params);
     }
-    public static function find($condition)
+    public static function find($condition, ...$params)
     {
-        return CRUD::find(self::$table_name, $condition);
+        return CRUD::find(self::$table_name, $condition, ...$params);
     }
     public function __construct($result = null)
     {

@@ -17,6 +17,7 @@ $(function(){
                     message: result.msg,
                     position: "bottomRight",
                 });
+                $form.find("input[type=text], textarea, select, input[type=number], input[type=email]").val("");
             }else if(result.status === "error"){
                 iziToast.error({
                     message: result.msg,

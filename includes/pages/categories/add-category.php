@@ -11,9 +11,9 @@ if(isset($_POST['add_category'])){
             $category->category_name = $_POST['category_name'];
             $category->hsn_code = $GST->hsn_code = $_POST['hsn_code'];
             $GST->gst_rate = $_POST['gst_rate'];
-            $result = CRUD::select("gst","*", "hsn_code = $GST->hsn_code");
+            $result = CRUD::select("gst", "*", "hsn_code = $GST->hsn_code");
             $row = $result->fetch();
-            $result1 = CRUD::select("categories","*","category_name = '$category->category_name'");
+            $result1 = CRUD::select("categories", "*", "category_name = '$category->category_name'");
             $row1 = $result1->fetch();
             if(!$row1 && !$row){
                 if($category->insert() and $GST->insert()){

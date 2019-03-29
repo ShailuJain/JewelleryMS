@@ -27,7 +27,7 @@ include_once ("includes/header.php");
             <div id="include">
                 <!-- Begin Page Content -->
                 <?php
-                include_once ("includes/{$include_page}");
+                    include_once ("includes/{$include_page}");
                 ?>
                 <!-- /.container-fluid -->
             </div>
