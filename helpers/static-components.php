@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
 $title = "Dashboard";
+include_once ('constants.php');
 include_once ("includes/header.php");
 ?>
 
