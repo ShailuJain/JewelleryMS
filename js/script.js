@@ -23,6 +23,16 @@ $(function(){
                     message: result.msg,
                     position: "bottomRight",
                 });
+            }else if(result.status === "deleted"){
+                var url = window.location.href;
+                $('#deleteModal').modal('hide');
+                $('#deleteModal').on('hidden.bs.modal', function (e) {
+                    $('#include').load(url+" #include>*","");
+                    iziToast.success({
+                        message: result.msg,
+                        position: "bottomRight",
+                    });
+                });
             }
         });
     });
