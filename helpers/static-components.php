@@ -2,6 +2,7 @@
 <html lang="en">
 <?php
 $title = "Dashboard";
+include_once ('constants.php');
 include_once ("includes/header.php");
 ?>
 
@@ -27,6 +28,8 @@ include_once ("includes/header.php");
             <div id="include">
                 <!-- Begin Page Content -->
                 <?php
+                if($include_page !== "dashboard.php")
+                    echo '<button onclick="history.back()" class="btn btn-primary ml-n1 mt-n3">&larr; Back</button>';
                 include_once ("includes/{$include_page}");
                 ?>
                 <!-- /.container-fluid -->

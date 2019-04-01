@@ -1,43 +1,41 @@
-
-<div class="container-fluid">
-    <div class="row">
-        <table id="tables" class="display" style="width:100%">
-            <thead>
-            <tr>
-
-                <th>category_id</th>
-                <th>category_name</th>
-                <th>category_quantity</th>
-                <th>hsn_code</th>
-            </tr>
-            </thead>
-            <tbody>
-            <?php
-            require_once 'db/models/Category.class.php';
-            //$c = new Category();
-            //$c->category_name="ismeDATA5";
-            //$c->category_quantity=11;
-            //$c->hsn_code=7113;
-            //$c->deleted=0;
-            //$c->insert();
-
-            $rs=CRUD::select("categories");
-            while($row = $rs->fetch()) {
-
-//
-                echo<<<ROW
-<tr>
-    <td>$row->category_id;</td>
-    <td>$row->category_name;</td>
-    <td>$row->category_quantity;</td>
-    <td>$row->hsn_code;</td>
-</tr>
-ROW;
-
-
-            }
-            ?>
-            </tfoot>
-        </table></div>
-
+<?php
+$model_name = "Category";
+$column_names_as = array(
+        "category_id" => "Category Id",
+        "category_name" => "Category Name",
+        "gst_id" => "GST Id",
+);
+?>
+<div class="row">
+    <div class="offset-1 col-md-10">
+        <div class="table-responsive">
+            <table id="tables" class="table table-bordered">
+                <thead>
+                <tr>
+                    <?php
+                    foreach ($column_names_as as $column_name_as) {
+                        echo "<th>{$column_name_as}</th>";
+                    }
+                    ?>
+                </tr>
+                </thead>
+                <tbody>
+                <?php
+                $column_names = array_keys($column_names_as);
+                require_once "db/models/{$model_name}.class.php";
+                $rs=$model_name::select();
+                while($row = $rs->fetch(PDO::FETCH_ASSOC)) {
+                    echo "<tr>";
+                    foreach ($column_names as $column_name) {
+                        echo "<td>$row[$column_name]</td>";
+                    }
+                    echo "<td><a class='btn btn-primary text-white' data-toggle='tooltip' data-html='true' title='Edit'><i class='fa fa-edit'></i></a></td>";
+                    echo "<td><a class='btn btn-danger text-white'  data-toggle='tooltip' data-html='true' title='Delete'><i class='fa fa-times'></i></a></td>";
+                    echo "</tr>";
+                }
+                ?>
+                </tbody>
+            </table>
+        </div>
+    </div>
 </div>
