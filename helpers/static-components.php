@@ -28,7 +28,9 @@ include_once ("includes/header.php");
             <div id="include">
                 <!-- Begin Page Content -->
                 <?php
-                    include_once ("includes/{$include_page}");
+                if($include_page !== "dashboard.php")
+                    echo '<button onclick="history.back()" class="btn btn-primary ml-n1 mt-n3">&larr; Back</button>';
+                include_once ("includes/{$include_page}");
                 ?>
                 <!-- /.container-fluid -->
             </div>

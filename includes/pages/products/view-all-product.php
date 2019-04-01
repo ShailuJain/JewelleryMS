@@ -32,7 +32,7 @@ $column_names_as = array(
                         echo "<td>$row[$column_name]</td>";
                     }
                     echo "<td><a class='btn btn-primary text-white' href='products.php?src=edit-product&id={$row['product_id']}' data-toggle='tooltip' data-html='true' title='Edit this product'><i class='fa fa-edit'></i></a></td>";
-                    echo "<td><a class='btn btn-danger text-white'  data-toggle='tooltip' data-html='true' title='Delete this product'><i class='fa fa-times'></i></a></td>";
+                    echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this product' data-delete='products.php?src=delete-product&id={$row["product_id"]}'><i class='fa fa-times'></i></a></td>";
                     echo "</tr>";
                 }
                 ?>
@@ -41,3 +41,6 @@ $column_names_as = array(
         </div>
     </div>
 </div>
+<?php
+include_once 'includes/modal.php';
+?>

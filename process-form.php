@@ -18,6 +18,9 @@ if(isset($_GET['form'])){
                 $operation = EDIT_PRODUCT;
                 require_once 'includes/pages/products/process-product-form.php';
                 break;
+            case "products/delete":
+
+                break;
         }
 
     }

@@ -6,7 +6,7 @@ if(isset($id)){
 ?>
 <div class="row">
     <div class="offset-1 col-md-10">
-        <form id="validate-form" action="validations.php?form=products/edit" method="post" role="form" enctype="multipart/form-data">
+        <form id="form" action="process-form.php?form=products/edit" method="post" role="form" enctype="multipart/form-data">
             <h3>Edit Product</h3>
             <hr>
             <div class="form-group">

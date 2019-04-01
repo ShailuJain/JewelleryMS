@@ -4,7 +4,7 @@ require_once ('db/models/Category.class.php');
 ?>
 <div class="row">
     <div class="offset-1 col-md-10">
-        <form id="validate-form" action="validations.php?form=products/add" method="post" role="form" enctype="multipart/form-data">
+        <form id="validate-form" action="process-form.php?form=products/add" method="post" role="form" enctype="multipart/form-data">
             <h3>Add New Product</h3>
             <hr>
             <div class="form-group">

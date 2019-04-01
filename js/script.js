@@ -1,5 +1,5 @@
 $(function(){
-    $('#validate-form').submit(function(event){
+    $('#form').submit(function(event){
         event.preventDefault();
 
         var $form  = $(this),
@@ -25,6 +25,10 @@ $(function(){
                 });
             }
         });
+    });
+    $(".delete").click(function () {
+        let $delete_path = $(this).data('delete');
+        $('#form').attr('action', $delete_path);
     });
     $('#tables').DataTable({
         select: {
