@@ -126,7 +126,7 @@ class CRUD
             $pdoStmt = self::$pdo->prepare($query);
             $keys = array_keys($associativeArray);
             for($i = 0; $i<count($associativeArray); $i++)
-                $pdoStmt->bindParam($i+1, $associativeArray[$keys[$i]]);
+                $pdoStmt->bindValue($i+1, $associativeArray[$keys[$i]]);
             if($pdoStmt->execute())
                 return true;
         }
@@ -151,7 +151,7 @@ class CRUD
             $pdoStmt = self::$pdo->prepare($query);
             $keys = array_keys($associativeArray);
             for($i = 0; $i<count($associativeArray); $i++)
-                $pdoStmt->bindParam($i+1, $associativeArray[$keys[$i]]);
+                $pdoStmt->bindValue($i+1, $associativeArray[$keys[$i]]);
             if($pdoStmt->execute())
                 return true;
         }
@@ -195,7 +195,7 @@ class CRUD
             $stmt = self::$pdo->prepare($query);
             $i = 1;
             foreach ($params as $param) {
-                $stmt->bindParam($i++, $param);
+                $stmt->bindValue($i++, $param);
             }
             $result_bool =  $stmt->execute();
             if($result_bool){

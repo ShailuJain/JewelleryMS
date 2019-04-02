@@ -46,7 +46,7 @@ class Product extends Table
 
     public function exists()
     {
-        $result = CRUD::query("SELECT * FROM (SELECT * FROM products WHERE category_id = $this->category_id) AS CATEGORY_PRODUCT WHERE product_name='$this->product_name'");
+        $result = CRUD::query("SELECT * FROM (SELECT * FROM products WHERE category_id = ?) AS CATEGORY_PRODUCT WHERE product_name = ?",$this->category_id, $this->product_name);
         if($result->rowCount() >= 1)
             return true;
         return false;

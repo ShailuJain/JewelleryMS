@@ -2,15 +2,15 @@ $(function(){
     $('#form').submit(function(event){
         event.preventDefault();
 
-        var $form  = $(this),
+        const $form = $(this),
             url = $form.attr('action');
-        var button = $form.find("button[type=submit]");
-        var formData = $form.serialize()
+        const button = $form.find("button[type=submit]");
+        const formData = $form.serialize()
             + '&'
             + encodeURI(button.attr('name'))
             + '='
             + encodeURI(button.attr('value'));
-        var $posting = $.post(url, formData);
+        const $posting = $.post(url, formData);
         $posting.done(function(result){
             if(result.status === "success"){
                 iziToast.success({
@@ -26,8 +26,8 @@ $(function(){
             }else if(result.status === "deleted"){
                 var url = window.location.href;
                 $('#deleteModal').modal('hide');
-                $('#deleteModal').on('hidden.bs.modal', function (e) {
-                    $('#include').load(url+" #include>*","");
+                $('#deleteModal').on('hidden.bs.modal', () => {
+                    $('#include').load(url + " #include>*", "");
                     iziToast.success({
                         message: result.msg,
                         position: "bottomRight",
