@@ -11,13 +11,15 @@ $column_names_as = array(
         <div class="table-responsive">
             <table id="tables" class="table table-bordered">
                 <thead>
-                <tr>
-                    <?php
-                    foreach ($column_names_as as $column_name_as) {
-                        echo "<th>{$column_name_as}</th>";
-                    }
-                    ?>
-                </tr>
+                    <tr>
+                        <?php
+                        foreach ($column_names_as as $column_name_as) {
+                            echo "<th>{$column_name_as}</th>";
+                        }
+                        ?>
+                        <th></th>
+                        <th></th>
+                    </tr>
                 </thead>
                 <tbody>
                 <?php

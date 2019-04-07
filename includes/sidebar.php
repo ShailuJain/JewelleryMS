@@ -43,7 +43,7 @@
         <div id="collapseProducts" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item ajax-link" href="products.php?src=add-product">Add product</a>
-                <a class="collapse-item ajax-link" href="products.php?src=view-all-product">View All Products</a>
+                <a class="collapse-item ajax-link" href="products.php?src=view-all-products">View All Products</a>
             </div>
         </div>
     </li>

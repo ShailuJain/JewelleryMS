@@ -6,5 +6,7 @@ if(isset($_GET['src']))
         $id = $_GET['id'];
     }
     $include_page = "pages/products/".$src.".php";
-    require_once ('helpers/static-components.php');
+}else{
+    $include_page = "pages/products/view-all-products.php";
 }
+require_once ('helpers/static-components.php');

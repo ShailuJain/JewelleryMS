@@ -34,19 +34,31 @@ class Product extends Table
 
     public function update()
     {
-        parent::addUpdated();
-        return CRUD::update(self::$table_name, $this->columns_values, "product_id={$this->product_id}");
+        if(!$this->existsUpdate()) {
+            parent::addUpdated();
+            return CRUD::update(self::$table_name, $this->columns_values, "product_id={$this->product_id}");
+        }
+        return false;
     }
 
     public function delete()
     {
         parent::addDeleted();
-        return CRUD::delete(self::$table_name, "product_id={$this->product_id}");
+//        return CRUD::delete(self::$table_name, "product_id={$this->product_id}");
+        $this->deleted = 1;
+        return CRUD::update(self::$table_name, $this->columns_values,"product_id={$this->product_id}");
     }
 
     public function exists()
     {
         $result = CRUD::query("SELECT * FROM (SELECT * FROM products WHERE category_id = ?) AS CATEGORY_PRODUCT WHERE product_name = ?",$this->category_id, $this->product_name);
+        if($result->rowCount() >= 1)
+            return true;
+        return false;
+    }
+    public function existsUpdate()
+    {
+        $result = CRUD::query("SELECT * FROM (SELECT * FROM products WHERE category_id = ?) AS CATEGORY_PRODUCT WHERE product_name = ? AND product_id != ?",$this->category_id, $this->product_name, $this->product_id);
         if($result->rowCount() >= 1)
             return true;
         return false;

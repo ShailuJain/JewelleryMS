@@ -5,9 +5,9 @@
  * Date: 26-03-2019
  * Time: 04:45 PM
  */
-header('Content-Type: application/json');
 require_once ('db/models/Product.class.php');
-require_once ('helpers/status-echor.php');
+require_once ('helpers/redirect-helper.php');
+require_once ('helpers/redirects.php');
 if(isset($_GET['id'])) {
     try {
         $product_id = $_GET['id'];
@@ -16,12 +16,13 @@ if(isset($_GET['id'])) {
         $product = Product::find("product_id = ?", $product_id);
         if ($product) {
             if ($product->delete()) {
-                echoStatus("deleted", "Product deleted successfully");
+                setStatusAndMsg("success", "Product deleted successfully");
+                redirect_to(VIEW_ALL_PRODUCTS);
             }
         } else {
-            echoStatus("error", "Product do not exists");
+            setStatusAndMsg("error", "Product do not exists");
         }
     } catch (Exception $ex) {
-        echoStatus("error", "Something went wrong");
+        setStatusAndMsg("error", "Something went wrong");
     }
 }
