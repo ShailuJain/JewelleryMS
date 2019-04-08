@@ -46,10 +46,9 @@ if(isset($_POST[ADD_CUSTOMER]))
                 </div>
                 <div class="form-group col-md-6">
                     <label for="customer_contact">Contact Number</label>
-                    <input type="number" class="form-control" name="customer_contact" id="customer_contact" placeholder="Enter contact number" required min="10" max="13">
+                    <input type="tel" class="form-control" name="customer_contact" id="customer_contact" placeholder="Enter contact number" required maxlength="13" minlength="10" pattern="\d*" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Please enter a phone number')">
                 </div>
             </div>
-
 
             <div class="form-group">
                 <label for="customer_address">Address</label>

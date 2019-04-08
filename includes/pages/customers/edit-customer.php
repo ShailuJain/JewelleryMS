@@ -1,6 +1,7 @@
 <?php
 require_once ('db/models/Customer.class.php');
 require_once ('helpers/redirect-helper.php');
+require_once ('helpers/redirects.php');
 require_once ('constants.php');
 if(isset($_POST[EDIT_CUSTOMER]))
 {
@@ -16,7 +17,7 @@ if(isset($_POST[EDIT_CUSTOMER]))
         foreach ($arrayKeys as $item) {
             $customer->$item = $array[$item];
         }
-        if($customer->insert()){
+        if($customer->update()){
             //showing a toast when a customer is successfully updated
             setStatusAndMsg("success","Customer updated successfully");
             redirect_to(VIEW_ALL_CUSTOMERS);
@@ -29,30 +30,29 @@ if(isset($_POST[EDIT_CUSTOMER]))
     }
 }
 if(isset($id)) {
-    $customer_to_edit = Product::find("customer_id = ?", $id);
+    $customer_to_edit = Customer::find("customer_id = ?", $id);
     ?>
     <div class="row">
         <div class="offset-1 col-md-10">
             <form id="form" action="" method="post" role="form" enctype="multipart/form-data">
                 <h3>Edit Customer</h3>
                 <hr>
-                <input type="hidden" name="product_id" value="<?php echo $customer_to_edit->customer_id; ?>">
+                <input type="hidden" name="customer_id" value="<?php echo $customer_to_edit->customer_id; ?>">
                 <div class="form-group">
                     <label for="customer_name">Customer name</label>
                     <input type="text" class="form-control" name="customer_name" id="customer_name"
-                           placeholder="Enter Customer name" value="<?php echo $customer_to_edit->customer_name; ?>>
+                           placeholder="Enter Customer name" value="<?php echo $customer_to_edit->customer_name; ?>">
                 </div>
 
-                <div class="form-group">
-                    <label for="customer_email">Email</label>
-                    <input type="email" class="form-control" name="customer_email" id="customer_email"
-                           placeholder="Enter email address" value="<?php echo $customer_to_edit->customer_email; ?>>
-                </div>
-
-                <div class="form-group">
-                    <label for="customer_contact">Contact Number</label>
-                    <input type="number" class="form-control" name="customer_contact" id="customer_contact"
-                           placeholder="Enter contact number" value="<?php echo $customer_to_edit->customer_contact; ?>>
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="customer_email">Email</label>
+                        <input type="email" class="form-control" name="customer_email" id="customer_email" placeholder="Enter email address" value="<?php echo $customer_to_edit->customer_email; ?>">
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="customer_contact">Contact Number</label>
+                        <input type="tel" class="form-control" name="customer_contact" id="customer_contact" placeholder="Enter contact number" required maxlength="13" minlength="10" pattern="\d*" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Please enter a phone number')" value="<?php echo $customer_to_edit->customer_contact; ?>">
+                    </div>
                 </div>
 
                 <div class="form-group">
