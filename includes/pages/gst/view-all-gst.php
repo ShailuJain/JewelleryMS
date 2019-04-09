@@ -1,9 +1,9 @@
 <?php
-$model_name = "Category";
+$model_name = "GST";
 $column_names_as = array(
-        "category_id" => "Category Id",
-        "category_name" => "Category Name",
         "gst_id" => "GST Id",
+        "hsn_code" => "HSN Code",
+        "wef" => "With Effect From",
 );
 ?>
 <div class="row">
@@ -17,8 +17,8 @@ $column_names_as = array(
                             echo "<th>{$column_name_as}</th>";
                         }
                         ?>
-                        <th></th>
-                        <th></th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,3 +41,6 @@ $column_names_as = array(
         </div>
     </div>
 </div>
+<?php
+include_once 'includes/modal.php';
+?>

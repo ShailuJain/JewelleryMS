@@ -1,53 +1,34 @@
 <?php
 require_once('db/models/Category.class.php');
 require_once('db/models/GST.class.php');
-if(isset($_POST['add_category'])){
+require_once 'constants.php';
+require_once ('helpers/redirect-helper.php');
+if(isset($_POST[ADD_CATEGORY])){
     try{
-        CRUD::init();
-        CRUD::query("SET AUTOCOMMIT=OFF");
-        if(!empty($_POST['category_name']) && !empty($_POST['hsn_code']) && !empty($_POST['gst_rate'])){
-            $category = new category();
-            $GST = new GST();
+        if(!empty($_POST['category_name']) && !empty($_POST['hsn_code'])){
+
+            $category = new Category();
             $category->category_name = $_POST['category_name'];
-            $category->hsn_code = $GST->hsn_code = $_POST['hsn_code'];
-            $GST->gst_rate = $_POST['gst_rate'];
-            $result = CRUD::select("gst", "*", "hsn_code = $GST->hsn_code");
-            $row = $result->fetch();
-            $result1 = CRUD::select("categories", "*", "category_name = '$category->category_name'");
-            $row1 = $result1->fetch();
-            if(!$row1 && !$row){
-                if($category->insert() and $GST->insert()){
-                    crud::query("COMMIT");
-                    echo "INSERTED SUCCESSFULLY";
-                    //UI FOR SUCCESSFULL INSERTION
+            $hsn_code = $_POST['hsn_code'];
+            $result = CRUD::query("SELECT * FROM gst WHERE hsn_code = ? ORDER BY wef DESC",$hsn_code);
+            if($result){
+                $gst = $result->fetch();
+                $category->gst_id = $gst->gst_id;
+                if($category->insert()){
+                    setStatusAndMsg("success","Category added successfully");
+                }else{
+                    setStatusAndMsg("error","Category already exists");
                 }
-                else{
-                    crud::query("ROLLBACK");
-                    echo"ERROR INSERTING";
-                    //UI FOR ERRORS WHILE INSERTING
-                }
-            }
-            else{
-                if($row){
-                    echo "HSN code already Exist";
-                    //UI FOR SAME HSN
-                }
-                else{
-                    echo "Category already exist";
-                    //UI FOR SAME CATEGORY
-                }
-                //UI FOR HSN ALREADY EXISTING
+            }else {
+                setStatusAndMsg("error", "Something went wrong");
             }
         }
         else{
-            echo"PLEASE ENTER ALL DETAILS PROPERLY";
-            //UI FOR ALL FIELDS
+            setStatusAndMsg("error","Enter valid details");
         }
+    } catch(Exception $e){
+        setStatusAndMsg("error", "Something went wrong");
     }
-    catch(Exception $e){
-        crud::query("ROLLBACK");
-    }
-    crud::select("ROLLBACK");
 }
 ?>
 <div class="row">
@@ -62,14 +43,18 @@ if(isset($_POST['add_category'])){
             </div>
 
             <div class="form-group">
-                <label for="hsn_code">Hsn Code</label>
-                <input type="number" class="form-control" name="hsn_code" id="hsn_code" placeholder="Enter hsn-code">
+                <label for="hsn_code">HSN Code</label>
+                <select name="hsn_code" id="hsn_code" class="form-control" required>
+                    <option value="">Select HSN Code</option>
+                    <?php
+                    $result = GST::selectDistinct();
+                    foreach ($result as $hsn){
+                        echo "<option value='$hsn->hsn_code'>$hsn->hsn_code</option>";
+                    }
+                    ?>
+                </select>
             </div>
 
-            <div class="form-group">
-                <label for="gst_rate">GST Rate</label>
-                <input type="number" class="form-control" name="gst_rate" id="gst_rate" placeholder="Enter GST rate">
-            </div>
             <button type="submit" name="add_category" id="add_category" class="btn btn-primary">Add Category</button>
         </form>
     </div>

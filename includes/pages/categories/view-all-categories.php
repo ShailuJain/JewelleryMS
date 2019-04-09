@@ -1,13 +1,10 @@
 <?php
-$model_name = "Product";
+$model_name = "Category";
 $column_names_as = array(
-    "product_id" => "Product Id",
-    "category_id" => "Category Id",
-    "product_name" => "Category Name",
-    "product_quantity" => "Category Quantity",
-    "additional_specifications" => "Additional Specifications",
+        "category_id" => "Category Id",
+        "category_name" => "Category Name",
+        "gst_id" => "GST Id",
 );
-require_once 'includes/pages/products/delete-product.php';
 ?>
 <div class="row">
     <div class="offset-1 col-md-10">
@@ -34,8 +31,8 @@ require_once 'includes/pages/products/delete-product.php';
                     foreach ($column_names as $column_name) {
                         echo "<td>$row[$column_name]</td>";
                     }
-                    echo "<td><a class='btn btn-primary text-white' href='products.php?src=edit-product&id={$row['product_id']}' data-toggle='tooltip' data-html='true' title='Edit this product'><i class='fa fa-edit'></i></a></td>";
-                    echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this product' data-delete='products.php?form=delete-product&id={$row["product_id"]}'><i class='fa fa-times'></i></a></td>";
+                    echo "<td><a class='btn btn-primary text-white' data-toggle='tooltip' data-html='true' title='Edit'><i class='fa fa-edit'></i></a></td>";
+                    echo "<td><a class='btn btn-danger text-white'  data-toggle='tooltip' data-html='true' title='Delete'><i class='fa fa-times'></i></a></td>";
                     echo "</tr>";
                 }
                 ?>

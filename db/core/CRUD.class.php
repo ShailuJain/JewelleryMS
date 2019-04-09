@@ -204,4 +204,8 @@ class CRUD
         }
         return false;
     }
+
+    public static function lastInsertId(){
+        return self::$pdo->lastInsertId();
+    }
 }

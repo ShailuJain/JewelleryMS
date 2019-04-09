@@ -20,8 +20,8 @@ require_once 'includes/pages/customers/delete-customer.php';
                             echo "<th>{$column_name_as}</th>";
                         }
                         ?>
-                        <th></th>
-                        <th></th>
+                        <th>Edit</th>
+                        <th>Delete</th>
                     </tr>
                     </thead>
                     <tbody>
