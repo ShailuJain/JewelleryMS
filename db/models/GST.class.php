@@ -14,9 +14,9 @@ class GST extends Table
     {
         return CRUD::select(self::$table_name, $rows, $deleted, $condition, ...$params);
     }
-    public static function selectDistinct($column_name = "hsn_code")
+    public static function viewAll()
     {
-        return CRUD::query("SELECT DISTINCT $column_name FROM ".self::$table_name);
+        return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from gst GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef");
     }
     public static function find($condition, ...$params)
     {
@@ -48,7 +48,8 @@ class GST extends Table
 
     public function exists()
     {
-        $result = CRUD::query("SELECT * FROM gst WHERE hsn_code = ?",$this->hsn_code);
+//        $result = CRUD::query("SELECT * FROM gst WHERE hsn_code = ?",$this->hsn_code);
+        $result = self::select("*", 0, "hsn_code = ?", $this->hsn_code);
         if($result->rowCount() >= 1)
             return true;
         return false;

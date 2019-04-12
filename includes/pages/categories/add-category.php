@@ -5,22 +5,16 @@ require_once 'constants.php';
 require_once ('helpers/redirect-helper.php');
 if(isset($_POST[ADD_CATEGORY])){
     try{
-        if(!empty($_POST['category_name']) && !empty($_POST['hsn_code'])){
+        if(!empty($_POST['category_name']) && !empty($_POST['gst_id'])){
 
             $category = new Category();
             $category->category_name = $_POST['category_name'];
-            $hsn_code = $_POST['hsn_code'];
-            $result = CRUD::query("SELECT * FROM gst WHERE hsn_code = ? ORDER BY wef DESC",$hsn_code);
-            if($result){
-                $gst = $result->fetch();
-                $category->gst_id = $gst->gst_id;
-                if($category->insert()){
-                    setStatusAndMsg("success","Category added successfully");
-                }else{
-                    setStatusAndMsg("error","Category already exists");
-                }
+            $gst_id = $_POST['gst_id'];
+            $category->gst_id = $gst_id;
+            if($category->insert()){
+                setStatusAndMsg("success","Category added successfully");
             }else {
-                setStatusAndMsg("error", "Something went wrong");
+                setStatusAndMsg("error", "Category already exists");
             }
         }
         else{
@@ -43,13 +37,13 @@ if(isset($_POST[ADD_CATEGORY])){
             </div>
 
             <div class="form-group">
-                <label for="hsn_code">HSN Code</label>
-                <select name="hsn_code" id="hsn_code" class="form-control" required>
+                <label for="gst_id">HSN Code</label>
+                <select name="gst_id" id="gst_id" class="form-control" required>
                     <option value="">Select HSN Code</option>
                     <?php
-                    $result = GST::selectDistinct();
+                    $result = GST::viewAll();
                     foreach ($result as $hsn){
-                        echo "<option value='$hsn->hsn_code'>$hsn->hsn_code</option>";
+                        echo "<option value='$hsn->gst_id'>$hsn->hsn_code</option>";
                     }
                     ?>
                 </select>

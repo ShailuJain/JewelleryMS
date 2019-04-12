@@ -25,7 +25,7 @@ $column_names_as = array(
                 <?php
                 $column_names = array_keys($column_names_as);
                 require_once "db/models/{$model_name}.class.php";
-                $rs=$model_name::select();
+                $rs=$model_name::viewAll();
                 while($row = $rs->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>";
                     foreach ($column_names as $column_name) {
