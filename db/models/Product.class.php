@@ -10,13 +10,13 @@ require_once 'Table.class.php';
 class Product extends Table
 {
     public static $table_name = "products";
-    public static function select($rows="*",$condition = 1, $order = null,$deleted=0)
+    public static function select($rows="*", $deleted=0, $condition = 1, ...$params)
     {
-        return CRUD::select(self::$table_name, $rows, $condition, $order, $deleted);
+        return CRUD::select(self::$table_name, $rows, $deleted, $condition, ...$params);
     }
-    public static function find($condition)
+    public static function find($condition, ...$params)
     {
-        return CRUD::find(self::$table_name, $condition);
+        return CRUD::find(self::$table_name, $condition, ...$params);
     }
     public function __construct($result = null)
     {
@@ -34,19 +34,31 @@ class Product extends Table
 
     public function update()
     {
-        parent::addUpdated();
-        return CRUD::update(self::$table_name, $this->columns_values, "product_id={$this->product_id}");
+        if(!$this->existsUpdate()) {
+            parent::addUpdated();
+            return CRUD::update(self::$table_name, $this->columns_values, "product_id={$this->product_id}");
+        }
+        return false;
     }
 
     public function delete()
     {
         parent::addDeleted();
-        return CRUD::delete(self::$table_name, "product_id={$this->product_id}");
+//        return CRUD::delete(self::$table_name, "product_id={$this->product_id}");
+        $this->deleted = 1;
+        return CRUD::update(self::$table_name, $this->columns_values,"product_id={$this->product_id}");
     }
 
     public function exists()
     {
-        $result = CRUD::query("SELECT * FROM (SELECT * FROM products WHERE category_id = $this->category_id) AS CATEGORY_PRODUCT WHERE product_name='$this->product_name'");
+        $result = CRUD::query("SELECT * FROM (SELECT * FROM products WHERE category_id = ?) AS CATEGORY_PRODUCT WHERE product_name = ? AND deleted = 0",$this->category_id, $this->product_name);
+        if($result->rowCount() >= 1)
+            return true;
+        return false;
+    }
+    public function existsUpdate()
+    {
+        $result = CRUD::query("SELECT * FROM (SELECT * FROM products WHERE category_id = ?) AS CATEGORY_PRODUCT WHERE product_name = ?  AND deleted = 0 AND product_id != ?",$this->category_id, $this->product_name, $this->product_id);
         if($result->rowCount() >= 1)
             return true;
         return false;

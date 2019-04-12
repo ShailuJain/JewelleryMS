@@ -1,10 +1,41 @@
 <?php
 require_once ('db/models/Product.class.php');
 require_once ('db/models/Category.class.php');
+require_once 'constants.php';
+require_once ('helpers/redirect-helper.php');
+if(isset($_POST[ADD_PRODUCT])){
+    try
+    {
+        $arr = $_POST;
+        unset($arr[ADD_PRODUCT]);
+        $arrKeys = array_keys($arr);
+
+        //creating a new product object and adding the fields.
+        $product = new Product();
+
+        //finding category object
+        $category = Category::find("category_id = ?", $arr['category_id']);
+        if($category){
+            foreach ($arrKeys as $item) {
+                $product->$item = $arr[$item];
+            }
+            if($product->insert()){
+                setStatusAndMsg("success","Product added successfully");
+            }
+            else{
+                setStatusAndMsg("error","Product already exists");
+            }
+        }else{
+            setStatusAndMsg("error","Category do not exists");
+        }
+    }catch (Exception $ex){
+        setStatusAndMsg("error","Something went wrong");
+    }
+}
 ?>
 <div class="row">
     <div class="offset-1 col-md-10">
-        <form id="validate-form" action="validations.php?form=products" method="post" role="form" enctype="multipart/form-data">
+        <form id="form" action="" method="post" role="form" enctype="multipart/form-data">
             <h3>Add New Product</h3>
             <hr>
             <div class="form-group">
@@ -22,7 +53,7 @@ require_once ('db/models/Category.class.php');
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="product_name">Product Name</label>
-                    <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Enter name of product" required>
+                    <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Enter name of product" required maxlength="150" pattern="^[a-zA-z][a-zA-Z0-9 \(\)]*$" title="Product name is not valid">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="product_quantity">Opening Stock</label>
@@ -36,7 +67,7 @@ require_once ('db/models/Category.class.php');
             </div>
 
             <div class="form-group">
-                <label for="product_add_specification">Additional Specification (Max. 250 chars)</label>
+                <label for="additional_specifications">Additional Specification (Max. 250 chars)</label>
                 <textarea class="form-control" id="additional_specifications" name="additional_specifications" placeholder="Enter additional specification" maxlength="250"></textarea>
             </div>
 

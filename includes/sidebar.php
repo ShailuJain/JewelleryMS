@@ -29,7 +29,7 @@
         <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item ajax-link" href="categories.php?src=add-category">Add category</a>
-                <a class="collapse-item ajax-link" href="categories.php?src=view-all-category">View All Categories</a>
+                <a class="collapse-item ajax-link" href="categories.php?src=view-all-categories">View All Categories</a>
             </div>
         </div>
     </li>
@@ -43,7 +43,7 @@
         <div id="collapseProducts" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item ajax-link" href="products.php?src=add-product">Add product</a>
-                <a class="collapse-item ajax-link" href="products.php?src=view-all-product">View All Products</a>
+                <a class="collapse-item ajax-link" href="products.php?src=view-all-products">View All Products</a>
             </div>
         </div>
     </li>
@@ -57,7 +57,7 @@
         <div id="collapsePurchase" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item ajax-link" href="purchases.php?src=add-purchase">Add Purchase</a>
-                <a class="collapse-item ajax-link" href="purchases.php?src=view-all-purchase">View All Purchases</a>
+                <a class="collapse-item ajax-link" href="purchases.php?src=view-all-purchases">View All Purchases</a>
             </div>
         </div>
     </li>
@@ -71,7 +71,7 @@
         <div id="collapseSupplier" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item ajax-link" href="suppliers.php?src=add-supplier">Add Supplier</a>
-                <a class="collapse-item ajax-link" href="suppliers.php?src=view-all-supplier">View All Suppliers</a>
+                <a class="collapse-item ajax-link" href="suppliers.php?src=view-all-suppliers">View All Suppliers</a>
             </div>
         </div>
     </li>
@@ -86,7 +86,7 @@
         <div id="collapseCustomer" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item ajax-link" href="customers.php?src=add-customer">Add Customer</a>
-                <a class="collapse-item ajax-link" href="customers.php?src=view-all-customer">View All Customers</a>
+                <a class="collapse-item ajax-link" href="customers.php?src=view-all-customers">View All Customers</a>
             </div>
         </div>
     </li>
@@ -127,11 +127,17 @@
         </div>
     </li>
 
-    <!-- Nav Item - Charts -->
     <li class="nav-item">
-        <a class="nav-link ajax-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>GST Settings</span></a>
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGST" aria-expanded="true" aria-controls="collapseGST">
+            <i class="fas fa-fw fa-user"></i>
+            <span>GST Entries</span>
+        </a>
+        <div id="collapseGST" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item ajax-link" href="gst.php?src=add-gst">Add GST entry</a>
+                <a class="collapse-item ajax-link" href="gst.php?src=view-all-gst">View All GST entries</a>
+            </div>
+        </div>
     </li>
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">
