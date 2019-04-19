@@ -25,7 +25,11 @@ class Category extends Table
 
     public function insert()
     {
-        return CRUD::insert(self::$table_name, $this->columns_values);
+        if(!$this->exists()){
+            parent::addCreated();
+            return CRUD::insert(self::$table_name, $this->columns_values);
+        }
+        return false;
     }
 
     public function update()
@@ -36,5 +40,12 @@ class Category extends Table
     public function delete()
     {
         return CRUD::delete(self::$table_name, "category_id={$this->category_id}");
+    }
+    public function exists()
+    {
+        $result = self::select("*", 0, "category_name = ? AND gst_id = ?", $this->category_name, $this->gst_id);
+        if($result->rowCount() >= 1)
+            return true;
+        return false;
     }
 }

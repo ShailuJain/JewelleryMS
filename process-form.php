@@ -19,7 +19,18 @@ if(isset($_GET['form'])){
                 require_once 'includes/pages/products/process-product-form.php';
                 break;
             case "products/delete":
-
+                require_once 'includes/pages/products/delete-product.php';
+                break;
+            case "customers/add":
+                $operation = ADD_CUSTOMER;
+                require_once 'includes/pages/customers/process-customer-form.php';
+                break;
+            case "customers/edit":
+                $operation = EDIT_CUSTOMER;
+                require_once 'includes/pages/customers/process-customer-form.php';
+                break;
+            case "customers/delete":
+                require_once 'includes/pages/customers/delete-customer.php';
                 break;
         }
 

@@ -1,10 +1,41 @@
 <?php
 require_once ('db/models/Product.class.php');
 require_once ('db/models/Category.class.php');
+require_once 'constants.php';
+require_once ('helpers/redirect-helper.php');
+if(isset($_POST[ADD_PRODUCT])){
+    try
+    {
+        $arr = $_POST;
+        unset($arr[ADD_PRODUCT]);
+        $arrKeys = array_keys($arr);
+
+        //creating a new product object and adding the fields.
+        $product = new Product();
+
+        //finding category object
+        $category = Category::find("category_id = ?", $arr['category_id']);
+        if($category){
+            foreach ($arrKeys as $item) {
+                $product->$item = $arr[$item];
+            }
+            if($product->insert()){
+                setStatusAndMsg("success","Product added successfully");
+            }
+            else{
+                setStatusAndMsg("error","Product already exists");
+            }
+        }else{
+            setStatusAndMsg("error","Category do not exists");
+        }
+    }catch (Exception $ex){
+        setStatusAndMsg("error","Something went wrong");
+    }
+}
 ?>
 <div class="row">
     <div class="offset-1 col-md-10">
-        <form id="validate-form" action="process-form.php?form=products/add" method="post" role="form" enctype="multipart/form-data">
+        <form id="form" action="" method="post" role="form" enctype="multipart/form-data">
             <h3>Add New Product</h3>
             <hr>
             <div class="form-group">

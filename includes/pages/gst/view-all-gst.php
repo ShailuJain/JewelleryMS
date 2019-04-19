@@ -1,9 +1,9 @@
 <?php
-$model_name = "Category";
+$model_name = "GST";
 $column_names_as = array(
-        "category_id" => "Category Id",
-        "category_name" => "Category Name",
         "gst_id" => "GST Id",
+        "hsn_code" => "HSN Code",
+        "wef" => "With Effect From",
 );
 ?>
 <div class="row">
@@ -11,19 +11,21 @@ $column_names_as = array(
         <div class="table-responsive">
             <table id="tables" class="table table-bordered">
                 <thead>
-                <tr>
-                    <?php
-                    foreach ($column_names_as as $column_name_as) {
-                        echo "<th>{$column_name_as}</th>";
-                    }
-                    ?>
-                </tr>
+                    <tr>
+                        <?php
+                        foreach ($column_names_as as $column_name_as) {
+                            echo "<th>{$column_name_as}</th>";
+                        }
+                        ?>
+                        <th>Edit</th>
+                        <th>Delete</th>
+                    </tr>
                 </thead>
                 <tbody>
                 <?php
                 $column_names = array_keys($column_names_as);
                 require_once "db/models/{$model_name}.class.php";
-                $rs=$model_name::select();
+                $rs=$model_name::viewAll();
                 while($row = $rs->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>";
                     foreach ($column_names as $column_name) {
@@ -39,3 +41,6 @@ $column_names_as = array(
         </div>
     </div>
 </div>
+<?php
+include_once 'includes/modal.php';
+?>

@@ -1,3 +1,8 @@
+<?php
+//ob_start();
+if(session_status() !== PHP_SESSION_ACTIVE)
+    session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <?php
@@ -58,7 +63,23 @@ include_once ("includes/header.php");
 </a>
 
 <?php
-include_once("includes/core-scripts.php")
+require_once ("includes/core-scripts.php");
+if(isset($_SESSION['redirect_to'])){
+    echo "<script>";
+    $loc = $_SESSION['redirect_to'];
+    unset($_SESSION['redirect_to']);
+    echo "window.location.replace('{$loc}');";
+    echo "</script>";
+}else{
+    if(isset($_SESSION['resp'])){
+        require_once ('helpers/redirect-helper.php');
+        $resp = $_SESSION['resp'];
+        $status = $resp['status'];
+        $msg = $resp['msg'];
+        inner($status, $msg);
+        unset($_SESSION['resp']);
+    }
+}
 ?>
 
 </body>

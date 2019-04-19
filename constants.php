@@ -9,3 +9,5 @@ define("ADD_PRODUCT","add_product");
 define("EDIT_PRODUCT","edit_product");
 define("ADD_CATEGORY","add_category");
 define("EDIT_CATEGORY","edit_category");
+define("ADD_CUSTOMER","add_customer");
+define("EDIT_CUSTOMER","edit_customer");
