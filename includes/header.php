@@ -13,6 +13,8 @@
 
     <link rel="stylesheet" href="vendor/datatables/dataTables.bootstrap4.css">
     <link rel="stylesheet" href="vendor/izi-toast/css/iziToast.min.css">
+    <link rel="stylesheet" href="vendor/select2/css/select2.min.css">
+    <link rel="stylesheet" href="vendor/select2/css/select2-bootstrap.min.css">
 
     <!-- Custom styles for this template-->
     <link href="css/style.css" rel="stylesheet">
