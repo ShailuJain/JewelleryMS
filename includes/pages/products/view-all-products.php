@@ -46,4 +46,5 @@ require_once 'includes/pages/products/delete-product.php';
 </div>
 <?php
 include_once 'includes/modal.php';
+createModal(DELETE_TITLE, DELETE_MSG, "Delete");
 ?>
