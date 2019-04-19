@@ -52,8 +52,10 @@ if(isset($id)) {
                         <?php
                         $result = GST::viewAll();
                         foreach ($result as $hsn) {
-                            
-                            echo "<option value='$hsn->hsn_code'>$hsn->hsn_code</option>";
+                            $selected = "";
+                            if($cat_to_edit->gst_id == $hsn->gst_id)
+                                $selected = "selected";
+                            echo "<option value='$hsn->hsn_code' $selected>$hsn->hsn_code</option>";
                         }
                         ?>
                     </select>

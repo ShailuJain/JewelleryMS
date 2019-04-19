@@ -71,7 +71,7 @@ if(isset($_POST[ADD_PRODUCT])){
                 <textarea class="form-control" id="additional_specifications" name="additional_specifications" placeholder="Enter additional specification" maxlength="250"></textarea>
             </div>
 
-            <button type="submit" name="add_product" id="add_product" class="btn btn-primary">Add Product</button>
+            <button type="submit" name="<?php echo ADD_PRODUCT; ?>" id="<?php echo ADD_PRODUCT; ?>" class="btn btn-primary">Add Product</button>
         </form>
     </div>
 </div>

@@ -3,7 +3,7 @@ require_once('db/models/Category.class.php');
 require_once('db/models/GST.class.php');
 require_once 'constants.php';
 require_once ('helpers/redirect-helper.php');
-if(isset($_POST['add_category'])){
+if(isset($_POST[ADD_GST])){
     try{
         if(!empty($_POST['hsn_code']) && !empty($_POST['gst_rate'])){
             $gst = new GST();
@@ -35,7 +35,7 @@ if(isset($_POST['add_category'])){
 
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="hsn_code">Hsn Code</label>
+                    <label for="hsn_code">HSN Code</label>
                     <input type="number" class="form-control" name="hsn_code" id="hsn_code" placeholder="Enter hsn-code">
                 </div>
 
@@ -47,9 +47,9 @@ if(isset($_POST['add_category'])){
 
             <div class="form-group">
                 <label for="wef">With Effect From</label>
-                <input type="date" class="form-control" name="wef" id="wef" placeholder="Select with effect from">
+                <input type="date" class="form-control" name="wef" id="wef" placeholder="Select with effect from" max="<?php echo date("Y-m-d"); ?>">
             </div>
-            <button type="submit" name="add_category" id="add_category" class="btn btn-primary">Add GST Entry</button>
+            <button type="submit" name="<?php echo ADD_GST; ?>" id="<?php echo ADD_GST; ?>" class="btn btn-primary">Add GST Entry</button>
         </form>
     </div>
 </div>

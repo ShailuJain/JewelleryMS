@@ -54,4 +54,13 @@ class GST extends Table
             return true;
         return false;
     }
+    public function isLatest(){
+        $result = CRUD::query("SELECT * FROM gst WHERE hsn_code = ? AND deleted = 0 ORDER BY wef DESC", $this->hsn_code);
+        if($result){
+            $latest = $result->fetch();
+            if($latest->gst_id == $this->gst_id)
+                return true;
+        }
+        return false;
+    }
 }
