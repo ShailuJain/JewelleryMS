@@ -10,6 +10,11 @@
             </div>
 
             <div class="form-group">
+                <label for="sup_name">Supplier Shop Name</label>
+                <input type="text" class="form-control" name="supplier_shopname" id="supplier_shopname" placeholder="Enter supplier shop name">
+            </div>
+
+            <div class="form-group">
                 <label for="sup_email">Email</label>
                 <input type="email" class="form-control" name="sup_email" id="sup_email" placeholder="Enter email address of supplier">
             </div>
