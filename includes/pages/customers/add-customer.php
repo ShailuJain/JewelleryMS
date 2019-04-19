@@ -1,58 +1,53 @@
-
-
 <?php
-    #cheking if the submit button was pressed
-    if(isset($_POST['add_customer'])){
+require_once ('db/models/Customer.class.php');
+require_once ('helpers/redirect-helper.php');
+require_once ('constants.php');
+if(isset($_POST[ADD_CUSTOMER]))
+{
+    try
+    {
+        $array = $_POST;//adding the form data to an array
+        unset($array[ADD_CUSTOMER]);//unset the submit button that was pressed
 
-        #requring the customer class for database operations
-        require_once ("db/models/Customer.class.php");
-        try{
-            $array = $_POST;//adding the form data to an array
+        $arrayKeys = array_keys($array);//getting all the filed names that we want to add in db
 
-            unset($array['add_customer']);//unsetting the add_customer field as it is the name of the submit button that was pressed
+        $customer = new Customer();
 
-            $arrayKeys = array_keys($array);//getting all the filed names that we want to add in db
-
-            $customer = new Customer();
-
-            foreach ($arrayKeys as $item) {
-                $customer->$item = $array[$item];
-            }
-
-            if($customer->insert()){
-                //showing a toast when a customer is successfully added
-                include_once ("includes/toast/show-toast.php");
-                showToast("Customer", "Customer is added successfully");
-            }else{
-                include_once ("includes/toast/show-toast.php");
-                showToast("Customer", "Customer already exists");
-            }
-        }catch(Exception $ex){
-            print_r($ex);
+        foreach ($arrayKeys as $item) {
+            $customer->$item = $array[$item];
         }
+        if($customer->insert()){
+            //showing a toast when a customer is successfully added
+            setStatusAndMsg("success","Customer added successfully");
+        }
+        else{
+            setStatusAndMsg("error","Customer already exists");
+        }
+    }catch (Exception $ex){
+        setStatusAndMsg("error","Something went wrong");
     }
-
+}
 ?>
-
 <div class="row">
     <div class="offset-1 col-md-10">
-        <form action="" method="post" role="form" enctype="multipart/form-data">
+        <form id="form" action="" method="post" role="form" enctype="multipart/form-data">
             <h3>Add New Customer</h3>
             <hr>
 
             <div class="form-group">
                 <label for="customer_name">Customer name</label>
-                <input type="text" class="form-control" name="customer_name" id="customer_name" placeholder="Enter Customer name">
+                <input type="text" class="form-control" name="customer_name" id="customer_name" placeholder="Enter Customer name" required>
             </div>
 
-            <div class="form-group">
-                <label for="customer_email">Email</label>
-                <input type="email" class="form-control" name="customer_email" id="customer_email" placeholder="Enter email address">
-            </div>
-
-            <div class="form-group">
-                <label for="customer_contact">Contact Number</label>
-                <input type="number" class="form-control" name="customer_contact" id="customer_contact" placeholder="Enter contact number">
+            <div class="form-row">
+                <div class="form-group col-md-6">
+                    <label for="customer_email">Email</label>
+                    <input type="email" class="form-control" name="customer_email" id="customer_email" placeholder="Enter email address">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="customer_contact">Contact Number</label>
+                    <input type="tel" class="form-control" name="customer_contact" id="customer_contact" placeholder="Enter contact number" required maxlength="13" minlength="10" pattern="\d*" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Please enter a phone number')">
+                </div>
             </div>
 
             <div class="form-group">
@@ -64,6 +59,3 @@
         </form>
     </div>
 </div>
-
-
-

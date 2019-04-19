@@ -10,13 +10,13 @@ require_once 'Table.class.php';
 class Category extends Table
 {
     public static $table_name = "categories";
-    public static function select($rows="*",$condition = 1, $order = null,$deleted=0)
+    public static function select($rows="*", $deleted=0, $condition = 1, ...$params)
     {
-        return CRUD::select(self::$table_name, $rows, $condition, $order, $deleted);
+        return CRUD::select(self::$table_name, $rows, $deleted, $condition, ...$params);
     }
-    public static function find($condition)
+    public static function find($condition, ...$params)
     {
-        return CRUD::find(self::$table_name, $condition);
+        return CRUD::find(self::$table_name, $condition, ...$params);
     }
     public function __construct($result = null)
     {
@@ -25,7 +25,11 @@ class Category extends Table
 
     public function insert()
     {
-        return CRUD::insert(self::$table_name, $this->columns_values);
+        if(!$this->exists()){
+            parent::addCreated();
+            return CRUD::insert(self::$table_name, $this->columns_values);
+        }
+        return false;
     }
 
     public function update()
@@ -36,5 +40,12 @@ class Category extends Table
     public function delete()
     {
         return CRUD::delete(self::$table_name, "category_id={$this->category_id}");
+    }
+    public function exists()
+    {
+        $result = self::select("*", 0, "category_name = ? AND gst_id = ?", $this->category_name, $this->gst_id);
+        if($result->rowCount() >= 1)
+            return true;
+        return false;
     }
 }

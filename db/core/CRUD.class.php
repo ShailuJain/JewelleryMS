@@ -57,12 +57,12 @@ class CRUD
         return false;
     }
 
-    public static function find($tableName, $condition)
+    public static function find($tableName, $condition, ...$params)
     {
         if(!self::$isInitialized)
             self::init();
         global $tableMappings;
-        $result = self::select($tableName, "*", $condition);
+        $result = self::select($tableName, "*", 0,$condition, ...$params);
         if($result->rowCount() == 1)
             $resultObj = new $tableMappings[$tableName]($result->fetch());
         else
@@ -71,40 +71,42 @@ class CRUD
     }
 
     /**
-     * executes the provided query.
+     * executes the provided query if prepared statement
      * @param $query - the query to be executed.
+     * @param mixed ...$params - parameters to bind to the prepared statement.
      * @return mixed - returns the result of query.
      */
-    public static function query($query)
+    public static function query($query, ...$params)
     {
+        if(!is_string($query))
+            throw new InvalidArgumentException("Query is not string");
         if(!self::$isInitialized)
             self::init();
-        return self::$pdo->query($query);
+        if(strpos($query, "?") === false){
+            return self::$pdo->query($query);
+        }
+        return self::executePreparedStatement($query, ...$params);
     }
 
     /**
      * This method will select rows from the table specified.
      * @param $tableName - the table from which the rows has to be selected
      * @param string $rows the rows to be selected
+     * @param int $deleted selects whether non deleted columns are selected or all
      * @param int $condition the condition according to which the rows will be selected
-     * @param null $order it specifies the order in which the rows will be selected it will be "asc" or "desc"
+     * @param mixed ...$params params for the prepared statement if the condition is prepared statement type
      * @return mixed - returns the result set
      */
-    public static function select($tableName, $rows = "*", $condition = 1, $order = NULL,$deleted=0)
+    public static function select($tableName, $rows = "*", $deleted = 0, $condition = 1, ...$params)
     {
         if(!self::$isInitialized)
             self::init();
         if(self::tableExists($tableName)){
-            $query = "SELECT ".$rows." FROM ".$tableName." WHERE ".$condition ." AND deleted=".$deleted;
-            if($order!=NULL)
-                $query.=" ORDER BY ".$order;
-            $result = self::$pdo->query($query);
-            if($result)
-            {
-                return $result;
-            }
+            $query = "SELECT {$rows} FROM {$tableName} WHERE deleted={$deleted} AND {$condition}";
+            if($condition === 1)
+                return self::query($query);
+            return self::executePreparedStatement($query, ...$params);
         }
-        return null;
     }
 
     /**
@@ -124,7 +126,7 @@ class CRUD
             $pdoStmt = self::$pdo->prepare($query);
             $keys = array_keys($associativeArray);
             for($i = 0; $i<count($associativeArray); $i++)
-                $pdoStmt->bindParam($i+1, $associativeArray[$keys[$i]]);
+                $pdoStmt->bindValue($i+1, $associativeArray[$keys[$i]]);
             if($pdoStmt->execute())
                 return true;
         }
@@ -149,7 +151,7 @@ class CRUD
             $pdoStmt = self::$pdo->prepare($query);
             $keys = array_keys($associativeArray);
             for($i = 0; $i<count($associativeArray); $i++)
-                $pdoStmt->bindParam($i+1, $associativeArray[$keys[$i]]);
+                $pdoStmt->bindValue($i+1, $associativeArray[$keys[$i]]);
             if($pdoStmt->execute())
                 return true;
         }
@@ -178,5 +180,32 @@ class CRUD
         $mins -= $hrs * 60;
         $offset = sprintf('%+d:%02d', $hrs*$sgn, $mins);
         return self::query("SET time_zone='$offset'");
+    }
+    private static function isPreparedStatement($query){
+        return strpos($query, "?") !== false;
+    }
+    private static function executePreparedStatement($query, ...$params)
+    {
+        if(self::isPreparedStatement($query)){
+            $query_param_count = substr_count($query, "?");
+            $params_count = count($params);
+            if($params_count < $query_param_count){
+                throw new InvalidArgumentException("less arguments for prepared statement");
+            }
+            $stmt = self::$pdo->prepare($query);
+            $i = 1;
+            foreach ($params as $param) {
+                $stmt->bindValue($i++, $param);
+            }
+            $result_bool =  $stmt->execute();
+            if($result_bool){
+                return $stmt;
+            }
+        }
+        return false;
+    }
+
+    public static function lastInsertId(){
+        return self::$pdo->lastInsertId();
     }
 }

@@ -10,13 +10,17 @@ require_once 'Table.class.php';
 class GST extends Table
 {
     public static $table_name = "gst";
-    public static function select($rows="*",$condition = 1, $order = null,$deleted=0)
+    public static function select($rows="*", $deleted=0, $condition = 1, ...$params)
     {
-        return CRUD::select(self::$table_name, $rows, $condition, $order, $deleted);
+        return CRUD::select(self::$table_name, $rows, $deleted, $condition, ...$params);
     }
-    public static function find($condition)
+    public static function viewAll()
     {
-        return CRUD::find(self::$table_name, $condition);
+        return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from gst GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef");
+    }
+    public static function find($condition, ...$params)
+    {
+        return CRUD::find(self::$table_name, $condition, ...$params);
     }
     public function __construct($result = null)
     {
@@ -25,7 +29,11 @@ class GST extends Table
 
     public function insert()
     {
-        return CRUD::insert(self::$table_name, $this->columns_values);
+        if(!$this->exists()){
+            parent::addCreated();
+            return CRUD::insert(self::$table_name, $this->columns_values);
+        }
+        return false;
     }
 
     public function update()
@@ -36,5 +44,14 @@ class GST extends Table
     public function delete()
     {
         return CRUD::delete(self::$table_name, "hsn_code={$this->hsn_code}");
+    }
+
+    public function exists()
+    {
+//        $result = CRUD::query("SELECT * FROM gst WHERE hsn_code = ?",$this->hsn_code);
+        $result = self::select("*", 0, "hsn_code = ?", $this->hsn_code);
+        if($result->rowCount() >= 1)
+            return true;
+        return false;
     }
 }
