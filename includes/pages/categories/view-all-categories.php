@@ -1,9 +1,11 @@
 <?php
 $model_name = "Category";
+require_once "db/models/{$model_name}.class.php";
+$rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, categories.category_id, categories.category_name, gst.hsn_code FROM categories INNER JOIN gst ON categories.gst_id = gst.gst_id INNER JOIN (SELECT @sr_no:= 0) AS a WHERE categories.deleted = 0");
 $column_names_as = array(
-        "category_id" => "Category Id",
+        "serial_no" => "Serial No",
         "category_name" => "Category Name",
-        "gst_id" => "GST Id",
+        "hsn_code" => "HSN Code",
 );
 ?>
 <div class="row">
@@ -24,8 +26,7 @@ $column_names_as = array(
                 <tbody>
                 <?php
                 $column_names = array_keys($column_names_as);
-                require_once "db/models/{$model_name}.class.php";
-                $rs=$model_name::select();
+//                $rs=$model_name::select();
                 while($row = $rs->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>";
                     foreach ($column_names as $column_name) {

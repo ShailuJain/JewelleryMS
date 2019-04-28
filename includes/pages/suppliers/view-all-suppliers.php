@@ -14,7 +14,7 @@ $column_names_as = array(
     "supplier_contact" => "Supplier Contact",
     "supplier_address" => "Supplier Address",
     "supplier_shopname" => "Supplier Shopname",
-    "gst_no" => "Supplier_gstno"
+    "gst_no" => "Supplier GST no"
 );
 require_once 'includes/pages/suppliers/delete-supplier.php';
 ?>
