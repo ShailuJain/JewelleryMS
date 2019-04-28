@@ -1,10 +1,12 @@
 <?php
 $model_name = "Product";
+require_once "db/models/{$model_name}.class.php";
+$rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, products.product_id,products.product_name,products.product_quantity,products.additional_specifications, categories.category_name from products INNER JOIN categories on products.category_id = categories.category_id INNER JOIN (SELECT @sr_no:= 0) AS a WHERE products.deleted = 0");
 $column_names_as = array(
-    "product_id" => "Product Id",
-    "category_id" => "Category Id",
-    "product_name" => "Category Name",
-    "product_quantity" => "Category Quantity",
+    "serial_no" => "Serial No",
+    "category_name" => "Category Name",
+    "product_name" => "Product Name",
+    "product_quantity" => "Product Quantity",
     "additional_specifications" => "Additional Specifications",
 );
 require_once 'includes/pages/products/delete-product.php';
@@ -28,7 +30,7 @@ require_once 'includes/pages/products/delete-product.php';
                 <?php
                 $column_names = array_keys($column_names_as);
                 require_once "db/models/{$model_name}.class.php";
-                $rs=$model_name::select();
+            //    $rs=$model_name::select();
                 while($row = $rs->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>";
                     foreach ($column_names as $column_name) {
