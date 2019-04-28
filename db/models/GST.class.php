@@ -10,6 +10,12 @@ require_once 'Table.class.php';
 class GST extends Table
 {
     public static $table_name = "gst";
+
+    public static function getLatestHSN($hsn_code)
+    {
+        return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from gst GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef");
+    }
+
     public static function select($rows="*", $deleted=0, $condition = 1, ...$params)
     {
         return CRUD::select(self::$table_name, $rows, $deleted, $condition, ...$params);
@@ -43,7 +49,8 @@ class GST extends Table
 
     public function update()
     {
-        return CRUD::update(self::$table_name, $this->columns_values, "hsn_code={$this->hsn_code}");
+//        return CRUD::update(self::$table_name, $this->columns_values, "hsn_code={$this->hsn_code}");
+        return CRUD::insert(self::$table_name, $this->columns_values);
     }
 
     public function delete()

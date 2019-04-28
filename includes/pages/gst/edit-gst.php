@@ -5,44 +5,42 @@ require_once 'constants.php';
 require_once ('helpers/redirect-helper.php');
 if(isset($_POST[EDIT_GST])){
     try{
-        if(!empty($_POST['hsn_code']) && !empty($_POST['gst_rate'])){
+        if(!(empty($_POST['hsn_code']) || empty($_POST['gst_rate']))){
             $gst = new GST();
-            $gst->gst_id = $_POST['gst_id'];
             $gst->hsn_code = $_POST['hsn_code'];
             $gst->gst_rate = $_POST['gst_rate'];
             if(isset($_POST['wef']))
                 $gst->wef = $_POST['wef'];
             else
-                $gst->wef = date('Y-m-d');
-            if($gst->insert()){
+                $gst->wef = date('Y-m-d h:i:s');
+            if($gst->update()){
                 setStatusAndMsg("success","GST entry updated successfully");
             }else{
-                setStatusAndMsg("error","GST details invalid");
+                setStatusAndMsg("error","HSN code already exits");
             }
         }
         else{
-            setStatusAndMsg("error","Enter valid details");
+            setStatusAndMsg("error","Fill all the fields");
         }
     } catch(Exception $e){
         setStatusAndMsg("error","Something went wrong");
     }
 }
-if(isset($id)) {
-    $gst_to_edit = GST::find("gst_id = ?", $id);
+if(isset($hsn_code)) {
+    $gst_to_edit = GST::getLatestHSN($hsn_code);
     if ($gst_to_edit) {
         if($gst_to_edit->isLatest()){
         ?>
         <div class="row">
             <div class="offset-1 col-md-10">
                 <form action="" method="post" role="form" enctype="multipart/form-data">
-                    <h3>Add New GST Entry</h3>
+                    <h3>Edit GST Entry</h3>
                     <hr>
 
-                    <input type="hidden" name="gst_id" value="<?php echo $gst_to_edit->gst_id; ?>">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="hsn_code" data-toggle="tooltip" data-placement="right" title="HSN Code is a code given to categories" >HSN Code <i class="fa fa-question-circle"></i></label>
-                            <input type="number" class="form-control" name="hsn_code" id="hsn_code" disabled
+                            <input type="number" class="form-control" name="hsn_code" id="hsn_code" readonly
                                    value="<?php echo $gst_to_edit->hsn_code; ?>">
                         </div>
 
@@ -60,7 +58,7 @@ if(isset($id)) {
                                value="<?php echo str_replace(' ', 'T', $gst_to_edit->wef); ?>">
                     </div>
                     <button type="submit" name="<?php echo EDIT_GST; ?>" id="<?php echo EDIT_GST; ?>"
-                            class="btn btn-primary">Add GST Entry
+                            class="btn btn-primary">Edit GST Entry
                     </button>
                 </form>
             </div>
