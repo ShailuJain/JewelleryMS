@@ -32,13 +32,13 @@ if(isset($_POST[ADD_CATEGORY])){
             <hr>
 
             <div class="form-group">
-                <label for="category_name">Category Name</label>
+                <label for="category_name" data-toggle="tooltip" data-placement="right" title="" >Category Name <i class="fa fa-question-circle"></i></label>
                 <input type="text" class="form-control" name="category_name" id="category_name" placeholder="Enter category name">
             </div>
 
             <div class="form-group">
-                <label for="gst_id">HSN Code</label>
-                <select name="gst_id" id="gst_id" class="form-control" required>
+                <label for="gst_id" data-toggle="tooltip" data-placement="right" title="" >HSN Code <i class="fa fa-question-circle"></i></label>
+                <select name="gst_id" id="gst_id" class="form-control selectize" required>
                     <option value="">Select HSN Code</option>
                     <?php
                     $result = GST::viewAll();

@@ -44,10 +44,28 @@ $(function(){
     //         }
     //     });
     // });
+
+    /**
+     * Selectize is a library which will initialize all the input where selectize is needed
+     */
+    $('.selectize').selectize();
+
+    /**
+     * Bootstrap tooltip.
+     */
+    $('[data-toggle="tooltip"]').tooltip();
+
+    /**
+     * Copy id from view all page to the delete modal
+     */
     $(".delete").click(function () {
         let $delete_path = $(this).data('delete');
         $('#form').attr('action', $delete_path);
     });
+
+    /**
+     * Data tables
+     */
     $('#tables').DataTable({
         select: {
             style: 'single'

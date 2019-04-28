@@ -41,23 +41,23 @@ if(isset($id)) {
                     <input type="hidden" name="gst_id" value="<?php echo $gst_to_edit->gst_id; ?>">
                     <div class="form-row">
                         <div class="form-group col-md-6">
-                            <label for="hsn_code">HSN Code</label>
+                            <label for="hsn_code" data-toggle="tooltip" data-placement="right" title="HSN Code is a code given to categories" >HSN Code <i class="fa fa-question-circle"></i></label>
                             <input type="number" class="form-control" name="hsn_code" id="hsn_code" disabled
                                    value="<?php echo $gst_to_edit->hsn_code; ?>">
                         </div>
 
                         <div class="form-group col-md-6">
-                            <label for="gst_rate">GST Rate</label>
+                            <label for="gst_rate" data-toggle="tooltip" data-placement="right" title="Rate provided for the hsn code" >GST Rate <i class="fa fa-question-circle"></i></label>
                             <input type="number" class="form-control" name="gst_rate" id="gst_rate"
                                    placeholder="Enter GST rate" value="<?php echo $gst_to_edit->gst_rate; ?>">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="wef">With Effect From</label>
-                        <input type="date" class="form-control" name="wef" id="wef"
+                        <label for="wef" data-toggle="tooltip" data-placement="right" title="The date from which the rate for hsn code is effective. Default is current datetime" >With Effect From <i class="fa fa-question-circle"></i></label>
+                        <input type="datetime-local" class="form-control" name="wef" id="wef"
                                placeholder="Select with effect from"
-                               max="<?php echo date("Y-m-d"); ?>" value="<?php echo $gst_to_edit->wef; ?>">
+                               value="<?php echo str_replace(' ', 'T', $gst_to_edit->wef); ?>">
                     </div>
                     <button type="submit" name="<?php echo EDIT_GST; ?>" id="<?php echo EDIT_GST; ?>"
                             class="btn btn-primary">Add GST Entry

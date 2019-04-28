@@ -14,6 +14,11 @@ class GST extends Table
     {
         return CRUD::select(self::$table_name, $rows, $deleted, $condition, ...$params);
     }
+
+    /**
+     * Returns the unique result set which includes all the hsn codes with the latest rates.
+     * @return mixed
+     */
     public static function viewAll()
     {
         return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from gst GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef");
@@ -54,6 +59,11 @@ class GST extends Table
             return true;
         return false;
     }
+
+    /**
+     * Retrieves that the current selected entry of the gst table is with the latest date of wef column.
+     * @return bool
+     */
     public function isLatest(){
         $result = CRUD::query("SELECT * FROM gst WHERE hsn_code = ? AND deleted = 0 ORDER BY wef DESC", $this->hsn_code);
         if($result){

@@ -1,0 +1,47 @@
+.invoice{
+    /*border: solid 1px black;*/
+}
+.shop-details{
+    /*text-align: center;*/
+}
+.invoice-header{
+    border: solid 1px black;
+}
+.label{
+    text-align: center;
+}
+.label-bold{
+    text-align: center;
+    font-weight: bold;
+}
+.bord{
+    border: solid 1px black;
+}
+.b-bottom{
+    border-bottom: solid 1px black;
+}
+.b-left{
+    border-left: solid 1px black;
+}
+.b-right{
+    border-right: solid 1px black;
+}
+.b-top{
+    border-top: solid 1px black;
+}
+.invoice-body{
+    border-collapse: collapse;
+    min-height: 300px;
+    position: relative;
+}
+.columns{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+}
+.columns .row{
+    height: 100%;
+}
+@page { margin: 0mm; }

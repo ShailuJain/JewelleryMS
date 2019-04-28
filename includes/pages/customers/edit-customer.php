@@ -39,24 +39,24 @@ if(isset($id)) {
                 <hr>
                 <input type="hidden" name="customer_id" value="<?php echo $customer_to_edit->customer_id; ?>">
                 <div class="form-group">
-                    <label for="customer_name">Customer name</label>
+                    <label for="customer_name" data-toggle="tooltip" data-placement="right" title="" >Customer name <i class="fa fa-question-circle"></i></label>
                     <input type="text" class="form-control" name="customer_name" id="customer_name"
                            placeholder="Enter Customer name" value="<?php echo $customer_to_edit->customer_name; ?>">
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
-                        <label for="customer_email">Email</label>
+                        <label for="customer_email" data-toggle="tooltip" data-placement="right" title="" >Email <i class="fa fa-question-circle"></i></label>
                         <input type="email" class="form-control" name="customer_email" id="customer_email" placeholder="Enter email address" value="<?php echo $customer_to_edit->customer_email; ?>">
                     </div>
                     <div class="form-group col-md-6">
-                        <label for="customer_contact">Contact Number</label>
+                        <label for="customer_contact" data-toggle="tooltip" data-placement="right" title="" >Contact Number <i class="fa fa-question-circle"></i></label>
                         <input type="tel" class="form-control" name="customer_contact" id="customer_contact" placeholder="Enter contact number" required maxlength="13" minlength="10" pattern="\d*" oninput="this.setCustomValidity('')" oninvalid="this.setCustomValidity('Please enter a phone number')" value="<?php echo $customer_to_edit->customer_contact; ?>">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="customer_address">Address</label>
+                    <label for="customer_address" data-toggle="tooltip" data-placement="right" title="" >Address <i class="fa fa-question-circle"></i></label>
                     <textarea class="form-control" name="customer_address" id="customer_address"
                               placeholder="Enter address"><?php echo $customer_to_edit->customer_address; ?></textarea>
                 </div>

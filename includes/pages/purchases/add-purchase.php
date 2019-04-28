@@ -42,7 +42,7 @@
             <h3>Supplier details</h3>
             <hr>
             <div class="form-group">
-                <label for="supplier">Select Product</label>
+                <label for="supplier" data-toggle="tooltip" data-placement="right" title="" >Select Product <i class="fa fa-question-circle"></i></label>
                 <select name="supplier" id="supplier" class="form-control supplier" required>
                     <option value="">Select Supplier Name</option>
                     <?php
@@ -59,7 +59,7 @@
             <hr>
             <div class="form-row">
                 <div class="form-group col-md-4">
-                    <label for="category">Select Category</label>
+                    <label for="category" data-toggle="tooltip" data-placement="right" title="" >Select Category <i class="fa fa-question-circle"></i></label>
                     <select name="category" id="category" class="form-control" required>
                         <option value="">Select Category</option>
                         <?php
@@ -71,7 +71,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="product">Select Product</label>
+                    <label for="product" data-toggle="tooltip" data-placement="right" title="" >Select Product <i class="fa fa-question-circle"></i></label>
                     <select name="product" id="product" class="form-control" required>
                         <option value="">Select Product</option>
                         <?php
@@ -83,7 +83,7 @@
                     </select>
                 </div>
                 <div class="form-group col-md-2">
-                    <label for="product_quantity">Enter quantity</label>
+                    <label for="product_quantity" data-toggle="tooltip" data-placement="right" title="" >Enter quantity <i class="fa fa-question-circle"></i></label>
                     <input type="number" class="form-control">
                 </div>
             </div>
@@ -91,17 +91,17 @@
             <h3>Purchase details</h3>
             <hr>
             <div class="form-group">
-                <label for="purchase_date">Date Of Purchase</label>
+                <label for="purchase_date" data-toggle="tooltip" data-placement="right" title="" >Date Of Purchase <i class="fa fa-question-circle"></i></label>
                 <input type="date" class="form-control" name="purchase_date" id="purchase_date">
             </div>
 
             <div class="form-group">
-                <label for="purchase_date">Quantity</label>
+                <label for="purchase_date" data-toggle="tooltip" data-placement="right" title="" >Quantity <i class="fa fa-question-circle"></i></label>
                 <input type="number" class="form-control" name="product_quantity" id="product_quantity" min="0" placeholder="Enter Quantity">
             </div>
 
             <div class="form-group">
-                <label for="pur_hsn">Hsn Code</label>
+                <label for="pur_hsn" data-toggle="tooltip" data-placement="right" title="" >Hsn Code <i class="fa fa-question-circle"></i></label>
                 <input type="text" class="form-control" name="pur_hsn" id="pur_hsn" placeholder="Enter Hsn-code">
             </div>
 

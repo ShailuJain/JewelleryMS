@@ -27,7 +27,6 @@ class CRUD
             self::$isInitialized = true;
             self::$pdo = new PDO(self::$dsn, USERNAME, PASSWORD);
             self::$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            self::setDefaultTimezone('Asia/Kolkata');
         }
         catch (PDOException $ex)
         {
@@ -209,3 +208,4 @@ class CRUD
         return self::$pdo->lastInsertId();
     }
 }
+CRUD::setDefaultTimezone('Asia/Kolkata');

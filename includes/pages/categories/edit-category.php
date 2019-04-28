@@ -40,13 +40,13 @@ if(isset($id)) {
                 <hr>
 
                 <div class="form-group">
-                    <label for="category_name">Category Name</label>
+                    <label for="category_name" data-toggle="tooltip" data-placement="right" title="" >Category Name <i class="fa fa-question-circle"></i></label>
                     <input type="text" class="form-control" name="category_name" id="category_name"
                            placeholder="Enter category name" value="<?php echo $cat_to_edit->category_name; ?>">
                 </div>
 
                 <div class="form-group">
-                    <label for="hsn_code">HSN Code</label>
+                    <label for="hsn_code" data-toggle="tooltip" data-placement="right" title="" >HSN Code <i class="fa fa-question-circle"></i></label>
                     <select name="hsn_code" id="hsn_code" class="form-control" required>
                         <option value="">Select HSN Code</option>
                         <?php
