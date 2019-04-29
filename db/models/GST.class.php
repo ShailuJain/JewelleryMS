@@ -6,15 +6,22 @@
  * Time: 04:18 PM
  */
 require_once 'Table.class.php';
-
+require_once 'db/core/mappings.php';
 class GST extends Table
 {
     public static $table_name = "gst";
 
-    public static function getLatestHSN($hsn_code)
-    {
-        return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from gst GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef");
-    }
+//    public static function getActiveHSN($hsn_code)
+//    {
+//        global $tableMappings;
+////        return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from gst GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef");
+//        $result = CRUD::query("SELECT * FROM gst WHERE hsn_code = ? AND deleted = 0 ORDER BY wef DESC", $hsn_code);
+//        if($result->rowCount() > 0)
+//            $resultObj = new $tableMappings["gst"]($result->fetch());
+//        else
+//            $resultObj = null;
+//        return $resultObj;
+//    }
 
     public static function select($rows="*", $deleted=0, $condition = 1, ...$params)
     {
@@ -27,7 +34,8 @@ class GST extends Table
      */
     public static function viewAll()
     {
-        return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from gst GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef");
+        return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from gst WHERE deleted = 0 GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef AND deleted = 0");
+//        return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from (SELECT * FROM gst WHERE wef <= CURDATE()) as gst GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef");
     }
     public static function find($condition, ...$params)
     {
@@ -50,12 +58,16 @@ class GST extends Table
     public function update()
     {
 //        return CRUD::update(self::$table_name, $this->columns_values, "hsn_code={$this->hsn_code}");
+        parent::addCreated();
         return CRUD::insert(self::$table_name, $this->columns_values);
     }
 
     public function delete()
     {
-        return CRUD::delete(self::$table_name, "hsn_code={$this->hsn_code}");
+        parent::addDeleted();
+        $this->deleted = 1;
+        return CRUD::update(self::$table_name, $this->columns_values,"hsn_code='{$this->hsn_code}'");
+//        return CRUD::delete(self::$table_name, "hsn_code={$this->hsn_code}");
     }
 
     public function exists()

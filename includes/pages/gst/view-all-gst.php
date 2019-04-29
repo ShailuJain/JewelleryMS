@@ -5,6 +5,7 @@ $column_names_as = array(
         "hsn_code" => "HSN Code",
         "wef" => "With Effect From",
 );
+require_once 'includes/pages/gst/delete-gst.php';
 ?>
 <div class="row">
     <div class="offset-1 col-md-10">
@@ -32,7 +33,7 @@ $column_names_as = array(
                         echo "<td>$row[$column_name]</td>";
                     }
                     echo "<td><a class='btn btn-primary text-white' href='gst.php?src=edit-gst&id={$row["gst_id"]}' data-toggle='tooltip' data-html='true' title='Edit this GST entry'><i class='fa fa-edit'></i></a></td>";
-                    echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this GST entry' data-delete='gst.php?form=delete-gst&id={$row["gst_id"]}'><i class='fa fa-times'></i></a></td>";
+                    echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this GST entry' data-delete='gst.php?form=delete-gst&hsn_code={$row["hsn_code"]}'><i class='fa fa-times'></i></a></td>";
                 }
                 ?>
                 </tbody>
@@ -42,4 +43,5 @@ $column_names_as = array(
 </div>
 <?php
 include_once 'includes/modal.php';
+createModal(DELETE_TITLE, DELETE_MSG, "Delete");
 ?>

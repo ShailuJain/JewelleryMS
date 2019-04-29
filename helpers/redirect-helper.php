@@ -27,5 +27,6 @@ TOAST;
     echo "</script>";
 }
 function redirect_to($location){
-    $_SESSION['redirect_to'] = $location;
+    if(!isset($_SESSION['redirect_to']))
+        $_SESSION['redirect_to'] = $location;
 }
