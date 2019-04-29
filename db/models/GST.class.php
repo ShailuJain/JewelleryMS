@@ -93,6 +93,9 @@ class GST extends Table
         return false;
     }
 
+    /**
+     * @return bool: Returns true if this particular entry in used by another table
+     */
     public function isUsed()
     {
         $result = CRUD::select("categories","*",0, "gst_id = ?", $this->gst_id);
