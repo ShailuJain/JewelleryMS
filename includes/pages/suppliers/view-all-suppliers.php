@@ -7,8 +7,11 @@
  */
 
 $model_name = "Supplier";
+require_once "db/models/{$model_name}.class.php";
+$rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, suppliers.* from suppliers INNER JOIN (SELECT @sr_no:= 0)AS a WHERE suppliers.deleted = 0");
+
 $column_names_as = array(
-    "supplier_id" => "Supplier Id",
+    "serial_no" => "Serial No",
     "supplier_name" => "Supplier Name",
     "supplier_email" => "Supplier Email",
     "supplier_contact" => "Supplier Contact",
@@ -36,8 +39,7 @@ require_once 'includes/pages/suppliers/delete-supplier.php';
                     <tbody>
                     <?php
                     $column_names = array_keys($column_names_as);
-                    require_once "db/models/{$model_name}.class.php";
-                    $rs=$model_name::select();
+                    //                    $rs=$model_name::select();
                     while($row = $rs->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
                         foreach ($column_names as $column_name) {
