@@ -22,7 +22,10 @@ class Customer extends Table
     {
         parent::__construct($result);
     }
-
+    public static function viewAll()
+    {
+        return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, customers.* from customers INNER JOIN (SELECT @sr_no:= 0)AS a WHERE customers.deleted = 0");
+    }
     public function insert()
     {
         if(!$this->exists()){

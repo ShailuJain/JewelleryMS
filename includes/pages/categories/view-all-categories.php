@@ -1,11 +1,12 @@
 <?php
 $model_name = "Category";
 require_once "db/models/{$model_name}.class.php";
-$rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, categories.*, hsn_code FROM categories LEFT JOIN (SELECT * FROM gst WHERE deleted = 0) AS gst ON categories.gst_id = gst.gst_id INNER JOIN (SELECT @sr_no:= 0) AS a WHERE categories.deleted = 0");
+$rs = Category::viewAll();
 $column_names_as = array(
         "serial_no" => "Serial No",
         "category_name" => "Category Name",
         "hsn_code" => "HSN Code",
+        "gst_rate" => "GST Rate"
 );
 ?>
 <div class="row">
