@@ -18,6 +18,10 @@ class Product extends Table
     {
         return CRUD::find(self::$table_name, $condition, ...$params);
     }
+    public static function viewAll()
+    {
+        return  CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, products.*, categories.category_name from products INNER JOIN categories on products.category_id = categories.category_id INNER JOIN (SELECT @sr_no:= 0) AS a WHERE products.deleted = 0");
+    }
     public function __construct($result = null)
     {
         parent::__construct($result);

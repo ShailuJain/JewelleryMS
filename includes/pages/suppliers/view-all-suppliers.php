@@ -8,8 +8,7 @@
 
 $model_name = "Supplier";
 require_once "db/models/{$model_name}.class.php";
-$rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, suppliers.* from suppliers INNER JOIN (SELECT @sr_no:= 0)AS a WHERE suppliers.deleted = 0");
-
+$rs = Supplier::viewAll();
 $column_names_as = array(
     "serial_no" => "Serial No",
     "supplier_name" => "Supplier Name",

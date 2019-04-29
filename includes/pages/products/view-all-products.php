@@ -1,7 +1,7 @@
 <?php
 $model_name = "Product";
 require_once "db/models/{$model_name}.class.php";
-$rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, products.product_id,products.product_name,products.product_quantity,products.additional_specifications, categories.category_name from products INNER JOIN categories on products.category_id = categories.category_id INNER JOIN (SELECT @sr_no:= 0) AS a WHERE products.deleted = 0");
+$rs = Product::viewAll();
 $column_names_as = array(
     "serial_no" => "Serial No",
     "category_name" => "Category Name",
@@ -9,6 +9,7 @@ $column_names_as = array(
     "product_quantity" => "Product Quantity",
     "additional_specifications" => "Additional Specifications",
 );
+
 require_once 'includes/pages/products/delete-product.php';
 ?>
 <div class="row">

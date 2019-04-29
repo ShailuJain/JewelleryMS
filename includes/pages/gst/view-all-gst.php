@@ -1,8 +1,11 @@
 <?php
 $model_name = "GST";
+require_once "db/models/{$model_name}.class.php";
+
 $column_names_as = array(
-        "gst_id" => "GST Id",
+        "serial_no" => "Serial No",
         "hsn_code" => "HSN Code",
+        "gst_rate" => "GST Rate",
         "wef" => "With Effect From",
 );
 ?>
@@ -24,7 +27,7 @@ $column_names_as = array(
                 <tbody>
                 <?php
                 $column_names = array_keys($column_names_as);
-                require_once "db/models/{$model_name}.class.php";
+
                 $rs=$model_name::viewAll();
                 while($row = $rs->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>";

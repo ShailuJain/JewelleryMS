@@ -22,7 +22,10 @@ class Category extends Table
     {
         parent::__construct($result);
     }
+    public static function viewAll(){
+        return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, categories.category_id, categories.category_name, gst.gst_rate, gst.hsn_code FROM categories INNER JOIN gst ON categories.gst_id = gst.gst_id INNER JOIN (SELECT @sr_no:= 0) AS a WHERE categories.deleted = 0");
 
+    }
     public function insert()
     {
         if(!$this->exists()){
@@ -48,4 +51,5 @@ class Category extends Table
             return true;
         return false;
     }
+
 }

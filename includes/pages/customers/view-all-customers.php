@@ -1,7 +1,7 @@
 <?php
 $model_name = "Customer";
 require_once "db/models/{$model_name}.class.php";
-$rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, customers.* from customers INNER JOIN (SELECT @sr_no:= 0)AS a WHERE customers.deleted = 0");
+$rs = Customer::viewAll();
 $column_names_as = array(
     "serial_no" => "Serial No",
     "customer_name" => "Customer Name",
