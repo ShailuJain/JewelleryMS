@@ -66,7 +66,7 @@ class GST extends Table
     {
         parent::addDeleted();
         $this->deleted = 1;
-        return CRUD::update(self::$table_name, $this->columns_values,"hsn_code='{$this->hsn_code}'");
+        return CRUD::update(self::$table_name, $this->columns_values,"gst_id='{$this->gst_id}'");
 //        return CRUD::delete(self::$table_name, "hsn_code={$this->hsn_code}");
     }
 
@@ -89,6 +89,17 @@ class GST extends Table
             $latest = $result->fetch();
             if($latest->gst_id == $this->gst_id)
                 return true;
+        }
+        return false;
+    }
+
+    public function isUsed()
+    {
+        $result = CRUD::select("categories","*",0, "gst_id = ?", $this->gst_id);
+        if($result){
+            if($result->rowCount()>0){
+                return true;
+            }
         }
         return false;
     }

@@ -19,20 +19,21 @@ if(isset($_GET['hsn_code'])) {
             CRUD::setAutoCommitOn(false);
             foreach ($gsts->fetchAll() as $gstFetch) {
                 $gst = new GST($gstFetch);
-                unset($gst->gst_id);
-                if (!$gst->delete()) {
+                if ($gst->isUsed() || !$gst->delete()) {
                     $flag = false;
-                    CRUD::rollback();
-                    CRUD::setAutoCommitOn(true);
+                    setStatusAndMsg("error", "GST entry cannot be deleted");
+                    redirect_to(VIEW_ALL_GST);
                     break;
                 }
             }
             if ($flag) {
                 CRUD::commit();
-                CRUD::setAutoCommitOn(true);
                 setStatusAndMsg("success", "GST entry deleted successfully");
                 redirect_to(VIEW_ALL_GST);
+            }else{
+                CRUD::rollback();
             }
+            CRUD::setAutoCommitOn(true);
         } else {
             setStatusAndMsg("error", "GST entry do not exists");
         }
