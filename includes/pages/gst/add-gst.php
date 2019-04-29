@@ -12,7 +12,7 @@ if(isset($_POST[ADD_GST])){
             if(isset($_POST['wef']))
                 $gst->wef = $_POST['wef'];
             else
-                $gst->wef = date('Y-m-d h:i:s');
+                $gst->wef = date('Y-m-d');
             if($gst->insert()){
                 setStatusAndMsg("success","GST entry inserted successfully");
             }else{
@@ -47,7 +47,7 @@ if(isset($_POST[ADD_GST])){
 
             <div class="form-group">
                 <label for="wef" data-toggle="tooltip" data-placement="right" title="The date from which the rate for hsn code is effective. Default is current datetime" >With Effect From <i class="fa fa-question-circle"></i></label>
-                <input type="datetime-local" class="form-control" name="wef" id="wef" placeholder="Select with effect from" value="<?php echo date("Y-m-d\Th:i:s")?>">
+                <input type="date" class="form-control" name="wef" id="wef" placeholder="Select with effect from" value="<?php echo date("Y-m-d")?>">
             </div>
             <button type="submit" name="<?php echo ADD_GST; ?>" id="<?php echo ADD_GST; ?>" class="btn btn-primary">Add GST Entry</button>
         </form>

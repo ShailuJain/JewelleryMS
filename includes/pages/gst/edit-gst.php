@@ -3,6 +3,7 @@ require_once('db/models/Category.class.php');
 require_once('db/models/GST.class.php');
 require_once 'constants.php';
 require_once ('helpers/redirect-helper.php');
+require_once ('helpers/redirects.php');
 if(isset($_POST[EDIT_GST])){
     try{
         if(!(empty($_POST['hsn_code']) || empty($_POST['gst_rate']))){
@@ -12,9 +13,10 @@ if(isset($_POST[EDIT_GST])){
             if(isset($_POST['wef']))
                 $gst->wef = $_POST['wef'];
             else
-                $gst->wef = date('Y-m-d h:i:s');
+                $gst->wef = date('Y-m-d');
             if($gst->update()){
                 setStatusAndMsg("success","GST entry updated successfully");
+                redirect_to(VIEW_ALL_GST);
             }else{
                 setStatusAndMsg("error","HSN code already exits");
             }
@@ -26,8 +28,8 @@ if(isset($_POST[EDIT_GST])){
         setStatusAndMsg("error","Something went wrong");
     }
 }
-if(isset($hsn_code)) {
-    $gst_to_edit = GST::getLatestHSN($hsn_code);
+if(isset($id)) {
+    $gst_to_edit = GST::find("gst_id = ?", $id);
     if ($gst_to_edit) {
         if($gst_to_edit->isLatest()){
         ?>
@@ -53,9 +55,10 @@ if(isset($hsn_code)) {
 
                     <div class="form-group">
                         <label for="wef" data-toggle="tooltip" data-placement="right" title="The date from which the rate for hsn code is effective. Default is current datetime" >With Effect From <i class="fa fa-question-circle"></i></label>
-                        <input type="datetime-local" class="form-control" name="wef" id="wef"
+                        <input type="date" class="form-control" name="wef" id="wef"
                                placeholder="Select with effect from"
-                               value="<?php echo str_replace(' ', 'T', $gst_to_edit->wef); ?>">
+                               value="<?php echo $gst_to_edit->wef; ?>"
+                               min="<?php echo date('Y-m-d', strtotime($gst_to_edit->wef . ' +1 day')); ?>">
                     </div>
                     <button type="submit" name="<?php echo EDIT_GST; ?>" id="<?php echo EDIT_GST; ?>"
                             class="btn btn-primary">Edit GST Entry
