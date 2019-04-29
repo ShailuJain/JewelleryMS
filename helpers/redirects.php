@@ -8,3 +8,4 @@
 define("VIEW_ALL_PRODUCTS", "products.php?src=view-all-products");
 define("VIEW_ALL_CUSTOMERS", "customers.php?src=view-all-customers");
 define("VIEW_ALL_SUPPLIERS", "suppliers.php?src=view-all-suppliers");
+define("VIEW_ALL_GST", "gst.php?src=view-all-gst");

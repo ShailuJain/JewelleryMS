@@ -2,8 +2,8 @@
 if(isset($_GET['src']))
 {
     $src = $_GET['src'];
-    if(isset($_GET['hsn_code'])){
-        $hsn_code = $_GET['hsn_code'];
+    if(isset($_GET['id'])){
+        $id = $_GET['id'];
     }
     $include_page = "pages/gst/".$src.".php";
 }else{
