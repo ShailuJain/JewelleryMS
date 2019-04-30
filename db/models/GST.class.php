@@ -34,7 +34,8 @@ class GST extends Table
      */
     public static function viewAll()
     {
-       return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, gst.* from gst INNER JOIN (SELECT @sr_no:= 0)AS a WHERE gst.deleted = 0");return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from gst GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef");
+       return $rs = CRUD::query("SELECT  @sr_no:=@sr_no+1 as serial_no,gst.* FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from gst GROUP BY hsn_code) as g1 INNER JOIN (SELECT @sr_no:= 0) AS a WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef AND gst.deleted = 0");
+//       return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from gst GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef");
        //        return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from (SELECT * FROM gst WHERE wef <= CURDATE()) as gst GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef");
     }
     public static function find($condition, ...$params)
