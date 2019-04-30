@@ -58,7 +58,8 @@ if(isset($id)) {
                         <input type="date" class="form-control" name="wef" id="wef"
                                placeholder="Select with effect from"
                                value="<?php echo $gst_to_edit->wef; ?>"
-                               min="<?php echo date('Y-m-d', strtotime($gst_to_edit->wef . ' +1 day')); ?>">
+                               min="<?php echo date('Y-m-d', strtotime($gst_to_edit->wef . ' +1 day')); ?>"
+                               max="<?php echo date('Y-m-d'); ?>">
                     </div>
                     <button type="submit" name="<?php echo EDIT_GST; ?>" id="<?php echo EDIT_GST; ?>"
                             class="btn btn-primary">Edit GST Entry

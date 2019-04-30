@@ -51,5 +51,18 @@ class Category extends Table
             return true;
         return false;
     }
+    /**
+     * @return bool: Returns true if this particular entry in used by another table
+     */
+    public function isUsed()
+    {
+        $result = CRUD::select("products","*",0, "category_id = ?", $this->category_id);
+        if($result){
+            if($result->rowCount()>0){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

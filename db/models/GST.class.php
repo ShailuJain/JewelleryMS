@@ -34,7 +34,8 @@ class GST extends Table
      */
     public static function viewAll()
     {
-       return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, gst.* from gst INNER JOIN (SELECT @sr_no:= 0)AS a WHERE gst.deleted = 0");return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from gst GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef");
+       return $rs = CRUD::query("SELECT  @sr_no:=@sr_no+1 as serial_no,gst.* FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from gst GROUP BY hsn_code) as g1 INNER JOIN (SELECT @sr_no:= 0) AS a WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef AND gst.deleted = 0");
+//       return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from gst GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef");
        //        return CRUD::query("SELECT * FROM gst INNER JOIN (SELECT MAX(wef) as wef, hsn_code from (SELECT * FROM gst WHERE wef <= CURDATE()) as gst GROUP BY hsn_code) as g1 WHERE gst.hsn_code = g1.hsn_code AND gst.wef = g1.wef");
     }
     public static function find($condition, ...$params)
@@ -66,7 +67,7 @@ class GST extends Table
     {
         parent::addDeleted();
         $this->deleted = 1;
-        return CRUD::update(self::$table_name, $this->columns_values,"hsn_code='{$this->hsn_code}'");
+        return CRUD::update(self::$table_name, $this->columns_values,"gst_id='{$this->gst_id}'");
 //        return CRUD::delete(self::$table_name, "hsn_code={$this->hsn_code}");
     }
 
@@ -89,6 +90,20 @@ class GST extends Table
             $latest = $result->fetch();
             if($latest->gst_id == $this->gst_id)
                 return true;
+        }
+        return false;
+    }
+
+    /**
+     * @return bool: Returns true if this particular entry in used by another table
+     */
+    public function isUsed()
+    {
+        $result = CRUD::select("categories","*",0, "gst_id = ?", $this->gst_id);
+        if($result){
+            if($result->rowCount()>0){
+                return true;
+            }
         }
         return false;
     }

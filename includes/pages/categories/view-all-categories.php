@@ -31,7 +31,14 @@ $column_names_as = array(
                 while($row = $rs->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>";
                     foreach ($column_names as $column_name) {
-                        echo "<td>$row[$column_name]</td>";
+                        if(empty($row[$column_name]))
+                        {
+                            echo "<td>NULL</td>";
+                        }
+                        else
+                        {
+                            echo "<td>$row[$column_name]</td>";
+                        }
                     }
                     echo "<td><a class='btn btn-primary text-white' data-toggle='tooltip' href='categories.php?src=edit-category&id={$row["category_id"]}' data-html='true' title='Edit'><i class='fa fa-edit'></i></a></td>";
                     echo "<td><a class='btn btn-danger text-white'  data-toggle='tooltip' data-html='true' title='Delete'  data-delete='categories.php?form=delete-category&id={$row["category_id"]}'><i class='fa fa-times'></i></a></td>";

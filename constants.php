@@ -6,7 +6,7 @@
  * Time: 04:12 PM
  */
 define("DELETE_TITLE", "Are you sure you want to delete?");
-define("DELETE_MSG", "Press delete button to delete the data.");
+define("DELETE_MSG", "Press delete to delete the data.");
 
 //BUTTON CONSTANTS
 

@@ -46,5 +46,6 @@ require_once 'includes/pages/gst/delete-gst.php';
 </div>
 <?php
 include_once 'includes/modal.php';
-createModal(DELETE_TITLE, DELETE_MSG, "Delete");
+$body = "<h4>Note: </h4> Please check if all the usages of this particular entry has been deleted or else entry will not be deleted.";
+createModal(DELETE_TITLE, $body, "Delete");
 ?>
