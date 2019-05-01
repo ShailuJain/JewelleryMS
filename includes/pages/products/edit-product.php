@@ -3,7 +3,7 @@ require_once ('db/models/Product.class.php');
 require_once ('db/models/Category.class.php');
 require_once 'constants.php';
 require_once ('helpers/redirect-helper.php');
-require_once ('helpers/redirects.php');
+require_once('helpers/redirect-constants.php');
 if(isset($_POST[EDIT_PRODUCT])){
     try
     {

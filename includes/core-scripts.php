@@ -20,6 +20,5 @@
 <script src="vendor/selectize/js/selectize.min.js"></script>
 
 <!-- Custom script for purchase form-->
-<script src="js/purchase/purchase-script.js"></script>
 
 <script src="js/script.js"></script>

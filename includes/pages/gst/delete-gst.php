@@ -7,7 +7,7 @@
  */
 require_once ('db/models/GST.class.php');
 require_once ('helpers/redirect-helper.php');
-require_once ('helpers/redirects.php');
+require_once('helpers/redirect-constants.php');
 if(isset($_GET['hsn_code'])) {
     try {
         $flag = true;

@@ -7,7 +7,7 @@
  */
 require_once ('db/models/Supplier.class.php');
 require_once ('helpers/redirect-helper.php');
-require_once ('helpers/redirects.php');
+require_once('helpers/redirect-constants.php');
 if(isset($_GET['id'])) {
     try {
         $supplier_id = $_GET['id'];
