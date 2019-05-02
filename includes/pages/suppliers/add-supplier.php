@@ -38,28 +38,28 @@ if(isset($_POST[ADD_SUPPLIER]))
 
             <div class="form-group">
                 <label for="supplier_name">Supplier Name</label>
-                <input type="text" class="form-control" name="supplier_name" id="supplier_name" placeholder="Enter supplier name">
+                <input type="text" class="form-control" name="supplier_name" id="supplier_name" placeholder="Enter supplier name" required>
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="supplier_shopname">Supplier Shop Name</label>
-                    <input type="text" class="form-control" name="supplier_shopname" id="supplier_shopname" placeholder="Enter supplier shop name">
+                    <input type="text" class="form-control" name="supplier_shopname" id="supplier_shopname" placeholder="Enter supplier shop name"required>
                 </div>
                 <div class="form-group col-md-6">
                     <label for="gst_no">GST Number</label>
-                    <input type="text" class="form-control" name="gst_no" id="gst_no" placeholder="Enter gst number of supplier">
+                    <input type="text" class="form-control" name="gst_no" id="gst_no" placeholder="Enter gst number of supplier"required>
                 </div>
             </div>
 
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="supplier_email">Email</label>
-                    <input type="email" class="form-control" name="supplier_email" id="supplier_email" placeholder="Enter email address of supplier">
+                    <input type="email" class="form-control" name="supplier_email" id="supplier_email" placeholder="Enter email address of supplier"required>
                 </div>
 
                 <div class="form-group col-md-6">
                     <label for="supplier_contact">Contact Number</label>
-                    <input type="number" class="form-control" name="supplier_contact" id="supplier_contact" placeholder="Enter Contact Number of supplier">
+                    <input type="number" class="form-control" name="supplier_contact" id="supplier_contact" placeholder="Enter Contact Number of supplier"required>
                 </div>
             </div>
 
@@ -67,7 +67,7 @@ if(isset($_POST[ADD_SUPPLIER]))
 
             <div class="form-group">
                 <label for="supplier_address">Address</label>
-                <textarea class="form-control" name="supplier_address" id="supplier_address" placeholder="Enter Address of supplier"></textarea>
+                <textarea class="form-control" name="supplier_address" id="supplier_address" placeholder="Enter Address of supplier"required></textarea>
             </div>
 
             <button type="submit" name="add_supplier" id="add_supplier" class="btn btn-primary">Add supplier</button>

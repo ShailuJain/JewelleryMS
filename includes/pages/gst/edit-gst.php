@@ -43,13 +43,13 @@ if(isset($id)) {
                         <div class="form-group col-md-6">
                             <label for="hsn_code" data-toggle="tooltip" data-placement="right" title="HSN Code is a code given to categories" >HSN Code <i class="fa fa-question-circle"></i></label>
                             <input type="number" class="form-control" name="hsn_code" id="hsn_code" readonly
-                                   value="<?php echo $gst_to_edit->hsn_code; ?>">
+                                   value="<?php echo $gst_to_edit->hsn_code; ?>" required>
                         </div>
 
                         <div class="form-group col-md-6">
                             <label for="gst_rate" data-toggle="tooltip" data-placement="right" title="Rate provided for the hsn code" >GST Rate <i class="fa fa-question-circle"></i></label>
                             <input type="number" class="form-control" name="gst_rate" id="gst_rate"
-                                   placeholder="Enter GST rate" value="<?php echo $gst_to_edit->gst_rate; ?>">
+                                   placeholder="Enter GST rate" value="<?php echo $gst_to_edit->gst_rate; ?>" required>
                         </div>
                     </div>
 
@@ -59,7 +59,7 @@ if(isset($id)) {
                                placeholder="Select with effect from"
                                value="<?php echo $gst_to_edit->wef; ?>"
                                min="<?php echo date('Y-m-d', strtotime($gst_to_edit->wef . ' +1 day')); ?>"
-                               max="<?php echo date('Y-m-d'); ?>">
+                               max="<?php echo date('Y-m-d'); ?>" required >
                     </div>
                     <button type="submit" name="<?php echo EDIT_GST; ?>" id="<?php echo EDIT_GST; ?>"
                             class="btn btn-primary">Edit GST Entry

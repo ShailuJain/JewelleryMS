@@ -84,7 +84,7 @@
                 </div>
                 <div class="form-group col-md-2">
                     <label for="product_quantity" data-toggle="tooltip" data-placement="right" title="" >Enter quantity <i class="fa fa-question-circle"></i></label>
-                    <input type="number" class="form-control">
+                    <input type="number" class="form-control" required>
                 </div>
             </div>
 
@@ -92,17 +92,17 @@
             <hr>
             <div class="form-group">
                 <label for="purchase_date" data-toggle="tooltip" data-placement="right" title="" >Date Of Purchase <i class="fa fa-question-circle"></i></label>
-                <input type="date" class="form-control" name="purchase_date" id="purchase_date">
+                <input type="date" class="form-control" name="purchase_date" id="purchase_date" required>
             </div>
 
             <div class="form-group">
                 <label for="purchase_date" data-toggle="tooltip" data-placement="right" title="" >Quantity <i class="fa fa-question-circle"></i></label>
-                <input type="number" class="form-control" name="product_quantity" id="product_quantity" min="0" placeholder="Enter Quantity">
+                <input type="number" class="form-control" name="product_quantity" id="product_quantity" min="0" placeholder="Enter Quantity" required>
             </div>
 
             <div class="form-group">
                 <label for="pur_hsn" data-toggle="tooltip" data-placement="right" title="" >Hsn Code <i class="fa fa-question-circle"></i></label>
-                <input type="text" class="form-control" name="pur_hsn" id="pur_hsn" placeholder="Enter Hsn-code">
+                <input type="text" class="form-control" name="pur_hsn" id="pur_hsn" placeholder="Enter Hsn-code" required>
             </div>
 
 

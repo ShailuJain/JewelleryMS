@@ -37,6 +37,7 @@ class Category extends Table
 
     public function update()
     {
+        self::addUpdated();
         return CRUD::update(self::$table_name, $this->columns_values, "category_id={$this->category_id}");
     }
 

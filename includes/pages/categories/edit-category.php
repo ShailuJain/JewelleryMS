@@ -8,19 +8,13 @@ if(isset($_POST[EDIT_CATEGORY])){
         if(!empty($_POST['category_name'])){
 
             $category = new Category();
+            $category->category_id = $_POST['category_id'];
             $category->category_name = $_POST['category_name'];
-            $hsn_code = $_POST['hsn_code'];
-            $result = CRUD::query("SELECT * FROM gst WHERE hsn_code = ? AND deleted = 0 ORDER BY wef DESC",$hsn_code);
-            if($result){
-                $gst = $result->fetch();
-                $category->gst_id = $gst->gst_id;
-                if($category->insert()){
-                    setStatusAndMsg("success","Category added successfully");
-                }else{
-                    setStatusAndMsg("error","Category already exists");
-                }
+            if($category->update()){
+                redirect_to(VIEW_ALL_CATEGORIES);
+                setStatusAndMsg("success","Category updated successfully");
             }else {
-                setStatusAndMsg("error", "Something went wrong");
+                setStatusAndMsg("error", "Category already exists");
             }
         }
         else{
@@ -29,6 +23,7 @@ if(isset($_POST[EDIT_CATEGORY])){
     } catch(Exception $e){
         setStatusAndMsg("error", "Something went wrong");
     }
+
 }
 if(isset($id)) {
     $cat_to_edit = Category::find("category_id = ?",$id);
@@ -42,9 +37,9 @@ if(isset($id)) {
                 <div class="form-group">
                     <label for="category_name" data-toggle="tooltip" data-placement="right" title="" >Category Name <i class="fa fa-question-circle"></i></label>
                     <input type="text" class="form-control" name="category_name" id="category_name"
-                           placeholder="Enter category name" value="<?php echo $cat_to_edit->category_name; ?>">
+                           placeholder="Enter category name" value="<?php echo $cat_to_edit->category_name; ?>" required>
                 </div>
-                <button type="submit" name="add_category" id="add_category" class="btn btn-primary">Add Category
+                <button type="submit" name="edit_category" id="edit_category" class="btn btn-primary">Add Category
                 </button>
             </form>
         </div>

@@ -33,7 +33,7 @@ if(isset($_POST[ADD_CATEGORY])){
 
             <div class="form-group">
                 <label for="category_name" data-toggle="tooltip" data-placement="right" title="" >Category Name <i class="fa fa-question-circle"></i></label>
-                <input type="text" class="form-control" name="category_name" id="category_name" placeholder="Enter category name">
+                <input type="text" class="form-control" name="category_name" id="category_name" placeholder="Enter category name" required>
             </div>
 
             <div class="form-group">
