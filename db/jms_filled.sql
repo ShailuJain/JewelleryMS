@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2019 at 10:10 AM
--- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.2
+-- Generation Time: May 02, 2019 at 07:29 PM
+-- Server version: 10.1.37-MariaDB
+-- PHP Version: 7.3.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -1169,14 +1169,14 @@ INSERT INTO `invoice_product` (`invoice_id`, `product_id`, `product_rate`, `quan
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment`
+-- Table structure for table `payments`
 --
 
-CREATE TABLE `payment` (
+CREATE TABLE `payments` (
   `payment_id` int(11) NOT NULL,
   `invoice_id` int(11) NOT NULL,
   `payment_amount` double NOT NULL,
-  `payment_date` datetime NOT NULL,
+  `payment_date` date NOT NULL,
   `payment_mode` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
@@ -1186,6 +1186,13 @@ CREATE TABLE `payment` (
   `deleted_at` datetime NOT NULL,
   `deleted_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `payments`
+--
+
+INSERT INTO `payments` (`payment_id`, `invoice_id`, `payment_amount`, `payment_date`, `payment_mode`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted`, `deleted_at`, `deleted_by`) VALUES
+(1, 2, 2000, '1999-02-12', 'cash', '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 0, '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -2382,9 +2389,9 @@ ALTER TABLE `invoice_product`
   ADD PRIMARY KEY (`invoice_id`,`product_id`);
 
 --
--- Indexes for table `payment`
+-- Indexes for table `payments`
 --
-ALTER TABLE `payment`
+ALTER TABLE `payments`
   ADD PRIMARY KEY (`payment_id`);
 
 --
@@ -2452,10 +2459,10 @@ ALTER TABLE `invoices`
   MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `payment`
+-- AUTO_INCREMENT for table `payments`
 --
-ALTER TABLE `payment`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `payments`
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `products`

@@ -62,6 +62,22 @@
         </div>
     </li>
 
+
+    <!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePayment" aria-expanded="true" aria-controls="collapsePayment">
+            <i class="fas fa-fw fa-shopping-bag"></i>
+            <span>Payment</span>
+        </a>
+        <div id="collapsePayment" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item ajax-link" href="payments.php?src=add-payment">Add Purchase</a>
+                <a class="collapse-item ajax-link" href="payments.php?src=view-all-payments">View All Purchases</a>
+            </div>
+        </div>
+    </li>
+
+
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSupplier" aria-expanded="true" aria-controls="collapseSupplier">
