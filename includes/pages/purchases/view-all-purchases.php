@@ -4,10 +4,11 @@ require_once "db/models/{$model_name}.class.php";
 $rs = Purchase::viewAll();
 //This array will store the table headers for the columns we are selecting from databse
 $column_names_as = array(
-    "purchase_description" => "Description",
-    "date_of_purchase" => "Date of purchase",
-    "total_purchase_amount" => "Total amount",
-    "supplier_name" => "Supplier"
+        "serial_no" => "SR.No",
+        "purchase_title" => "Title",
+        "date_of_purchase" => "Date of purchase",
+        "total_purchase_amount" => "Total amount",
+        "supplier_name" => "Supplier"
 );
 ?>
     <div class="row">
@@ -21,9 +22,9 @@ $column_names_as = array(
                             echo "<th>{$column_name_as}</th>";
                         }
                         ?>
+                        <th>Detail</th>
                         <th>Edit</th>
                         <th>Delete</th>
-                        <th>View-details</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -41,11 +42,9 @@ $column_names_as = array(
                                 echo "<td>$row[$column_name]</td>";
                             }
                         }
+                        echo "<td><a class='btn btn-info text-white' data-toggle='tooltip' data-html='true' title='View Detail' data-delete=''><i class='fa fa-info'></i></a></td>";
                         echo "<td><a class='btn btn-primary text-white' data-toggle='tooltip' href='' data-html='true' title='Edit'><i class='fa fa-edit'></i></a></td>";
-                        echo "<td><a class='btn btn-danger text-white'  data-toggle='tooltip' data-html='true' title='Delete'  data-delete=''><i class='fa fa-times'></i></a></td>";
-                        echo "</tr>";
-                        echo "<td><a href=''>view-all</a></td>";
-                        echo "</tr>";
+                        echo "<td><a class='btn btn-danger text-white' data-toggle='tooltip' data-html='true' title='Delete' data-delete=''><i class='fa fa-times'></i></a></td>";
                     }
                     ?>
                     </tbody>
