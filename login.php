@@ -33,7 +33,7 @@ include_once ("includes/header.php");
                     <div class="form-group">
                       <div class="custom-control custom-checkbox small">
                         <input type="checkbox" class="custom-control-input" id="customCheck">
-                        <label class="custom-control-label" for="customCheck">Remember Me</label>
+                        <label class="custom-control-label" for="customCheck" data-toggle="tooltip" data-placement="right" title="" >Remember Me <i class="fa fa-question-circle"></i></label>
                       </div>
                     </div>
                     <a href="index.php" class="btn btn-primary btn-user btn-block">

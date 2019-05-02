@@ -1,9 +1,12 @@
 <?php
 $model_name = "Category";
+require_once "db/models/{$model_name}.class.php";
+$rs = Category::viewAll();
 $column_names_as = array(
-        "category_id" => "Category Id",
+        "serial_no" => "Serial No",
         "category_name" => "Category Name",
-        "gst_id" => "GST Id",
+        "hsn_code" => "HSN Code",
+        "gst_rate" => "GST Rate"
 );
 ?>
 <div class="row">
@@ -24,12 +27,18 @@ $column_names_as = array(
                 <tbody>
                 <?php
                 $column_names = array_keys($column_names_as);
-                require_once "db/models/{$model_name}.class.php";
-                $rs=$model_name::select();
+//                $rs=$model_name::select();
                 while($row = $rs->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>";
                     foreach ($column_names as $column_name) {
-                        echo "<td>$row[$column_name]</td>";
+                        if(empty($row[$column_name]))
+                        {
+                            echo "<td>NULL</td>";
+                        }
+                        else
+                        {
+                            echo "<td>$row[$column_name]</td>";
+                        }
                     }
                     echo "<td><a class='btn btn-primary text-white' data-toggle='tooltip' href='categories.php?src=edit-category&id={$row["category_id"]}' data-html='true' title='Edit'><i class='fa fa-edit'></i></a></td>";
                     echo "<td><a class='btn btn-danger text-white'  data-toggle='tooltip' data-html='true' title='Delete'  data-delete='categories.php?form=delete-category&id={$row["category_id"]}'><i class='fa fa-times'></i></a></td>";

@@ -22,7 +22,10 @@ class Supplier extends Table
     {
         parent::__construct($result);
     }
-
+    public static function viewAll()
+    {
+        return CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, suppliers.* from suppliers INNER JOIN (SELECT @sr_no:= 0)AS a WHERE suppliers.deleted = 0");
+    }
     public function insert()
     {
         return CRUD::insert(self::$table_name, $this->columns_values);

@@ -39,7 +39,7 @@ if(isset($_POST[ADD_PRODUCT])){
             <h3>Add New Product</h3>
             <hr>
             <div class="form-group">
-                <label for="category_id">Category Name</label>
+                <label for="category_id" data-toggle="tooltip" data-placement="right" title="" >Category Name <i class="fa fa-question-circle"></i></label>
                 <select name="category_id" id="category_id" class="form-control" required>
                     <option value="">Select Category Name</option>
                     <?php
@@ -52,11 +52,11 @@ if(isset($_POST[ADD_PRODUCT])){
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="product_name">Product Name</label>
+                    <label for="product_name" data-toggle="tooltip" data-placement="right" title="" >Product Name <i class="fa fa-question-circle"></i></label>
                     <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Enter name of product" required maxlength="150" pattern="^[a-zA-z][a-zA-Z0-9 \(\)]*$" title="Product name is not valid">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="product_quantity">Opening Stock</label>
+                    <label for="product_quantity" data-toggle="tooltip" data-placement="right" title="" >Opening Stock <i class="fa fa-question-circle"></i></label>
                     <div class="input-group">
                         <input type="number" class="form-control" name="product_quantity" id="product_quantity" placeholder="Enter opening stock of product" aria-describedby="per-gm" required min="0">
                         <div class="input-group-append">
@@ -67,11 +67,11 @@ if(isset($_POST[ADD_PRODUCT])){
             </div>
 
             <div class="form-group">
-                <label for="additional_specifications">Additional Specification (Max. 250 chars)</label>
+                <label for="additional_specifications" data-toggle="tooltip" data-placement="right" title="" >Additional Specification (Max. 250 chars) <i class="fa fa-question-circle"></i></label>
                 <textarea class="form-control" id="additional_specifications" name="additional_specifications" placeholder="Enter additional specification" maxlength="250"></textarea>
             </div>
 
-            <button type="submit" name="add_product" id="add_product" class="btn btn-primary">Add Product</button>
+            <button type="submit" name="<?php echo ADD_PRODUCT; ?>" id="<?php echo ADD_PRODUCT; ?>" class="btn btn-primary">Add Product</button>
         </form>
     </div>
 </div>

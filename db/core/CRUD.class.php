@@ -27,7 +27,6 @@ class CRUD
             self::$isInitialized = true;
             self::$pdo = new PDO(self::$dsn, USERNAME, PASSWORD);
             self::$pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_OBJ);
-            self::setDefaultTimezone('Asia/Kolkata');
         }
         catch (PDOException $ex)
         {
@@ -152,8 +151,10 @@ class CRUD
             $keys = array_keys($associativeArray);
             for($i = 0; $i<count($associativeArray); $i++)
                 $pdoStmt->bindValue($i+1, $associativeArray[$keys[$i]]);
-            if($pdoStmt->execute())
+            if($pdoStmt->execute()){
                 return true;
+            }
+            print_r($pdoStmt->errorInfo());
         }
         return false;
     }
@@ -208,4 +209,19 @@ class CRUD
     public static function lastInsertId(){
         return self::$pdo->lastInsertId();
     }
+    public static function setAutoCommitOn(bool $on)
+    {
+        if($on)
+            self::query("SET AUTOCOMMIT=ON");
+        self::query("SET AUTOCOMMIT=OFF");
+    }
+    public static function commit()
+    {
+        self::query("COMMIT");
+    }
+    public static function rollback()
+    {
+        self::query("ROLLBACK");
+    }
 }
+CRUD::setDefaultTimezone('Asia/Kolkata');

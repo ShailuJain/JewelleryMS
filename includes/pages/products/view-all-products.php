@@ -1,12 +1,15 @@
 <?php
 $model_name = "Product";
+require_once "db/models/{$model_name}.class.php";
+$rs = Product::viewAll();
 $column_names_as = array(
-    "product_id" => "Product Id",
-    "category_id" => "Category Id",
-    "product_name" => "Category Name",
-    "product_quantity" => "Category Quantity",
+    "serial_no" => "Serial No",
+    "category_name" => "Category Name",
+    "product_name" => "Product Name",
+    "product_quantity" => "Product Quantity",
     "additional_specifications" => "Additional Specifications",
 );
+
 require_once 'includes/pages/products/delete-product.php';
 ?>
 <div class="row">
@@ -28,7 +31,7 @@ require_once 'includes/pages/products/delete-product.php';
                 <?php
                 $column_names = array_keys($column_names_as);
                 require_once "db/models/{$model_name}.class.php";
-                $rs=$model_name::select();
+            //    $rs=$model_name::select();
                 while($row = $rs->fetch(PDO::FETCH_ASSOC)) {
                     echo "<tr>";
                     foreach ($column_names as $column_name) {
@@ -46,4 +49,5 @@ require_once 'includes/pages/products/delete-product.php';
 </div>
 <?php
 include_once 'includes/modal.php';
+createModal(DELETE_TITLE, DELETE_MSG, "Delete");
 ?>

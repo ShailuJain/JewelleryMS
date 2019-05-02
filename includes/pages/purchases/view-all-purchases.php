@@ -1,15 +1,14 @@
 <?php
-$model_name = "Customer";
+$model_name = "Purchase";
 require_once "db/models/{$model_name}.class.php";
-$rs = Customer::viewAll();
+$rs = Purchase::viewAll();
+//This array will store the table headers for the columns we are selecting from databse
 $column_names_as = array(
-    "serial_no" => "Serial No",
-    "customer_name" => "Customer Name",
-    "customer_email" => "Customer Email",
-    "customer_contact" => "Customer Contact",
-    "customer_address" => "Customer Address",
+    "purchase_description" => "Description",
+    "date_of_purchase" => "Date of purchase",
+    "total_purchase_amount" => "Total amount",
+    "supplier_name" => "Supplier"
 );
-require_once 'includes/pages/customers/delete-customer.php';
 ?>
     <div class="row">
         <div class="offset-1 col-md-10">
@@ -24,19 +23,28 @@ require_once 'includes/pages/customers/delete-customer.php';
                         ?>
                         <th>Edit</th>
                         <th>Delete</th>
+                        <th>View-details</th>
                     </tr>
                     </thead>
                     <tbody>
                     <?php
                     $column_names = array_keys($column_names_as);
-//                    $rs=$model_name::select();
                     while($row = $rs->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
                         foreach ($column_names as $column_name) {
-                            echo "<td>$row[$column_name]</td>";
+                            if(empty($row[$column_name]))
+                            {
+                                echo "<td>NULL</td>";
+                            }
+                            else
+                            {
+                                echo "<td>$row[$column_name]</td>";
+                            }
                         }
-                        echo "<td><a class='btn btn-primary text-white' href='customers.php?src=edit-customer&id={$row["customer_id"]}' data-toggle='tooltip' data-html='true' title='Edit this product'><i class='fa fa-edit'></i></a></td>";
-                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this product' data-delete='customers.php?form=delete-customer&id={$row["customer_id"]}'><i class='fa fa-times'></i></a></td>";
+                        echo "<td><a class='btn btn-primary text-white' data-toggle='tooltip' href='' data-html='true' title='Edit'><i class='fa fa-edit'></i></a></td>";
+                        echo "<td><a class='btn btn-danger text-white'  data-toggle='tooltip' data-html='true' title='Delete'  data-delete=''><i class='fa fa-times'></i></a></td>";
+                        echo "</tr>";
+                        echo "<td><a href=''>view-all</a></td>";
                         echo "</tr>";
                     }
                     ?>
@@ -47,5 +55,5 @@ require_once 'includes/pages/customers/delete-customer.php';
     </div>
 <?php
 include_once 'includes/modal.php';
-createModal(DELETE_TITLE, DELETE_MSG, "Delete");
+
 ?>

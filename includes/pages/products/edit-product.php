@@ -44,7 +44,7 @@ if(isset($id)){
             <hr>
             <input type="hidden" name="product_id" value="<?php echo $prod_to_edit->product_id; ?>">
             <div class="form-group">
-                <label for="category_id">Category Name</label>
+                <label for="category_id" data-toggle="tooltip" data-placement="right" title="" >Category Name <i class="fa fa-question-circle"></i></label>
                 <select name="category_id" id="category_id" class="form-control" required>
                     <option value="">Select Category Name</option>
                     <?php
@@ -61,11 +61,11 @@ if(isset($id)){
             </div>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="product_name">Product Name</label>
+                    <label for="product_name" data-toggle="tooltip" data-placement="right" title="" >Product Name <i class="fa fa-question-circle"></i></label>
                     <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Enter name of product" required maxlength="150" pattern="^[a-zA-z][a-zA-Z0-9 \(\)]*$" title="Product name is not valid" value="<?php echo $prod_to_edit->product_name; ?>">
                 </div>
                 <div class="form-group col-md-6">
-                    <label for="product_quantity">Adjust Stock</label>
+                    <label for="product_quantity" data-toggle="tooltip" data-placement="right" title="" >Adjust Stock <i class="fa fa-question-circle"></i></label>
                     <div class="input-group">
                         <input type="number" class="form-control" name="product_quantity" id="product_quantity" placeholder="Enter opening stock of product" aria-describedby="per-gm" required min="0" value="<?php echo $prod_to_edit->product_quantity; ?>">
                         <div class="input-group-append">
@@ -76,7 +76,7 @@ if(isset($id)){
             </div>
 
             <div class="form-group">
-                <label for="additional_specifications">Additional Specification (Max. 250 chars)</label>
+                <label for="additional_specifications" data-toggle="tooltip" data-placement="right" title="" >Additional Specification (Max. 250 chars) <i class="fa fa-question-circle"></i></label>
                 <textarea class="form-control" id="additional_specifications" name="additional_specifications" placeholder="Enter additional specification" maxlength="250"><?php echo $prod_to_edit->additional_specifications; ?></textarea>
             </div>
 

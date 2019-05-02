@@ -6,7 +6,6 @@ if(session_status() !== PHP_SESSION_ACTIVE)
 <!DOCTYPE html>
 <html lang="en">
 <?php
-$title = "Dashboard";
 include_once ('constants.php');
 include_once ("includes/header.php");
 ?>

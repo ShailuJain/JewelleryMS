@@ -5,7 +5,7 @@ require_once 'constants.php';
 require_once ('helpers/redirect-helper.php');
 if(isset($_POST[EDIT_CATEGORY])){
     try{
-        if(!empty($_POST['category_name']) && !empty($_POST['hsn_code'])){
+        if(!empty($_POST['category_name'])){
 
             $category = new Category();
             $category->category_name = $_POST['category_name'];
@@ -40,23 +40,9 @@ if(isset($id)) {
                 <hr>
 
                 <div class="form-group">
-                    <label for="category_name">Category Name</label>
+                    <label for="category_name" data-toggle="tooltip" data-placement="right" title="" >Category Name <i class="fa fa-question-circle"></i></label>
                     <input type="text" class="form-control" name="category_name" id="category_name"
                            placeholder="Enter category name" value="<?php echo $cat_to_edit->category_name; ?>">
-                </div>
-
-                <div class="form-group">
-                    <label for="hsn_code">HSN Code</label>
-                    <select name="hsn_code" id="hsn_code" class="form-control" required>
-                        <option value="">Select HSN Code</option>
-                        <?php
-                        $result = GST::viewAll();
-                        foreach ($result as $hsn) {
-                            
-                            echo "<option value='$hsn->hsn_code'>$hsn->hsn_code</option>";
-                        }
-                        ?>
-                    </select>
                 </div>
                 <button type="submit" name="add_category" id="add_category" class="btn btn-primary">Add Category
                 </button>
