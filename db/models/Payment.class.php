@@ -7,9 +7,9 @@
  */
 require_once 'Table.class.php';
 
-class  PurchaseSupplier extends Table
+class Payment extends Table
 {
-    public static $table_name = "purchase_supplier";
+    public static $table_name = "payment";
     public static function select($rows="*", $deleted=0, $condition = 1, ...$params)
     {
         return CRUD::select(self::$table_name, $rows, $deleted, $condition, ...$params);
@@ -30,11 +30,11 @@ class  PurchaseSupplier extends Table
 
     public function update()
     {
-        return CRUD::update(self::$table_name, $this->columns_values, "purhase_id={$this->purhase_id}");
+        return CRUD::update(self::$table_name, $this->columns_values, "invoice_id={$this->invoice_id}");
     }
 
     public function delete()
     {
-        return CRUD::delete(self::$table_name, "purhase_id={$this->purhase_id}");
+        return CRUD::delete(self::$table_name, "payment_id={$this->invoice_id}");
     }
 }

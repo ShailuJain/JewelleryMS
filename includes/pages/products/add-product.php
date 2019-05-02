@@ -40,7 +40,7 @@ if(isset($_POST[ADD_PRODUCT])){
             <hr>
             <div class="form-group">
                 <label for="category_id" data-toggle="tooltip" data-placement="right" title="" >Category Name <i class="fa fa-question-circle"></i></label>
-                <select name="category_id" id="category_id" class="form-control" required>
+                <select name="category_id" id="category_id" class="form-control selectize" required>
                     <option value="">Select Category Name</option>
                     <?php
                     $result = Category::select();

@@ -25,11 +25,13 @@ class Purchase extends Table
 
     public function insert()
     {
+        parent::addCreated();
         return CRUD::insert(self::$table_name, $this->columns_values);
     }
 
     public function update()
     {
+        parent::addUpdated();
         return CRUD::update(self::$table_name, $this->columns_values, "purchase_id={$this->purchase_id}");
     }
 

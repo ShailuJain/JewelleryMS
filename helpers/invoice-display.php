@@ -3,6 +3,8 @@ require_once('helpers/InvoiceTemplate.class.php');
 require_once ('db/models/Customer.class.php');
 require_once ('db/models/Invoice.class.php');
 require_once ('db/models/Product.class.php');
+require_once ('db/models/Shop.class.php');
+
 $customer = new Customer();
 $customer->customer_name = "Some Customer";
 $customer->customer_address = "Some Customer Address, much more big address, more than this can be present here.";
@@ -10,6 +12,16 @@ $customer->customer_address = "Some Customer Address, much more big address, mor
 $invoice = new Invoice();
 $invoice->invoice_no = "INVSJ-1";
 $invoice->invoice_date = date("Y-m-d");
+
+$shop = new Shop();
+$shop->shop_name = "Sakshi Jewellers";
+$shop->shop_address = "Thane";
+$shop->shop_gst_no = "2A7HFPJ1774N1ZX";
+$shop_Bank_name = "ICIC (GHATKOPAR BRANCH)";
+$shop_email = "jaindinesh@gmail.com";
+$shop_Account_no = "002605009771";
+$shop_Bank_ifsc = "ICIC0000026";
+$shop_pan_no = "AHFPJ1774N";
 
 $product1 = new Product();
 $product1->product_name = "Ring";
@@ -29,6 +41,6 @@ $product2->gst_rate = "3";
 
 $products = array($product1, $product2);
 
-$inv_temp = new InvoiceTemplate("Invoice", "Sakshi Jewellers", "Address 2092039", $customer, $invoice, $products);
+$inv_temp = new InvoiceTemplate("Invoice", $shop , $customer, $invoice, $products);
 //echo $inv_temp->createAndReturn();
 $inv_temp->createAndRedirect();

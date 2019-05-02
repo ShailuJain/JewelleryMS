@@ -82,7 +82,10 @@ class CRUD
         if(!self::$isInitialized)
             self::init();
         if(strpos($query, "?") === false){
-            return self::$pdo->query($query);
+            $res = self::$pdo->query($query);
+            error_log(implode(",",self::$pdo->errorInfo()) . "\n", 3, "php-error.log");
+            error_log(implode(",",$res->errorInfo()) . "\n", 3, "php-error.log");
+            return $res;
         }
         return self::executePreparedStatement($query, ...$params);
     }
@@ -102,9 +105,11 @@ class CRUD
             self::init();
         if(self::tableExists($tableName)){
             $query = "SELECT {$rows} FROM {$tableName} WHERE deleted={$deleted} AND {$condition}";
-            if($condition === 1)
-                return self::query($query);
-            return self::executePreparedStatement($query, ...$params);
+            error_log($query, 3, "php-error.log");
+            if(self::isPreparedStatement($query)){
+                return self::executePreparedStatement($query, ...$params);
+            }
+            return self::query($query);
         }
     }
 
@@ -187,23 +192,21 @@ class CRUD
     }
     private static function executePreparedStatement($query, ...$params)
     {
-        if(self::isPreparedStatement($query)){
-            $query_param_count = substr_count($query, "?");
-            $params_count = count($params);
-            if($params_count < $query_param_count){
-                throw new InvalidArgumentException("less arguments for prepared statement");
-            }
-            $stmt = self::$pdo->prepare($query);
-            $i = 1;
-            foreach ($params as $param) {
-                $stmt->bindValue($i++, $param);
-            }
-            $result_bool =  $stmt->execute();
-            if($result_bool){
-                return $stmt;
-            }
+        $query_param_count = substr_count($query, "?");
+        $params_count = count($params);
+        if($params_count < $query_param_count){
+            throw new InvalidArgumentException("less arguments for prepared statement");
         }
-        return false;
+        $stmt = self::$pdo->prepare($query);
+        $i = 1;
+        foreach ($params as $param) {
+            $stmt->bindValue($i++, $param);
+        }
+        $result_bool =  $stmt->execute();
+        if($result_bool){
+            return $stmt;
+        }
+        error_log(implode(",",$stmt->errorInfo()) . "\n", 3, "php-error.log");
     }
 
     public static function lastInsertId(){

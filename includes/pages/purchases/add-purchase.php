@@ -1,50 +1,116 @@
 <?php
 
-    require_once ('db/models/Supplier.class.php');
-    require_once ('db/models/Product.class.php');
-    require_once ('db/models/Purchase.class.php');
-    require_once ('db/models/Category.class.php');
+require_once ('db/models/Purchase.class.php');
+require_once ('db/models/Supplier.class.php');
+require_once ('db/models/PurchaseProduct.class.php');
+require_once ('db/models/Product.class.php');
+require_once ('db/models/Category.class.php');
     require_once 'constants.php';
     require_once ('helpers/redirect-helper.php');
     if(isset($_POST[ADD_PURCHASE])){
         try
         {
-            $arr = $_POST;
-            unset($arr[ADD_PURCHASE]);
-            $arrKeys = array_keys($arr);
+            //Starting transactions
+            CRUD::setAutoCommitOn(false);
+            $totalAmount = 0.0;
+            $flag = true;
 
-            //creating a new purchase object and adding the fields.
+            //data to be inserted in purchase table
             $purchase = new Purchase();
+            $purchase->supplier_id = $_POST['supplier_id'];
+            $purchase->purchase_title = $_POST['purchase_title'];
+            $purchase->date_of_purchase = $_POST['date_of_purchase'];
 
-            foreach ($arrayKeys as $item) {
-                $purchase->$item = $array[$item];
-            }
-            if($purchase->insert()){
-                //showing acknowledgement when a purchase is successfully added
-                setStatusAndMsg("success","Purchase added successfully");
-            }
-            else{
-                setStatusAndMsg("error","Purchase already exists");
+            //inserting in purchase table
+            if($purchase->insert())
+            {
+                //data to be inserted in purchase_product table
+                $i = 0;
+                $purchase_id = CRUD::lastInsertId();
+                $purchase_product = "";
+                foreach ($_POST['product_id'] as $product_id) {
+                    $category_id = $_POST['category_id'][$i];
+                    $purchase_product = new PurchaseProduct();
+                    $purchase_product->purchase_id = $purchase_id;
+                    $purchase_product->product_id = $product_id;
+                    $cat = Category::find('category_id = ?', $category_id);
+                    $purchase_product->rate_of_purchase = doubleval($_POST[str_replace(" ", "_", $cat->category_name)]);
+                    $purchase_product->quantity_purchased = doubleval($_POST['quantity_purchased'][$i]);
+                    $purchase_product->unit = "gm";
+
+
+//                    $gst_rate = CRUD::query("SELECT gst_rate from gst WHERE gst_id = (SELECT gst_id from categories WHERE category_id = 3 AND deleted = 0) AND deleted = 0");
+
+//                    $gst_rate = CRUD::query("SELECT gst_rate FROM gst INNER JOIN (SELECT gst_id FROM categories WHERE category_id = 1 AND deleted = 0) AS categories ON gst.gst_id = categories.gst_id WHERE gst.deleted = 0");
+
+                    $gst_rate = CRUD::query("SELECT gst_rate FROM gst INNER JOIN categories ON gst.gst_id = categories.gst_id WHERE categories.category_id = ? AND gst.deleted = 0 AND categories.deleted = 0", $category_id)->fetch()->gst_rate;
+
+                    $amount = ($purchase_product->quantity_purchased * $purchase_product->rate_of_purchase);
+                    $gst_amount = $amount * $gst_rate / 100;
+                    $totalAmount += $amount + $gst_amount;
+
+                    //data to be updated in the product table
+                    $product = Product::find("product_id = ?", $product_id);
+                    $product->product_quantity += $purchase_product->quantity_purchased;
+
+                    if($purchase_product->insert() && $product->update())
+                    {
+                        $flag = true;
+                    }else{
+                        $flag = false;
+                        break;
+                    }
+                    $i++;
+                }
+                if($flag){
+                    $purchase = Purchase::find("purchase_id = ?", $purchase_id);
+                    $purchase->total_purchase_amount = $totalAmount;
+                    if($purchase->update()){
+                        CRUD::commit();
+                        setStatusAndMsg("success","Purchase created successfully");
+                    }else{
+                        throw new Exception('purchase amount not updated');
+                    }
+                }else{
+                    CRUD::rollback();
+                    setStatusAndMsg("error","Purchase cannot be created");
+                }
+            }else{
+                CRUD::rollback();
+                setStatusAndMsg("error","Purchase cannot be created");
             }
         }catch (Exception $ex){
-            setStatusAndMsg("error","Something went wrong");
+            CRUD::rollback();
+            setStatusAndMsg("error","Something went wrong".$ex);
         }
+        //ending transactions
+        CRUD::setAutoCommitOn(true);
     }
-
 ?>
-
-
 <div class="row">
-
     <div class="offset-1 col-md-10">
         <form action="" method="post" role="form" enctype="multipart/form-data">
 
+            <h3>Purchase details</h3>
+            <hr>
+            <div class="form-row">
+
+                <div class="form-group col-md-6">
+                    <label for="purchase_title" data-toggle="tooltip" data-placement="right" title="" >Purchase Title <i class="fa fa-question-circle"></i></label>
+                    <input type="text" class="form-control" name="purchase_title" id="purchase_title" min="0" placeholder="Enter Purchase title">
+                </div>
+                <div class="form-group col-md-6">
+                    <label for="date_of_purchase" data-toggle="tooltip" data-placement="right" title="" >Date Of Purchase <i class="fa fa-question-circle"></i></label>
+                    <input type="date" class="form-control" name="date_of_purchase" id="date_of_purchase" required value="<?php echo date('Y-m-d'); ?>">
+                </div>
+
+            </div>
             <h3>Supplier details</h3>
             <hr>
             <div class="form-group">
-                <label for="supplier" data-toggle="tooltip" data-placement="right" title="" >Select Product <i class="fa fa-question-circle"></i></label>
-                <select name="supplier" id="supplier" class="form-control supplier" required>
-                    <option value="">Select Supplier Name</option>
+                <label for="supplier_id" data-toggle="tooltip" data-placement="right" title="" >Select Supplier <i class="fa fa-question-circle"></i></label>
+                <select name="supplier_id" id="supplier_id" class="form-control supplier selectize" required>
+                    <option value="">Select Supplier</option>
                     <?php
                     $result = Supplier::select();
                     foreach ($result as $supplier){
@@ -53,59 +119,9 @@
                     ?>
                 </select>
             </div>
-
-
-            <h3>Product details</h3>
-            <hr>
-            <div class="form-row">
-                <div class="form-group col-md-4">
-                    <label for="category" data-toggle="tooltip" data-placement="right" title="" >Select Category <i class="fa fa-question-circle"></i></label>
-                    <select name="category" id="category" class="form-control" required>
-                        <option value="">Select Category</option>
-                        <?php
-                        $result = Category::select();
-                        foreach ($result as $category){
-                            echo "<option value='$category->category_id'>$category->category_name</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group col-md-6">
-                    <label for="product" data-toggle="tooltip" data-placement="right" title="" >Select Product <i class="fa fa-question-circle"></i></label>
-                    <select name="product" id="product" class="form-control" required>
-                        <option value="">Select Product</option>
-                        <?php
-                        $result = Product::select();
-                        foreach ($result as $product){
-                            echo "<option value='$product->product_id'>$product->product_name</option>";
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="form-group col-md-2">
-                    <label for="product_quantity" data-toggle="tooltip" data-placement="right" title="" >Enter quantity <i class="fa fa-question-circle"></i></label>
-                    <input type="number" class="form-control">
-                </div>
-            </div>
-
-            <h3>Purchase details</h3>
-            <hr>
-            <div class="form-group">
-                <label for="purchase_date" data-toggle="tooltip" data-placement="right" title="" >Date Of Purchase <i class="fa fa-question-circle"></i></label>
-                <input type="date" class="form-control" name="purchase_date" id="purchase_date">
-            </div>
-
-            <div class="form-group">
-                <label for="purchase_date" data-toggle="tooltip" data-placement="right" title="" >Quantity <i class="fa fa-question-circle"></i></label>
-                <input type="number" class="form-control" name="product_quantity" id="product_quantity" min="0" placeholder="Enter Quantity">
-            </div>
-
-            <div class="form-group">
-                <label for="pur_hsn" data-toggle="tooltip" data-placement="right" title="" >Hsn Code <i class="fa fa-question-circle"></i></label>
-                <input type="text" class="form-control" name="pur_hsn" id="pur_hsn" placeholder="Enter Hsn-code">
-            </div>
-
-
+            <?php
+                require_once ('includes/pages/commons/add-product-details.php');
+            ?>
             <button type="submit" name="add_purchase" id="add_purchase" class="btn btn-primary">Add Purchase</button>
         </form>
     </div>
