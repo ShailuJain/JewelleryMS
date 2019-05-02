@@ -39,4 +39,9 @@ class Purchase extends Table
     {
         return CRUD::delete(self::$table_name, "purchase_id={$this->purchase_id}");
     }
+
+    public static function viewAll(){
+        return $rs = CRUD::query("SELECT purchases.date_of_purchase, purchases.total_purchase_amount, purchases.purchase_description, suppliers.supplier_name FROM purchases INNER JOIN suppliers ON purchases.supplier_id=suppliers.supplier_id WHERE purchases.deleted = 0");
+
+    }
 }
