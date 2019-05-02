@@ -25,11 +25,13 @@ class Invoice extends Table
 
     public function insert()
     {
+        parent::addCreated();
         return CRUD::insert(self::$table_name, $this->columns_values);
     }
 
     public function update()
     {
+        parent::addUpdated();
         return CRUD::update(self::$table_name, $this->columns_values, "invoice_id={$this->invoice_id}");
     }
 

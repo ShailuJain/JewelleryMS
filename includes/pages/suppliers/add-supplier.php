@@ -7,7 +7,7 @@ if(isset($_POST[ADD_SUPPLIER]))
     try
     {
         $array = $_POST;//adding the form data to an array
-        unset($array[ADD_SUPPLIER]);//unset the submit button that was pressed
+        unset($array[ADD_SUPPLIER]);//unset the submit button that was pressed 
 
         $arrayKeys = array_keys($array);//getting all the filed names that we want to add in db
 

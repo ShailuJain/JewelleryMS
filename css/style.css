@@ -12008,3 +12008,10 @@ footer.sticky-footer .copyright {
 body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
+.selectize-input > input, .selectize-input > *{
+  padding: 2px !important;
+}
+#add-product, #delete-product,.add-product, .delete-product{
+  margin: auto;
+  margin-top: 0;
+}
