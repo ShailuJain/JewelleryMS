@@ -5,14 +5,14 @@
  * Date: 21-03-201 9
  * Time: 04:18 PM
  */
-require_once 'Table.class.php';
+require_once 'db/models/Table.class.php';
 
 class PurchaseProduct extends Table
 {
     public static $table_name = "purchase_product";
-    public static function select($rows="*", $deleted=0, $condition = 1, ...$params)
+    public static function select($rows="*", $condition = 1, ...$params)
     {
-        return CRUD::select(self::$table_name, $rows, $deleted, $condition, ...$params);
+        return CRUD::findAll(self::$table_name, $rows, $condition, ...$params);
     }
     public static function find($condition, ...$params)
     {

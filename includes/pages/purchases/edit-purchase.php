@@ -33,7 +33,7 @@ if(isset($_POST[ADD_PURCHASE])){
                 $purchase_product->purchase_id = $purchase_id;
                 $purchase_product->product_id = $product_id;
                 $cat = Category::find('category_id = ?', $category_id);
-                $purchase_product->product_rate = doubleval($_POST[str_replace(" ", "_", $cat->category_name)]);
+                $purchase_product->product_rate = doubleval($_POST['product_rate'][$i]);
                 $purchase_product->product_quantity = doubleval($_POST['product_quantity'][$i]);
                 $purchase_product->unit = "gm";
 
@@ -88,6 +88,7 @@ if(isset($_POST[ADD_PURCHASE])){
 
 if(isset($id)) {
     $purchase_to_edit = Purchase::find("purchase_id = ?", $id);
+    $purchase_products_to_edit = PurchaseProduct::select("*","purchase_id = ?", $id);
     ?>
     <div class="row">
         <div class="offset-1 col-md-10">
@@ -132,6 +133,13 @@ if(isset($id)) {
                     </select>
                 </div>
                 <?php
+                $script_var = array();
+                $i = 0;
+                foreach ($purchase_products_to_edit->fetchAll() as $purchase_product){
+                    $prod_id = $purchase_product->product_id;
+                    $script_var[$i++] = array(Product::find("product_id = ?", $prod_id)->category_id, $prod_id, $purchase_product->product_quantity, $purchase_product->product_rate);
+                }
+                $script_var = json_encode($script_var);
                 require_once('includes/pages/commons/add-product-details.php');
                 ?>
                 <button type="submit" name="add_purchase" id="add_purchase" class="btn btn-primary">Add Purchase

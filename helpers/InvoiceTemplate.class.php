@@ -14,8 +14,7 @@ class InvoiceTemplate
     /**
      * InvoiceTemplate constructor.
      * @param string $title
-     * @param string $shop_name
-     * @param string $shop_address
+     * @param mixed $shop
      * @param mixed $customer
      * @param mixed $invoice
      * @param array $products
@@ -91,7 +90,7 @@ LIST;
                             <div class='label'>$i_no</div>
                         </div>
                         <div class='col-md-4 b-left b-bottom b-right'>
-                            
+
                         </div>
                         <div class='col-md-4 b-bottom p-0'>
                             <div class='label b-bottom'>Invoice Date</div>
@@ -103,7 +102,7 @@ LIST;
                     <div class='customer-name'>$c_name</div>
                     <div class='customer-address'>$c_add</div>
                 </div>
-                    
+
             </div>
             <div class="invoice-body bord">
                 <div class="invoice-body-headings">
@@ -131,19 +130,9 @@ LIST;
                 </div>
                     <div class="invoice-body-footer">
              
-                    <div class="row m-0">
-              
-            
-                            <div class="col-md-7">
-                            <div class="label">Bank Details</div>
-                            <div class="label">Account/No</div>
-                            <div class="label">IFSC Code</div>
-</div>
 
-</div>
-                </div> 
+                </div>
            </div>
-
         </div>
     </div>
     <script src='vendor/jquery/jquery.min.js'></script>
