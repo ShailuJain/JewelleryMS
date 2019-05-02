@@ -1,5 +1,4 @@
 <?php
-
 require_once ('db/models/Purchase.class.php');
 require_once ('db/models/Supplier.class.php');
 require_once ('db/models/PurchaseProduct.class.php');
@@ -34,7 +33,7 @@ require_once ('db/models/Category.class.php');
                     $purchase_product->purchase_id = $purchase_id;
                     $purchase_product->product_id = $product_id;
                     $cat = Category::find('category_id = ?', $category_id);
-                    $purchase_product->rate_of_purchase = doubleval($_POST[str_replace(" ", "_", $cat->category_name)]);
+                    $purchase_product->product_rate = doubleval($_POST[str_replace(" ", "_", $cat->category_name)]);
                     $purchase_product->quantity_purchased = doubleval($_POST['quantity_purchased'][$i]);
                     $purchase_product->unit = "gm";
 
@@ -90,11 +89,9 @@ require_once ('db/models/Category.class.php');
 <div class="row">
     <div class="offset-1 col-md-10">
         <form action="" method="post" role="form" enctype="multipart/form-data">
-
-            <h3>Purchase details</h3>
+            <h3>New Purchase - Purchase details</h3>
             <hr>
             <div class="form-row">
-
                 <div class="form-group col-md-6">
                     <label for="purchase_title" data-toggle="tooltip" data-placement="right" title="" >Purchase Title <i class="fa fa-question-circle"></i></label>
                     <input type="text" class="form-control" name="purchase_title" id="purchase_title" min="0" placeholder="Enter Purchase title">
@@ -126,8 +123,3 @@ require_once ('db/models/Category.class.php');
         </form>
     </div>
 </div>
-<style>
-    .select2-results__options{
-        font-size:14px !important;
-    }
-</style>

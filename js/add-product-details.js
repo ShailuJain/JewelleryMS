@@ -1,6 +1,8 @@
-var count = 1;
+var count = 0;
+var index = 0;
 var set = new Set();
 var map = {};
+var deleteProduct;
 document.onreadystatechange = function () {
 
     //alert( yourSelect.options[ yourSelect.selectedIndex ].value );
@@ -9,40 +11,26 @@ document.onreadystatechange = function () {
         /**
          * This code deals with the dynamic addition and deletion of the products in the product form
          */
-        var index = 1;
-        var deleteProduct;
         let addProduct = $('.add-product');
         addProduct.click(function (event) {
-            count++;
-            index++;
-            generateNewProductEntry(index);
-            initSelectizeOn('#category-'+index, "#product-"+index);
-            adjustDeleteButtonVisibility(index);
+            newEntry();
         });
-        generateNewProductEntry(index);
-        adjustDeleteButtonVisibility(index);
+        newEntry();
 
-        function adjustDeleteButtonVisibility(index) {
-            deleteProduct = $('.delete-product');
-            $('#delete-product-' + index).click(function () {
-                if(count > 1)
-                    count--;
-                delete map['#category-'+index];
-                setRateOfPurchaseHtml();
-                removeProductEntry("#list-product-"+$(this).data('value'));
-                adjustDeleteButtonVisibility();
-            });
-            if(count === 1){
-                deleteProduct.hide();
-            }else{
-                deleteProduct.show();
-            }
-        }
-        initSelectizeOn('#category-1', "#product-1");
+
+    }
+}
+function adjustDeleteButtonVisibility() {
+    if(count === 1){
+        deleteProduct.hide();
+    }else{
+        deleteProduct.show();
     }
 }
 
-function generateNewProductEntry(index) {
+function generateNewProductEntry() {
+    count++;
+    index++;
     $('#list-of-products').append("<div class='form-row' id='list-product-"+index+"'>\n" +
         "        <div class='form-group col-md-3'>\n" +
         "            <select name='category_id[]' id='category-"+index+"' class='form-control' required>\n" +
@@ -55,12 +43,15 @@ function generateNewProductEntry(index) {
         "            </select>\n" +
         "        </div>\n" +
         "        <div class='form-group col-md-2'>\n" +
-        "            <input type='number' class='form-control' name='quantity_purchased[]' id='product_quantity-"+index+"' required min='0.001' step='any'>\n" +
+        "            <input type='number' class='form-control' name='product_quantity[]' id='product_quantity-"+index+"' required min='0.001' step='any'>\n" +
         "        </div>\n" +
         "        <button id='delete-product-" + index + "' class='btn btn-danger delete-product' role='button' type='button' data-value='"+index+"'><i class='fa fa-trash'></i></button>\n" +
         "    </div>");
 }
 function removeProductEntry(id) {
+    if(count > 1){
+        count--;
+    }
     $(id).remove();
 }
 /**
@@ -101,9 +92,9 @@ function setRateOfPurchaseHtml() {
     set.forEach(function (value1, value2, set) {
         var value = JSON.parse(value1);
         str += "<div class='form-group col-md-12'>\n" +
-            "            <label for='rate_of_purchase' data-toggle='tooltip' data-placement='right' title='' >Rate of purchase for " +  value["text"] + "<i class='fa fa-question-circle'></i></label>\n" +
+            "            <label for='product_rate' data-toggle='tooltip' data-placement='right' title='' >Rate of " +  value["text"] + "<i class='fa fa-question-circle'></i></label>\n" +
             "            <div class='input-group'>\n" +
-            "                <input type='number' class='form-control' name='"+  value['text'] + "'id='rate_of_purchase' placeholder='Enter Rate of purchase' aria-describedby='per-gm' required min='0' step='any'>\n" +
+            "                <input type='number' class='form-control' name='"+  value['text'] + "'id='product_rate' placeholder='Enter Rate of purchase' aria-describedby='per-gm' required min='0' step='any'>\n" +
             "                <div class='input-group-append'>\n" +
             "                    <span class='input-group-text' id='per-gm'>per/gm</span>\n" +
             "                </div>\n" +
@@ -160,9 +151,13 @@ function initSelectizeOn(category_selector, product_selector) {
             });
         },
         onItemRemove: function (value, item) {
+            // console.log($(item));
+            // alert(item['ownerDocument']['activeElement']['id']);
             select_product.disable();
             select_product.clear();
             select_product.clearOptions();
+            delete map['#category-'+index];
+            setRateOfPurchaseHtml();
         },
     });
 
@@ -179,4 +174,16 @@ function initSelectizeOn(category_selector, product_selector) {
      * loading categories in category selectize
      */
     loadCategory(select_category,"query-redirect.php?query=category","No Categories Available");
+}
+function newEntry() {
+    generateNewProductEntry();
+    initSelectizeOn('#category-'+index, "#product-"+index);
+    deleteProduct = $('.delete-product');
+    $('#delete-product-' + index).click(function () {
+        delete map['#category-'+$(this).data('value')];
+        setRateOfPurchaseHtml();
+        removeProductEntry("#list-product-"+$(this).data('value'));
+        adjustDeleteButtonVisibility();
+    });
+    adjustDeleteButtonVisibility();
 }
