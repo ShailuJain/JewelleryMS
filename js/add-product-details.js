@@ -55,7 +55,7 @@ function generateNewProductEntry(index) {
         "            </select>\n" +
         "        </div>\n" +
         "        <div class='form-group col-md-2'>\n" +
-        "            <input type='number' class='form-control' name='product_quantity[]' id='product_quantity-"+index+"' required>\n" +
+        "            <input type='number' class='form-control' name='quantity_purchased[]' id='product_quantity-"+index+"' required min='0.001' step='any'>\n" +
         "        </div>\n" +
         "        <button id='delete-product-" + index + "' class='btn btn-danger delete-product' role='button' type='button' data-value='"+index+"'><i class='fa fa-trash'></i></button>\n" +
         "    </div>");
@@ -103,15 +103,16 @@ function setRateOfPurchaseHtml() {
         str += "<div class='form-group col-md-12'>\n" +
             "            <label for='rate_of_purchase' data-toggle='tooltip' data-placement='right' title='' >Rate of purchase for " +  value["text"] + "<i class='fa fa-question-circle'></i></label>\n" +
             "            <div class='input-group'>\n" +
-            "                <input type='number' class='form-control' name='"+  value['text'] + "'id='rate_of_purchase' placeholder='Enter Rate of purchase' aria-describedby='per-gm' required min='0'>\n" +
+            "                <input type='number' class='form-control' name='"+  value['text'] + "'id='rate_of_purchase' placeholder='Enter Rate of purchase' aria-describedby='per-gm' required min='0' step='any'>\n" +
             "                <div class='input-group-append'>\n" +
-            "                    <span class='input-group-text' id='per-gm'>gm's</span>\n" +
+            "                    <span class='input-group-text' id='per-gm'>per/gm</span>\n" +
             "                </div>\n" +
             "            </div>\n" +
             "        </div>";
     });
     $('#rate-of-purchase').html(str);
 }
+
 /**
  * Selectize.js
  * this code will fetch all the products belonging to a particular category selected in the category selectize field.
