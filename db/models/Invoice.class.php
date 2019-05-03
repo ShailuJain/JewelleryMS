@@ -39,4 +39,7 @@ class Invoice extends Table
     {
         return CRUD::delete(self::$table_name, "invoice_id={$this->invoice_id}");
     }
+    public static function viewAll(){
+        return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, invoices.*,customers.customer_name FROM `invoices` JOIN customers ON invoices.customer_id= customers.customer_id INNER JOIN (SELECT @sr_no:=0) AS a WHERE invoices.deleted = 0");
+    }
 }
