@@ -23,6 +23,15 @@ class Invoice extends Table
         parent::__construct($result);
     }
 
+    public static function viewProductDetails($invoice_id)
+    {
+        return CRUD::query("SELECT invoices.invoice_date, invoices.due_date, products.product_name, invoice_product.product_quantity, categories.category_name, gst.gst_rate FROM invoices, invoice_product, products, gst, categories WHERE invoices.invoice_id = ? AND invoices.deleted=0 And invoice_product.product_id=products.product_id AND products.category_id = categories.category_id AND categories.gst_id=gst.gst_id", $invoice_id);
+    }
+    public static function viewPaymentDetails($invoice_id)
+    {
+        return CRUD::query("SELECT * FROM payments JOIN invoices ON invoices.invoice_id=payments.invoice_id WHERE invoices.invoice_id=? AND invoices.deleted=0 AND payments.deleted=0", $invoice_id);
+    }
+
     public function insert()
     {
         parent::addCreated();

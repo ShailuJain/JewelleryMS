@@ -119,7 +119,7 @@ if (isset($_POST[ADD_INVOICE])) {
             <h3>Customer Details</h3>
             <hr>
             <div class="form-group">
-                <label for="customer_id" data-toggle="tooltip" data-placement="right" title="">Select Supplier <i
+                <label for="customer_id" data-toggle="tooltip" data-placement="right" title="">Select Customer <i
                             class="fa fa-question-circle"></i></label>
                 <select name="customer_id" id="customer_id" class="form-control supplier selectize" required>
                     <option value="">Select Customer</option>
