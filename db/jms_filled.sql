@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2019 at 02:47 PM
+-- Generation Time: May 03, 2019 at 09:35 AM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -1172,14 +1172,14 @@ INSERT INTO `invoice_product` (`invoice_id`, `product_id`, `product_rate`, `prod
 -- --------------------------------------------------------
 
 --
--- Table structure for table `payment`
+-- Table structure for table `payments`
 --
 
-CREATE TABLE `payment` (
+CREATE TABLE `payments` (
   `payment_id` int(11) NOT NULL,
   `invoice_id` int(11) NOT NULL,
   `payment_amount` double NOT NULL,
-  `payment_date` datetime NOT NULL,
+  `payment_date` date NOT NULL,
   `payment_mode` varchar(15) NOT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
@@ -1216,13 +1216,13 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `product_quantity`, `additional_specifications`, `category_id`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
-(1, 'ring', 1330, '', 1, 0, '2019-05-01 12:03:26', '2019-05-02 05:13:01', '0000-00-00 00:00:00', 0, 0, 0),
-(2, 'ring', 1110.5, '', 2, 0, '2019-05-01 12:03:36', '2019-05-02 17:22:02', '0000-00-00 00:00:00', 0, 0, 0),
-(3, 'Earring', 561.57, '', 1, 0, '2019-05-01 12:03:48', '2019-05-02 13:37:13', '0000-00-00 00:00:00', 0, 0, 0),
-(4, 'Necklace', 529.11, '', 1, 0, '2019-05-01 12:04:01', '2019-05-02 17:22:02', '0000-00-00 00:00:00', 0, 0, 0),
+(1, 'ring', 1380, '', 1, 0, '2019-05-01 12:03:26', '2019-05-03 12:26:44', '0000-00-00 00:00:00', 0, 0, 0),
+(2, 'ring', 1227.89, '', 2, 0, '2019-05-01 12:03:36', '2019-05-03 12:08:24', '0000-00-00 00:00:00', 0, 0, 0),
+(3, 'Earring', 561.57, '', 1, 0, '2019-05-01 12:03:48', '2019-05-03 11:02:42', '0000-00-00 00:00:00', 0, 0, 0),
+(4, 'Necklace', 630, '', 1, 0, '2019-05-01 12:04:01', '2019-05-03 01:47:08', '0000-00-00 00:00:00', 0, 0, 0),
 (5, 'Baali', 200.89, '', 1, 0, '2019-05-01 12:04:09', '2019-05-02 13:12:51', '0000-00-00 00:00:00', 0, 0, 0),
 (6, 'Bracelet', 1600.89, '', 1, 0, '2019-05-01 12:04:23', '2019-05-02 11:45:06', '0000-00-00 00:00:00', 0, 0, 0),
-(1013, 'Extra Product', 1453.8, '', 3, 0, '2019-05-02 02:45:05', '2019-05-02 13:37:13', '0000-00-00 00:00:00', 0, 0, 0);
+(1013, 'Extra Product', 1453.8, '', 3, 0, '2019-05-02 02:45:05', '2019-05-03 11:02:42', '0000-00-00 00:00:00', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1250,7 +1250,10 @@ CREATE TABLE `purchases` (
 --
 
 INSERT INTO `purchases` (`purchase_id`, `supplier_id`, `purchase_title`, `date_of_purchase`, `total_purchase_amount`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
-(1, 13, '1st Purchase', '2019-05-08', 485165.41, 0, '2019-05-02 13:37:13', '2019-05-02 13:37:13', '0000-00-00 00:00:00', 0, 0, 0);
+(1, 13, '1st Purchase', '2019-05-08', 487544.2465, 0, '2019-05-02 13:37:13', '2019-05-03 11:02:42', '0000-00-00 00:00:00', 0, 0, 0),
+(3, 10, '2nd Purchase', '2019-05-02', 0, 0, '2019-05-02 21:35:22', '2019-05-02 21:35:22', '0000-00-00 00:00:00', 0, 0, 0),
+(4, 10, '2nd Purchase', '2019-05-02', 103372.86, 0, '2019-05-02 21:38:46', '2019-05-02 21:38:47', '0000-00-00 00:00:00', 0, 0, 0),
+(5, 13, 'sgfdx', '2019-05-11', 465154.695, 0, '2019-05-03 01:47:08', '2019-05-03 01:47:08', '0000-00-00 00:00:00', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1271,9 +1274,13 @@ CREATE TABLE `purchase_product` (
 --
 
 INSERT INTO `purchase_product` (`purchase_id`, `product_id`, `product_rate`, `product_quantity`, `unit`) VALUES
-(1, 2, 2595, 100, 'gm'),
+(1, 2, 2595, 100.89, 'gm'),
 (1, 3, 3530, 58.9, 'gm'),
-(1, 1013, 50, 70.3, 'gm');
+(1, 1013, 50, 70.3, 'gm'),
+(3, 2, 2334, 43, 'gm'),
+(4, 2, 2334, 43, 'gm'),
+(5, 2, 2250, 50.5, 'gm'),
+(5, 4, 3350, 100.89, 'gm');
 
 -- --------------------------------------------------------
 
@@ -2385,9 +2392,9 @@ ALTER TABLE `invoice_product`
   ADD PRIMARY KEY (`invoice_id`,`product_id`);
 
 --
--- Indexes for table `payment`
+-- Indexes for table `payments`
 --
-ALTER TABLE `payment`
+ALTER TABLE `payments`
   ADD PRIMARY KEY (`payment_id`);
 
 --
@@ -2455,9 +2462,9 @@ ALTER TABLE `invoices`
   MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
--- AUTO_INCREMENT for table `payment`
+-- AUTO_INCREMENT for table `payments`
 --
-ALTER TABLE `payment`
+ALTER TABLE `payments`
   MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
@@ -2470,7 +2477,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `roles`
