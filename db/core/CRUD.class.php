@@ -68,6 +68,19 @@ class CRUD
         return $resultObj;
     }
 
+    public static function findNoDeletedColumn($tableName, $condition, ...$params)
+    {
+        if(!self::$isInitialized)
+            self::init();
+        global $tableMappings;
+        $result = self::findAll($tableName, "*", $condition, ...$params);
+        if($result->rowCount() == 1)
+            $resultObj = new $tableMappings[$tableName]($result->fetch());
+        else
+            $resultObj = null;
+        return $resultObj;
+    }
+
     /**
      * executes the provided query if prepared statement
      * @param $query - the query to be executed.

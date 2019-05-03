@@ -82,12 +82,13 @@ if(isset($_POST[EDIT_PURCHASE])){
                     }
                     $i++;
                 }
-                foreach ($purchase_products_to_be_deleted as $ids)
+                foreach ($purchase_products_to_be_deleted as $key => $value)
                 {
-                    $purchase_product_to_delete_ids = explode(",", $ids);
-                    $purchase_product_to_delete = PurchaseProduct::find("purchase_id = ? AND product_id = ?",$purchase_product_to_delete_ids[0],$purchase_product_to_delete_ids[1]);
-                    if($purchase_product_to_delete->delete()){
-                        
+                    $purchase_product_to_delete_ids = explode(",", $key);
+                    $purchase_product_to_delete = PurchaseProduct::find("purchase_id = ? AND product_id = ?",$purchase_product_to_delete_ids[0], $purchase_product_to_delete_ids[1]);
+                    if(!$purchase_product_to_delete->delete()){
+                        $flag = false;
+                        break;
                     }
                 }
                 if ($flag) {

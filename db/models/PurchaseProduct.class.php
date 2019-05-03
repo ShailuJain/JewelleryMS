@@ -16,7 +16,7 @@ class PurchaseProduct extends Table
     }
     public static function find($condition, ...$params)
     {
-        return CRUD::find(self::$table_name, $condition, ...$params);
+        return CRUD::findNoDeletedColumn(self::$table_name, $condition, ...$params);
     }
     public function __construct($result = null)
     {
@@ -36,7 +36,8 @@ class PurchaseProduct extends Table
     public function delete()
     {
         $table_name = self::$table_name;
-//        $result = CRUD::query("DELETE $table_name ")
+        $result = CRUD::query("DELETE FROM $table_name WHERE purchase_id={$this->purchase_id} AND product_id={$this->product_id}");
+        return $result;
 //        return CRUD::delete(self::$table_name, "purchase_id={$this->purchase_id}");
     }
 }
