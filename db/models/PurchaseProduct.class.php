@@ -30,7 +30,7 @@ class PurchaseProduct extends Table
 
     public function update()
     {
-        return CRUD::update(self::$table_name, $this->columns_values, "purchase_id={$this->purchase_id}");
+        return CRUD::update(self::$table_name, $this->columns_values, "purchase_id={$this->purchase_id} AND product_id={$this->product_id}");
     }
 
     public function delete()

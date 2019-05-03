@@ -32,7 +32,6 @@ require_once ('db/models/Category.class.php');
                     $purchase_product = new PurchaseProduct();
                     $purchase_product->purchase_id = $purchase_id;
                     $purchase_product->product_id = $product_id;
-                    $cat = Category::find('category_id = ?', $category_id);
                     $purchase_product->product_rate = doubleval($_POST['product_rate'][$i]);
                     $purchase_product->product_quantity = doubleval($_POST['product_quantity'][$i]);
                     $purchase_product->unit = "gm";

@@ -12018,10 +12018,3 @@ body.sidebar-toggled footer.sticky-footer {
 #list-of-products{
   min-height: 10rem;
 }
-.input-group-append {
-  width : 35%;
-}
-.input-group-append label {
-  width: 30%;
-  overflow: hidden;
-}

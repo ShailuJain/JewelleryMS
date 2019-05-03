@@ -82,8 +82,7 @@ class CRUD
             self::init();
         if(strpos($query, "?") === false){
             $res = self::$pdo->query($query);
-            error_log(implode(",",self::$pdo->errorInfo()) . "\n", 3, "php-error.log");
-            error_log(implode(",",$res->errorInfo()) . "\n", 3, "php-error.log");
+            error_log("query" . implode(",",self::$pdo->errorInfo()) . "\n", 3, "php-error.log");
             return $res;
         }
         return self::executePreparedStatement($query, ...$params);
@@ -104,7 +103,7 @@ class CRUD
             self::init();
         if(self::tableExists($tableName)){
             $query = "SELECT {$rows} FROM {$tableName} WHERE deleted={$deleted} AND {$condition}";
-            error_log($query, 3, "php-error.log");
+            error_log("select" . $query . '\n', 3, "php-error.log");
             if(self::isPreparedStatement($query)){
                 return self::executePreparedStatement($query, ...$params);
             }
@@ -126,7 +125,7 @@ class CRUD
             self::init();
         if(self::tableExists($tableName)){
             $query = "SELECT {$rows} FROM {$tableName} WHERE {$condition}";
-            error_log($query, 3, "php-error.log");
+            error_log("findAll" . $query . '\n', 3, "php-error.log");
             if(self::isPreparedStatement($query)){
                 return self::executePreparedStatement($query, ...$params);
             }
@@ -227,7 +226,7 @@ class CRUD
         if($result_bool){
             return $stmt;
         }
-        error_log(implode(",",$stmt->errorInfo()) . "\n", 3, "php-error.log");
+        error_log("executePreparedStatement" . implode(",",$stmt->errorInfo()) . "\n", 3, "php-error.log");
     }
 
     public static function lastInsertId(){

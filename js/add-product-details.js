@@ -1,7 +1,5 @@
 var count = 0;
 var index = 0;
-var set = new Set();
-var map = {};
 var deleteProduct;
 var productIndex = 0;
 var categoryIndex = 0;
@@ -46,9 +44,10 @@ function adjustDeleteButtonVisibility() {
 function generateNewProductEntry() {
     count++;
     index++;
-    var val = '';
+    var val = '', val2 = '';
     if(edit){
-        val = global.defaultEntries[quantityIndex++][2];
+        val = global.defaultEntries[quantityIndex][2];
+        val2 = global.defaultEntries[quantityIndex++][3];
     }
     $('#list-of-products').append("<div class='form-row' id='list-product-"+index+"'>\n" +
         "        <div class='form-group col-md-3'>\n" +
@@ -62,11 +61,11 @@ function generateNewProductEntry() {
         "            </select>\n" +
         "        </div>\n" +
         "        <div class='form-group col-md-2'>\n" +
-        "            <input type='number' class='form-control' name='product_quantity[]' id='product_quantity-"+index+"' required step='any' placeholder='Quantity'>\n" +
+        "            <input type='number' class='form-control' name='product_quantity[]' id='product_quantity-"+index+"' required  min='0.001' step='any' value='"+ val + "' placeholder='Quantity '>\n" +
         "        </div>\n" +
         "<div class='form-group col-md-2'>\n" +
         "            <div class='input-group'>\n" +
-        "                <input type='number' class='form-control' name='product_rate[]' id='rate_of_purchase' placeholder='Rate' required min='0' step='any'>\n" +
+        "                <input type='number' class='form-control' name='product_rate[]' id='rate_of_purchase' placeholder='Rate' required min='0.001' step='any' value='"+ val2 + "' step='any'>\n" +
         "            </div>\n" +
         "        </div>" +
         "        <button id='delete-product-" + index + "' class='btn btn-danger delete-product' role='button' type='button' data-value='"+index+"'><i class='fa fa-trash'></i></button>\n" +
@@ -110,32 +109,6 @@ function loadCategory(select_obj, url, alertText = ""){
     });
 }
 
-function setRateOfPurchaseHtml() {
-    // var str = "";
-    // var i = 0;
-    // set.clear();
-    // for (let key in map){
-    //     set.add(JSON.stringify(map[key]));
-    // }
-    // set.forEach(function (value1, value2, set) {
-    //     var defaultValue = '';
-    //     if(edit){
-    //         defaultValue = global.rates[i++];
-    //     }
-    //     var value = JSON.parse(value1);
-    //     str += "<div class='form-group col-md-12'>\n" +
-    //         "            <label for='product_rate' data-toggle='tooltip' data-placement='right' title='' >Rate of " +  value["text"] + "<i class='fa fa-question-circle'></i></label>\n" +
-    //         "            <div class='input-group'>\n" +
-    //         "                <input type='number' class='form-control' name='"+  value['text'] + "'id='product_rate' placeholder='Enter Rate of purchase' aria-describedby='per-gm' required min='0' step='any' value='" + defaultValue + "'>\n" +
-    //         "                <div class='input-group-append'>\n" +
-    //         "                    <span class='input-group-text' id='per-gm'>per/gm</span>\n" +
-    //         "                </div>\n" +
-    //         "            </div>\n" +
-    //         "        </div>";
-    // });
-    // $('#rate-of-purchase').html(str);
-}
-
 /**
  * Selectize.js
  * this code will fetch all the products belonging to a particular category selected in the category selectize field.
@@ -153,11 +126,6 @@ function initSelectizeOn(category_selector, product_selector) {
         searchField: 'category_name',
         onChange: function (value) {
             if (!value.length) return;
-            map[category_selector] = {
-                value : value,
-                text: this.getItem(value)[0].innerHTML
-            };
-            setRateOfPurchaseHtml();
             select_product.disable();
             select_product.clear();
             select_product.clearOptions();
@@ -191,8 +159,6 @@ function initSelectizeOn(category_selector, product_selector) {
             select_product.disable();
             select_product.clear();
             select_product.clearOptions();
-            delete map['#category-'+index];
-            setRateOfPurchaseHtml();
         },
     });
 
@@ -215,8 +181,6 @@ function newEntry() {
     initSelectizeOn('#category-'+index, "#product-"+index);
     deleteProduct = $('.delete-product');
     $('#delete-product-' + index).click(function () {
-        delete map['#category-'+$(this).data('value')];
-        setRateOfPurchaseHtml();
         removeProductEntry("#list-product-"+$(this).data('value'));
         adjustDeleteButtonVisibility();
     });

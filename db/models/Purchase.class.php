@@ -37,7 +37,10 @@ class Purchase extends Table
 
     public function delete()
     {
-        return CRUD::delete(self::$table_name, "purchase_id={$this->purchase_id}");
+        parent::addDeleted();
+//        return CRUD::delete(self::$table_name, "purchase_id={$this->purchase_id}");
+        $this->deleted = 1;
+        return CRUD::update(self::$table_name, $this->columns_values,"purchase_id={$this->purchase_id}");
     }
 
     public static function viewAll(){
