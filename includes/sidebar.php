@@ -71,8 +71,8 @@
         </a>
         <div id="collapsePayment" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item ajax-link" href="payments.php?src=add-payment">Add Purchase</a>
-                <a class="collapse-item ajax-link" href="payments.php?src=view-all-payments">View All Purchases</a>
+                <a class="collapse-item ajax-link" href="payments.php?src=add-payment">Make Payment</a>
+                <a class="collapse-item ajax-link" href="payments.php?src=view-all-payments">View All Payments</a>
             </div>
         </div>
     </li>

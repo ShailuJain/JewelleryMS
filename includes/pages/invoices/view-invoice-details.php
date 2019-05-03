@@ -85,7 +85,7 @@ if (isset($id)) {
                     <div id="productCollapse" class="collapse" aria-labelledby="headingOne">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="tables" class="table table-bordered">
+                                <table class="tables table table-bordered">
                                     <thead>
                                     <tr>
                                         <?php
@@ -138,7 +138,7 @@ if (isset($id)) {
                     <div id="paymentCollapse" class="collapse" aria-labelledby="headingTwo">
                         <div class="card-body">
                             <div class="table-responsive">
-                                <table id="tables" class="table table-bordered">
+                                <table class="tables table table-bordered">
                                     <thead>
                                     <tr>
                                         <?php

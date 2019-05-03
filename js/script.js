@@ -66,9 +66,5 @@ $(function(){
     /**
      * Data tables
      */
-    $('#tables').DataTable({
-        select: {
-            style: 'single'
-        },
-    });
+    $('.tables').DataTable();
 });
