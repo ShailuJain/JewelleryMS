@@ -22,6 +22,8 @@ define("ADD_INVOICE","add_invoice");
 define("EDIT_INVOICE","edit_invoice");
 define("ADD_SUPPLIER", "add_supplier");
 define("EDIT_SUPPLIER", "edit_supplier");
+define("ADD_PAYMENT","add_payment");
+define("EDIT_PAYMENT","edit_payment");
 
 define("ADD_GST","add_gst");
 define("EDIT_GST","edit_gst");

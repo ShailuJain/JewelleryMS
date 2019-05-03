@@ -10,3 +10,4 @@ define("VIEW_ALL_CUSTOMERS", "customers.php?src=view-all-customers");
 define("VIEW_ALL_SUPPLIERS", "suppliers.php?src=view-all-suppliers");
 define("VIEW_ALL_GST", "gst.php?src=view-all-gst");
 define("VIEW_ALL_CATEGORIES","categories.php?src=view-all-categories");
+define("VIEW_ALL_PAYMENTS","payments.php?src=view-all-payments");
