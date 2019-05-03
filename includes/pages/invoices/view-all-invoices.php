@@ -1,14 +1,15 @@
 <?php
-$model_name = "Purchase";
+$model_name = "Invoice";
 require_once "db/models/{$model_name}.class.php";
-$rs = Purchase::viewAll();
+$rs = Invoice::viewAll();
 //This array will store the table headers for the columns we are selecting from databse
 $column_names_as = array(
     "serial_no" => "SR.No",
-    "purchase_title" => "Title",
-    "date_of_purchase" => "Date of purchase",
-    "total_purchase_amount" => "Total amount",
-    "supplier_name" => "Supplier"
+    "invoice_no" => "Invoice NO",
+    "customer_name" => "Customer Name",
+    "total_amount" => "Total Amount",
+    "pending_amount" => "Pending Amount",
+    "due_date" => "Due Date",
 );
 ?>
     <div class="row">
@@ -42,9 +43,9 @@ $column_names_as = array(
                                 echo "<td>$row[$column_name]</td>";
                             }
                         }
-                        echo "<td><a class='btn btn-info text-white' data-toggle='tooltip' data-html='true' title='View Detail' data-delete=''><i class='fa fa-info'></i></a></td>";
-                        echo "<td><a class='btn btn-primary text-white' href='purchases.php?src=edit-purchase&id={$row['purchase_id']}' data-toggle='tooltip' data-html='true' title='Edit' ><i class='fa fa-edit'></i></a></td>";
-                        echo "<td><a class='btn btn-danger text-white' data-toggle='tooltip' data-target='#deleteModal' data-html='true' title='Delete' data-delete='purchases.php?form=delete-purchase&id={$row['purchase_id']}'><i class='fa fa-times'></i></a></td>";
+                        echo "<td><a class='btn btn-info text-white' data-toggle='tooltip' href='invoices.php?src=view-invoice-details&id={$row['invoice_id']}' data-html='true' title='View Detail' data-delete=''><i class='fa fa-info'></i></a></td>";
+                        echo "<td><a class='btn btn-primary text-white' href='invoices.php?src=edit-invoice&id={$row['invoice_id']}' data-toggle='tooltip' data-html='true' title='Edit' ><i class='fa fa-edit'></i></a></td>";
+                        echo "<td><a class='btn btn-danger text-white' data-toggle='tooltip' data-target='#deleteModal' data-html='true' title='Delete' data-delete='invoices.php?form=delete-invoice&id={$row['invoice_id']}'><i class='fa fa-times'></i></a></td>";
                     }
                     ?>
                     </tbody>
