@@ -100,20 +100,20 @@ if (isset($_POST[ADD_INVOICE])) {
                 <div class="form-group col-md-3">
                     <label for="invoice_date" data-toggle="tooltip" data-placement="right" title="">Invoice Date <i
                                 class="fa fa-question-circle"></i></label>
-                    <input type="date" class="form-control" name="invoice_date" id="invoice_date" value="<?php echo date('Y-m-d'); ?>">
+                    <input type="date" class="form-control" name="invoice_date" id="invoice_date" value="<?php echo date('Y-m-d'); ?>" required>
                 </div>
 
                 <div class="form-group col-md-4 offset-1">
                     <label for="invoice_no" data-toggle="tooltip" data-placement="right" title="">Invoice No. <i
                                 class="fa fa-question-circle"></i></label>
                     <input type="text" class="form-control" name="invoice_no" id="invoice_no"
-                           placeholder="Enter Invoice No. ">
+                           placeholder="Enter Invoice No. " required>
                 </div>
 
                 <div class="form-group col-md-3 offset-1">
                     <label for="due_date" data-toggle="tooltip" data-placement="right" title="">Due Date <i
                                 class="fa fa-question-circle"></i></label>
-                    <input type="date" class="form-control" name="due_date" id="due_date" value="">
+                    <input type="date" class="form-control" name="due_date" id="due_date" value="" required>
                 </div>
             </div>
             <h3>Customer Details</h3>

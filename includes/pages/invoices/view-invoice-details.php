@@ -51,19 +51,20 @@ if (isset($id)) {
                     <div id="customerCollapse" class="collapse" aria-labelledby="heading">
                         <div class="card-body">
                             <div class="form-group">
+                                <label for="customer_name" data-toggle="tooltip" data-placement="right" title="">Customer Name</label>
                                 <?php
                                 $customer = Customer::find("customer_id = ?", $invoice_to_edit->customer_id);
-                                echo "<input value='$customer->customer_name' disabled type='text' class='form-control'>";
+                                echo "<input value='$customer->customer_name' disabled type='text' class='form-control' name='customer_name' id='customer_name'>";
                                 ?>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-header" id="headingOne">
-                        <h5 class="mb-0" data-toggle="collapse"
-                            data-target="#productCollapse"
-                            aria-expanded="true" aria-controls="productCollapse">
+                    <div class="card-header" id="headingOne" data-toggle="collapse"
+                         data-target="#productCollapse"
+                         aria-expanded="true" aria-controls="productCollapse">
+                        <h5 class="mb-0">
                             <button class="btn btn-link" type="button">
                                 Product Details
                             </button>
@@ -115,10 +116,10 @@ if (isset($id)) {
                     </div>
                 </div>
                 <div class="card">
-                    <div class="card-header" id="headingTwo">
-                        <h5 class="mb-0" data-toggle="collapse"
-                            data-target="#paymentCollapse"
-                            aria-expanded="true" aria-controls="paymentCollapse">
+                    <div class="card-header" id="headingTwo" data-toggle="collapse"
+                         data-target="#paymentCollapse"
+                         aria-expanded="true" aria-controls="paymentCollapse">
+                        <h5 class="mb-0">
                             <button class="btn btn-link" type="button">
                                 Payment Details
                             </button>
