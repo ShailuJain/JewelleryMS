@@ -17,7 +17,7 @@ if (isset($_POST[ADD_INVOICE])) {
         //data to be inserted in invoice table
         $invoice = new Invoice();
         $invoice->customer_id = $_POST['customer_id'];
-        $invoice->invoice_no = 'INVSJ-' . $_POST['invoice_no'];
+        $invoice->invoice_no = $_POST['invoice_no'];
         $invoice->invoice_date = $_POST['invoice_date'];
         $invoice->due_date = $_POST['due_date'];
 
@@ -33,7 +33,7 @@ if (isset($_POST[ADD_INVOICE])) {
                 $invoice_product->invoice_id = $invoice_id;
                 $invoice_product->product_id = $product_id;
                 $cat = Category::find('category_id = ?', $category_id);
-                $invoice_product->product_rate = doubleval($_POST[str_replace(" ", "_", $cat->category_name)]);
+                $invoice_product->product_rate = doubleval($_POST['product_rate'][$i]);
                 $invoice_product->product_quantity = doubleval($_POST['product_quantity'][$i]);
                 $invoice_product->unit = "gm";
 
@@ -106,7 +106,7 @@ if (isset($_POST[ADD_INVOICE])) {
                 <div class="form-group col-md-4 offset-1">
                     <label for="invoice_no" data-toggle="tooltip" data-placement="right" title="">Invoice No. <i
                                 class="fa fa-question-circle"></i></label>
-                    <input type="number" class="form-control" name="invoice_no" id="invoice_no"
+                    <input type="text" class="form-control" name="invoice_no" id="invoice_no"
                            placeholder="Enter Invoice No. ">
                 </div>
 

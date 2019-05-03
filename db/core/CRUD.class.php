@@ -192,7 +192,8 @@ class CRUD
             if($pdoStmt->execute()){
                 return true;
             }
-            print_r($pdoStmt->errorInfo());
+            error_log("update : " . $query . "\n", 3, "php-error.log");
+            error_log("update : " . implode(",",$pdoStmt->errorInfo()) . "\n", 3, "php-error.log");
         }
         return false;
     }
