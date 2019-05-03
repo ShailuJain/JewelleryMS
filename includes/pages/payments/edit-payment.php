@@ -10,16 +10,49 @@ if (isset($_POST[EDIT_PAYMENT])) {
         unset($arr[EDIT_PAYMENT]);
         $arrKeys = array_keys($arr);
 
+        $payment_id = $_GET['id'];
+        CRUD::setAutoCommitOn(false);
+
         //creating a new product object and adding the fields.
         $payment = new Payment();
 
+        $payment = Payment::find("payment_id = ?", $payment_id);
         $invoice = Invoice::find("invoice_id= ?", $arr['invoice_id']);
+        $amount =$payment->payment_amount ;
+        $invoice->pending_amount += $amount;
+        $invoice->update();
+
         if ($invoice) {
             foreach ($arrKeys as $item) {
                 $payment->$item = $arr[$item];
+
             }
-            if ($payment->update()) {
-                setStatusAndMsg("success", "Payment added successfully");
+            $flag =0;
+            if(!$payment->update()) {
+                $flag = 0;
+                setStatusAndMsg("error", "payment could not be updated");
+            }
+            if ($arr['payment_amount'] <= $invoice->pending_amount) {
+                $invoice->pending_amount = $invoice->pending_amount - $arr['payment_amount'];
+                if($invoice->update())
+                    $flag = 1;
+                else {
+                    $flag = 0;
+                    setStatusAndMsg("error", "invoice could not be updated");
+                }
+            }else{
+                $flag = 0;
+                setStatusAndMsg("error", "invoice could not be updated");
+            }
+
+            if ($flag)
+            {
+                CRUD::commit();
+                setStatusAndMsg("success","Payment added successfully");
+            }else
+            {
+                CRUD::rollback();
+                setStatusAndMsg("error","payment could not be inserted");
             }
         } else {
             setStatusAndMsg("error", "Invoice Number does not exists");
@@ -29,6 +62,7 @@ if (isset($_POST[EDIT_PAYMENT])) {
         setStatusAndMsg("error", "Something went wrong");
     }
 
+    CRUD::setAutoCommitOn(true);
 }
 if (isset($id)) {
     $payment_to_edit = Payment::find("payment_id = ?", $id);
