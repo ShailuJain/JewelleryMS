@@ -10,13 +10,13 @@ require_once 'db/models/Table.class.php';
 class InvoiceProduct extends Table
 {
     public static $table_name = "invoice_product";
-    public static function select($rows="*", $deleted=0, $condition = 1, ...$params)
+    public static function select($rows="*", $condition = 1, ...$params)
     {
-        return CRUD::select(self::$table_name, $rows, $deleted, $condition, ...$params);
+        return CRUD::findAll(self::$table_name, $rows, $condition, ...$params);
     }
     public static function find($condition, ...$params)
     {
-        return CRUD::find(self::$table_name, $condition, ...$params);
+        return CRUD::findNoDeletedColumn(self::$table_name, $condition, ...$params);
     }
     public function __construct($result = null)
     {
@@ -30,11 +30,14 @@ class InvoiceProduct extends Table
 
     public function update()
     {
-        return CRUD::update(self::$table_name, $this->columns_values, "invoice_id={$this->invoice_id}");
+        return CRUD::update(self::$table_name, $this->columns_values, "invoice_id = {$this->invoice_id} AND product_id = {$this->product_id}");
     }
 
     public function delete()
     {
-        return CRUD::delete(self::$table_name, "invoice_id={$this->invoice_id}");
+        $table_name = self::$table_name;
+        $result = CRUD::query("DELETE FROM $table_name WHERE invoice_id = {$this->invoice_id} AND product_id = {$this->product_id}");
+        return $result;
+//        return CRUD::delete(self::$table_name, "invoice_id={$this->invoice_id}");
     }
 }

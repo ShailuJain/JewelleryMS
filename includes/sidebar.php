@@ -116,7 +116,7 @@
         <div id="collapseInvoice" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
                 <a class="collapse-item ajax-link" href="invoices.php?src=add-invoice">Create Invoice</a>
-                <a class="collapse-item ajax-link" href="invoices.php?src=view-all-invoice">View All Invoices</a>
+                <a class="collapse-item ajax-link" href="invoices.php?src=view-all-invoices">View All Invoices</a>
             </div>
         </div>
     </li>

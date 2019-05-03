@@ -7,6 +7,8 @@ require_once('helpers/redirect-constants.php');
 if(isset($_POST[EDIT_GST])){
     try{
         if(!(empty($_POST['hsn_code']) || empty($_POST['gst_rate']))){
+            CRUD::setAutoCommitOn(false);
+            $gst_id = $_POST['gst_id'];
             $gst = new GST();
             $gst->hsn_code = $_POST['hsn_code'];
             $gst->gst_rate = $_POST['gst_rate'];
@@ -15,18 +17,29 @@ if(isset($_POST[EDIT_GST])){
             else
                 $gst->wef = date('Y-m-d');
             if($gst->update()){
-                setStatusAndMsg("success","GST entry updated successfully");
-                redirect_to(VIEW_ALL_GST);
+                $insert_id = CRUD::lastInsertId();
+                if(CRUD::query("UPDATE categories SET gst_id = ? WHERE gst_id = ?", $insert_id, $gst_id)){
+                    CRUD::commit();
+                    setStatusAndMsg("success","GST entry updated successfully");
+                    redirect_to(VIEW_ALL_GST);
+                }else{
+                    CRUD::rollback();
+                    setStatusAndMsg("error","Something went wrong 1");
+                }
             }else{
-                setStatusAndMsg("error","HSN code already exits");
+                CRUD::rollback();
+                setStatusAndMsg("error","Something went wrong 2");
             }
         }
         else{
+            CRUD::rollback();
             setStatusAndMsg("error","Fill all the fields");
         }
     } catch(Exception $e){
-        setStatusAndMsg("error","Something went wrong");
+        CRUD::rollback();
+        setStatusAndMsg("error","Something went wrong 3");
     }
+    CRUD::setAutoCommitOn(true);
 }
 if(isset($id)) {
     $gst_to_edit = GST::find("gst_id = ?", $id);
@@ -39,6 +52,7 @@ if(isset($id)) {
                     <h3>Edit GST Entry</h3>
                     <hr>
 
+                    <input type="hidden" name="gst_id" value="<?php echo $gst_to_edit->gst_id; ?>">
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="hsn_code" data-toggle="tooltip" data-placement="right" title="HSN Code is a code given to categories" >HSN Code <i class="fa fa-question-circle"></i></label>
