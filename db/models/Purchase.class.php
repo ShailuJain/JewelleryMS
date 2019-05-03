@@ -5,7 +5,7 @@
  * Date: 21-03-201 9
  * Time: 04:18 PM
  */
-require_once 'Table.class.php';
+require_once 'db/models/Table.class.php';
 
 class Purchase extends Table
 {
@@ -37,6 +37,14 @@ class Purchase extends Table
 
     public function delete()
     {
-        return CRUD::delete(self::$table_name, "purchase_id={$this->purchase_id}");
+        parent::addDeleted();
+//        return CRUD::delete(self::$table_name, "purchase_id={$this->purchase_id}");
+        $this->deleted = 1;
+        return CRUD::update(self::$table_name, $this->columns_values,"purchase_id={$this->purchase_id}");
+    }
+
+    public static function viewAll(){
+        return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, purchases.*, suppliers.supplier_name FROM purchases INNER JOIN suppliers ON purchases.supplier_id=suppliers.supplier_id INNER JOIN (SELECT @sr_no:=0) AS a WHERE purchases.deleted = 0");
+
     }
 }

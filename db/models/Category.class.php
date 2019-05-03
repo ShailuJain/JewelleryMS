@@ -5,7 +5,7 @@
  * Date: 21-03-2019
  * Time: 04:18 PM
  */
-require_once 'Table.class.php';
+require_once 'db/models/Table.class.php';
 
 class Category extends Table
 {
@@ -37,6 +37,7 @@ class Category extends Table
 
     public function update()
     {
+        self::addUpdated();
         return CRUD::update(self::$table_name, $this->columns_values, "category_id={$this->category_id}");
     }
 

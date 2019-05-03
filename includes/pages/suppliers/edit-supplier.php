@@ -18,7 +18,7 @@ if(isset($_POST[EDIT_SUPPLIER]))
             $supplier->$item = $array[$item];
         }
         if($supplier->update()){
-            //showing a toast when a customer is successfully updated
+            //showing a toast when a supplier is successfully updated
             setStatusAndMsg("success","Supplier updated successfully");
             redirect_to(VIEW_ALL_SUPPLIERS);
         }
@@ -41,13 +41,13 @@ if(isset($id)) {
                 <div class="form-group">
                     <label for="supplier_name">Supplier name</label>
                     <input type="text" class="form-control" name="supplier_name" id="supplier_name"
-                           placeholder="Enter Supplier name" value="<?php echo $supplier_to_edit->supplier_name; ?>">
+                           placeholder="Enter Supplier name" value="<?php echo $supplier_to_edit->supplier_name; ?>" required>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="supplier_email">Email</label>
-                        <input type="email" class="form-control" name="supplier_email" id="supplier_email" placeholder="Enter email address" value="<?php echo $supplier_to_edit->supplier_email; ?>">
+                        <input type="email" class="form-control" name="supplier_email" id="supplier_email" placeholder="Enter email address" value="<?php echo $supplier_to_edit->supplier_email; ?>"required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="supplier_contact">Contact Number</label>
@@ -58,17 +58,17 @@ if(isset($id)) {
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="supplier_shopname">Supplier Shop Name</label>
-                        <input type="text" class="form-control" name="supplier_shopname" id="supplier_shopname" placeholder="Enter supplier shop name" value="<?php echo $supplier_to_edit->supplier_shopname; ?>">
+                        <input type="text" class="form-control" name="supplier_shopname" id="supplier_shopname" placeholder="Enter supplier shop name" value="<?php echo $supplier_to_edit->supplier_shopname; ?>"required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="gst_no">GST Number</label>
-                        <input type="text" class="form-control" name="gst_no" id="gst_no" placeholder="Enter gst number of supplier" value="<?php echo $supplier_to_edit->gst_no;?>">
+                        <input type="text" class="form-control" name="gst_no" id="gst_no" placeholder="Enter gst number of supplier" value="<?php echo $supplier_to_edit->gst_no;?>"required>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="supplier_address">Address</label>
                     <textarea class="form-control" name="supplier_address" id="supplier_address"
-                              placeholder="Enter address"><?php echo $supplier_to_edit->supplier_address; ?></textarea>
+                              placeholder="Enter address"required><?php echo $supplier_to_edit->supplier_address; ?></textarea>
                 </div>
 
                 <button type="submit" name="edit_supplier" id="edit_supplier" class="btn btn-primary">Edit Supplier

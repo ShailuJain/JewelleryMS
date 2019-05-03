@@ -41,13 +41,13 @@ if(isset($id)) {
                 <div class="form-group">
                     <label for="customer_name" data-toggle="tooltip" data-placement="right" title="" >Customer name <i class="fa fa-question-circle"></i></label>
                     <input type="text" class="form-control" name="customer_name" id="customer_name"
-                           placeholder="Enter Customer name" value="<?php echo $customer_to_edit->customer_name; ?>">
+                           placeholder="Enter Customer name" value="<?php echo $customer_to_edit->customer_name; ?>" required>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group col-md-6">
                         <label for="customer_email" data-toggle="tooltip" data-placement="right" title="" >Email <i class="fa fa-question-circle"></i></label>
-                        <input type="email" class="form-control" name="customer_email" id="customer_email" placeholder="Enter email address" value="<?php echo $customer_to_edit->customer_email; ?>">
+                        <input type="email" class="form-control" name="customer_email" id="customer_email" placeholder="Enter email address" value="<?php echo $customer_to_edit->customer_email; ?>"required>
                     </div>
                     <div class="form-group col-md-6">
                         <label for="customer_contact" data-toggle="tooltip" data-placement="right" title="" >Contact Number <i class="fa fa-question-circle"></i></label>
@@ -58,7 +58,7 @@ if(isset($id)) {
                 <div class="form-group">
                     <label for="customer_address" data-toggle="tooltip" data-placement="right" title="" >Address <i class="fa fa-question-circle"></i></label>
                     <textarea class="form-control" name="customer_address" id="customer_address"
-                              placeholder="Enter address"><?php echo $customer_to_edit->customer_address; ?></textarea>
+                              placeholder="Enter address" required><?php echo $customer_to_edit->customer_address; ?></textarea>
                 </div>
                 <button type="submit" name="edit_customer" id="edit_customer" class="btn btn-primary">Edit Customer
                 </button>

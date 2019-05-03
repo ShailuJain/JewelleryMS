@@ -5,7 +5,7 @@
  * Date: 21-03-201 9
  * Time: 04:18 PM
  */
-require_once 'Table.class.php';
+require_once 'db/models/Table.class.php';
 
 class Invoice extends Table
 {
@@ -25,11 +25,13 @@ class Invoice extends Table
 
     public function insert()
     {
+        parent::addCreated();
         return CRUD::insert(self::$table_name, $this->columns_values);
     }
 
     public function update()
     {
+        parent::addUpdated();
         return CRUD::update(self::$table_name, $this->columns_values, "invoice_id={$this->invoice_id}");
     }
 

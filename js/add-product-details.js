@@ -1,6 +1,12 @@
-var count = 1;
-var set = new Set();
-var map = {};
+var count = 0;
+var index = 0;
+var deleteProduct;
+var productIndex = 0;
+var categoryIndex = 0;
+var quantityIndex = 0;
+var edit = false;
+let global = this;
+var rates = new Set();
 document.onreadystatechange = function () {
 
     //alert( yourSelect.options[ yourSelect.selectedIndex ].value );
@@ -9,58 +15,66 @@ document.onreadystatechange = function () {
         /**
          * This code deals with the dynamic addition and deletion of the products in the product form
          */
-        var index = 1;
-        var deleteProduct;
         let addProduct = $('.add-product');
         addProduct.click(function (event) {
-            count++;
-            index++;
-            generateNewProductEntry(index);
-            initSelectizeOn('#category-'+index, "#product-"+index);
-            adjustDeleteButtonVisibility(index);
+            newEntry();
         });
-        generateNewProductEntry(index);
-        adjustDeleteButtonVisibility(index);
-
-        function adjustDeleteButtonVisibility(index) {
-            deleteProduct = $('.delete-product');
-            $('#delete-product-' + index).click(function () {
-                if(count > 1)
-                    count--;
-                delete map['#category-'+index];
-                setRateOfPurchaseHtml();
-                removeProductEntry("#list-product-"+$(this).data('value'));
-                adjustDeleteButtonVisibility();
-            });
-            if(count === 1){
-                deleteProduct.hide();
-            }else{
-                deleteProduct.show();
-            }
+        if(typeof global.defaultEntries === "undefined"){
+            global.defaultEntries = {};
         }
-        initSelectizeOn('#category-1', "#product-1");
+        if(!$.isEmptyObject(global.defaultEntries)){
+            edit = true;
+            for (let prop in global.defaultEntries) {
+                rates.add(global.defaultEntries[prop][3]);
+                newEntry();
+            }
+        }else{
+            newEntry();
+        }
+    }
+}
+function adjustDeleteButtonVisibility() {
+    if(count === 1){
+        deleteProduct.hide();
+    }else{
+        deleteProduct.show();
     }
 }
 
-function generateNewProductEntry(index) {
+function generateNewProductEntry() {
+    count++;
+    index++;
+    var val = '', val2 = '';
+    if(edit){
+        val = global.defaultEntries[quantityIndex][2];
+        val2 = global.defaultEntries[quantityIndex++][3];
+    }
     $('#list-of-products').append("<div class='form-row' id='list-product-"+index+"'>\n" +
         "        <div class='form-group col-md-3'>\n" +
         "            <select name='category_id[]' id='category-"+index+"' class='form-control' required>\n" +
         "                <option value=''>Select Category</option>\n" +
         "            </select>\n" +
         "        </div>\n" +
-        "        <div class='form-group col-md-5'>\n" +
+        "        <div class='form-group col-md-4'>\n" +
         "            <select name='product_id[]' id='product-"+index+"' class='form-control' required>\n" +
         "                <option value=''>Select Product</option>\n" +
         "            </select>\n" +
         "        </div>\n" +
         "        <div class='form-group col-md-2'>\n" +
-        "            <input type='number' class='form-control' name='quantity_purchased[]' id='product_quantity-"+index+"' required min='0.001' step='any'>\n" +
+        "            <input type='number' class='form-control' name='product_quantity[]' id='product_quantity-"+index+"' required  min='0.001' step='any' value='"+ val + "' placeholder='Quantity '>\n" +
         "        </div>\n" +
+        "<div class='form-group col-md-2'>\n" +
+        "            <div class='input-group'>\n" +
+        "                <input type='number' class='form-control' name='product_rate[]' id='rate_of_purchase' placeholder='Rate' required min='0.001' step='any' value='"+ val2 + "' step='any'>\n" +
+        "            </div>\n" +
+        "        </div>" +
         "        <button id='delete-product-" + index + "' class='btn btn-danger delete-product' role='button' type='button' data-value='"+index+"'><i class='fa fa-trash'></i></button>\n" +
         "    </div>");
 }
 function removeProductEntry(id) {
+    if(count > 1){
+        count--;
+    }
     $(id).remove();
 }
 /**
@@ -84,33 +98,15 @@ function loadCategory(select_obj, url, alertText = ""){
                     return;
                 }
                 callback(res);
+                if(edit){
+                    select_obj.setValue(global.defaultEntries[categoryIndex++][0]);
+                }
             },
             error: function () {
                 callback();
             }
         });
     });
-}
-
-function setRateOfPurchaseHtml() {
-    var str = "";
-    set.clear();
-    for (let key in map){
-        set.add(JSON.stringify(map[key]));
-    }
-    set.forEach(function (value1, value2, set) {
-        var value = JSON.parse(value1);
-        str += "<div class='form-group col-md-12'>\n" +
-            "            <label for='rate_of_purchase' data-toggle='tooltip' data-placement='right' title='' >Rate of purchase for " +  value["text"] + "<i class='fa fa-question-circle'></i></label>\n" +
-            "            <div class='input-group'>\n" +
-            "                <input type='number' class='form-control' name='"+  value['text'] + "'id='rate_of_purchase' placeholder='Enter Rate of purchase' aria-describedby='per-gm' required min='0' step='any'>\n" +
-            "                <div class='input-group-append'>\n" +
-            "                    <span class='input-group-text' id='per-gm'>per/gm</span>\n" +
-            "                </div>\n" +
-            "            </div>\n" +
-            "        </div>";
-    });
-    $('#rate-of-purchase').html(str);
 }
 
 /**
@@ -130,11 +126,6 @@ function initSelectizeOn(category_selector, product_selector) {
         searchField: 'category_name',
         onChange: function (value) {
             if (!value.length) return;
-            map[category_selector] = {
-                value : value,
-                text: this.getItem(value)[0].innerHTML
-            };
-            setRateOfPurchaseHtml();
             select_product.disable();
             select_product.clear();
             select_product.clearOptions();
@@ -152,6 +143,9 @@ function initSelectizeOn(category_selector, product_selector) {
                             return;
                         }
                         callback(res);
+                        if(edit){
+                            select_product.setValue(global.defaultEntries[productIndex++][1]);
+                        }
                     },
                     error: function () {
                         callback();
@@ -160,6 +154,8 @@ function initSelectizeOn(category_selector, product_selector) {
             });
         },
         onItemRemove: function (value, item) {
+            // console.log($(item));
+            // alert(item['ownerDocument']['activeElement']['id']);
             select_product.disable();
             select_product.clear();
             select_product.clearOptions();
@@ -179,4 +175,14 @@ function initSelectizeOn(category_selector, product_selector) {
      * loading categories in category selectize
      */
     loadCategory(select_category,"query-redirect.php?query=category","No Categories Available");
+}
+function newEntry() {
+    generateNewProductEntry();
+    initSelectizeOn('#category-'+index, "#product-"+index);
+    deleteProduct = $('.delete-product');
+    $('#delete-product-' + index).click(function () {
+        removeProductEntry("#list-product-"+$(this).data('value'));
+        adjustDeleteButtonVisibility();
+    });
+    adjustDeleteButtonVisibility();
 }
