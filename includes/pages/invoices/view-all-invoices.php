@@ -10,6 +10,7 @@ $column_names_as = array(
     "pending_amount" => "Pending Amount",
     "due_date" => "Due Date",
 );
+require_once 'includes/pages/invoices/delete-invoice.php';
 ?>
     <div class="row">
         <div class="offset-1 col-md-10">
@@ -42,7 +43,7 @@ $column_names_as = array(
                         }
                         echo "<td><a class='btn btn-info text-white' data-toggle='tooltip' href='invoices.php?src=view-invoice-details&id={$row['invoice_id']}' data-html='true' title='View Detail'><i class='fa fa-info'></i></a></td>";
                         echo "<td><a class='btn btn-secondary text-white' data-toggle='tooltip' href='payments.php?src=add-payment&id={$row['invoice_id']}' data-html='true' title='Make payment'><i class='fa fa-money-bill-wave'></i></a></td>";
-                        echo "<td><a class='btn btn-danger text-white' data-toggle='tooltip' data-target='#deleteModal' data-html='true' title='Delete' data-delete='invoices.php?form=delete-invoice&id={$row['invoice_id']}'><i class='fa fa-times'></i></a></td>";
+                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='invoices.php?form=delete-invoice&id={$row['invoice_id']}'><i class='fa fa-times'></i></a></td>";
                     }
                     ?>
                     </tbody>

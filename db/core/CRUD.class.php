@@ -244,7 +244,8 @@ class CRUD
     }
 
     public static function lastInsertId(){
-        return self::$pdo->lastInsertId();
+        $id = self::$pdo->lastInsertId();
+        return $id;
     }
     public static function setAutoCommitOn(bool $on)
     {
