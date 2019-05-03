@@ -20,7 +20,7 @@ if(isset($_POST[EDIT_PURCHASE])){
         $res = PurchaseProduct::select("*","purchase_id = ?", $purchase_id);
         $purchase_products = $res->fetchAll();
         $purchase_products_count = $res->rowCount();
-        $purchase_products_To_be_deleted = array();
+        $purchase_products_to_be_deleted = array();
 
         foreach ($purchase_products as $p_p){
             $product = Product::find("product_id = ?",$p_p->product_id);
@@ -32,7 +32,7 @@ if(isset($_POST[EDIT_PURCHASE])){
             if(!$product->update()){
                 $product_flag = false;
             }
-
+            $purchase_products_to_be_deleted[$p_p->purchase_id . ',' . $p_p->product_id] = 1;
         }
 
         if($product_flag) {
@@ -57,6 +57,8 @@ if(isset($_POST[EDIT_PURCHASE])){
                     $purchase_product->product_quantity = doubleval($_POST['product_quantity'][$i]);
                     $purchase_product->unit = "gm";
 
+                    //data to be removed from the purchase_product table if it is deleted while editing purchase
+                    unset($purchase_products_to_be_deleted[$purchase_id . ',' . $product_id]);
 
 //                    $gst_rate = CRUD::query("SELECT gst_rate from gst WHERE gst_id = (SELECT gst_id from categories WHERE category_id = 3 AND deleted = 0) AND deleted = 0");
 
@@ -80,6 +82,14 @@ if(isset($_POST[EDIT_PURCHASE])){
                     }
                     $i++;
                 }
+                foreach ($purchase_products_to_be_deleted as $ids)
+                {
+                    $purchase_product_to_delete_ids = explode(",", $ids);
+                    $purchase_product_to_delete = PurchaseProduct::find("purchase_id = ? AND product_id = ?",$purchase_product_to_delete_ids[0],$purchase_product_to_delete_ids[1]);
+                    if($purchase_product_to_delete->delete()){
+                        
+                    }
+                }
                 if ($flag) {
                     $purchase = Purchase::find("purchase_id = ?", $purchase_id);
                     $purchase->total_purchase_amount = $totalAmount;
@@ -91,7 +101,7 @@ if(isset($_POST[EDIT_PURCHASE])){
                     }
                 } else {
                     CRUD::rollback();
-                    setStatusAndMsg("error", "Purchase cannot be updated");
+                    setStatusAndMsg("error", "Purchase-Product cannot be updated. Purchase cannot be updated");
                 }
             } else {
                 CRUD::rollback();

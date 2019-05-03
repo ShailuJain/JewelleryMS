@@ -71,7 +71,7 @@ require_once ('db/models/Category.class.php');
                     }
                 }else{
                     CRUD::rollback();
-                    setStatusAndMsg("error","Purchase cannot be created");
+                    setStatusAndMsg("error","Purchase-Product cannot be created. Purchase cannot be created");
                 }
             }else{
                 CRUD::rollback();

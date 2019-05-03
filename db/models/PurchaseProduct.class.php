@@ -35,6 +35,8 @@ class PurchaseProduct extends Table
 
     public function delete()
     {
-        return CRUD::delete(self::$table_name, "purchase_id={$this->purchase_id}");
+        $table_name = self::$table_name;
+//        $result = CRUD::query("DELETE $table_name ")
+//        return CRUD::delete(self::$table_name, "purchase_id={$this->purchase_id}");
     }
 }
