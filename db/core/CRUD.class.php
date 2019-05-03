@@ -6,9 +6,8 @@
  * Time: 10:57 AM
  */
 
-require_once 'constants.php';
-require_once 'functions.php';
-
+require_once 'db/core/constants.php';
+require_once 'db/core/functions.php';
 class CRUD
 {
     protected static $columns;
@@ -83,8 +82,7 @@ class CRUD
             self::init();
         if(strpos($query, "?") === false){
             $res = self::$pdo->query($query);
-            error_log(implode(",",self::$pdo->errorInfo()) . "\n", 3, "php-error.log");
-            error_log(implode(",",$res->errorInfo()) . "\n", 3, "php-error.log");
+            error_log("query" . implode(",",self::$pdo->errorInfo()) . "\n", 3, "php-error.log");
             return $res;
         }
         return self::executePreparedStatement($query, ...$params);
@@ -105,7 +103,29 @@ class CRUD
             self::init();
         if(self::tableExists($tableName)){
             $query = "SELECT {$rows} FROM {$tableName} WHERE deleted={$deleted} AND {$condition}";
-            error_log($query, 3, "php-error.log");
+            error_log("select" . $query . '\n', 3, "php-error.log");
+            if(self::isPreparedStatement($query)){
+                return self::executePreparedStatement($query, ...$params);
+            }
+            return self::query($query);
+        }
+    }
+
+    /**
+     * This method will select rows from the table specified.
+     * @param $tableName - the table from which the rows has to be selected
+     * @param string $rows the rows to be selected
+     * @param int $condition the condition according to which the rows will be selected
+     * @param mixed ...$params params for the prepared statement if the condition is prepared statement type
+     * @return mixed - returns the result set
+     */
+    public static function findAll($tableName, $rows = "*", $condition = 1, ...$params)
+    {
+        if(!self::$isInitialized)
+            self::init();
+        if(self::tableExists($tableName)){
+            $query = "SELECT {$rows} FROM {$tableName} WHERE {$condition}";
+            error_log("findAll" . $query . '\n', 3, "php-error.log");
             if(self::isPreparedStatement($query)){
                 return self::executePreparedStatement($query, ...$params);
             }
@@ -206,7 +226,7 @@ class CRUD
         if($result_bool){
             return $stmt;
         }
-        error_log(implode(",",$stmt->errorInfo()) . "\n", 3, "php-error.log");
+        error_log("executePreparedStatement" . implode(",",$stmt->errorInfo()) . "\n", 3, "php-error.log");
     }
 
     public static function lastInsertId(){

@@ -32,9 +32,8 @@ require_once ('db/models/Category.class.php');
                     $purchase_product = new PurchaseProduct();
                     $purchase_product->purchase_id = $purchase_id;
                     $purchase_product->product_id = $product_id;
-                    $cat = Category::find('category_id = ?', $category_id);
-                    $purchase_product->product_rate = doubleval($_POST[str_replace(" ", "_", $cat->category_name)]);
-                    $purchase_product->quantity_purchased = doubleval($_POST['quantity_purchased'][$i]);
+                    $purchase_product->product_rate = doubleval($_POST['product_rate'][$i]);
+                    $purchase_product->product_quantity = doubleval($_POST['product_quantity'][$i]);
                     $purchase_product->unit = "gm";
 
 
@@ -44,13 +43,13 @@ require_once ('db/models/Category.class.php');
 
                     $gst_rate = CRUD::query("SELECT gst_rate FROM gst INNER JOIN categories ON gst.gst_id = categories.gst_id WHERE categories.category_id = ? AND gst.deleted = 0 AND categories.deleted = 0", $category_id)->fetch()->gst_rate;
 
-                    $amount = ($purchase_product->quantity_purchased * $purchase_product->rate_of_purchase);
+                    $amount = ($purchase_product->product_quantity * $purchase_product->product_rate);
                     $gst_amount = $amount * $gst_rate / 100;
                     $totalAmount += $amount + $gst_amount;
 
                     //data to be updated in the product table
                     $product = Product::find("product_id = ?", $product_id);
-                    $product->product_quantity += $purchase_product->quantity_purchased;
+                    $product->product_quantity += $purchase_product->product_quantity;
 
                     if($purchase_product->insert() && $product->update())
                     {

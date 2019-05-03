@@ -17,11 +17,11 @@ $shop = new Shop();
 $shop->shop_name = "Sakshi Jewellers";
 $shop->shop_address = "Thane";
 $shop->shop_gst_no = "2A7HFPJ1774N1ZX";
-$shop_Bank_name = "ICIC (GHATKOPAR BRANCH)";
-$shop_email = "jaindinesh@gmail.com";
-$shop_Account_no = "002605009771";
-$shop_Bank_ifsc = "ICIC0000026";
-$shop_pan_no = "AHFPJ1774N";
+$shop->bank_name = "ICIC (GHATKOPAR BRANCH)";
+$shop->email = "jaindinesh@gmail.com";
+$shop->account_no = "002605009771";
+$shop->bank_ifsc = "ICIC0000026";
+$shop->pan_no = "AHFPJ1774N";
 
 $product1 = new Product();
 $product1->product_name = "Ring";

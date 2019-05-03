@@ -43,8 +43,8 @@ $column_names_as = array(
                             }
                         }
                         echo "<td><a class='btn btn-info text-white' data-toggle='tooltip' data-html='true' title='View Detail' data-delete=''><i class='fa fa-info'></i></a></td>";
-                        echo "<td><a class='btn btn-primary text-white' data-toggle='tooltip' href='' data-html='true' title='Edit'><i class='fa fa-edit'></i></a></td>";
-                        echo "<td><a class='btn btn-danger text-white' data-toggle='tooltip' data-html='true' title='Delete' data-delete=''><i class='fa fa-times'></i></a></td>";
+                        echo "<td><a class='btn btn-primary text-white' href='purchases.php?src=edit-purchase&id={$row['purchase_id']}' data-toggle='tooltip' data-html='true' title='Edit' ><i class='fa fa-edit'></i></a></td>";
+                        echo "<td><a class='btn btn-danger text-white' data-toggle='tooltip' data-target='#deleteModal' data-html='true' title='Delete' data-delete='purchases.php?form=delete-purchase&id={$row['purchase_id']}'><i class='fa fa-times'></i></a></td>";
                     }
                     ?>
                     </tbody>
@@ -54,5 +54,5 @@ $column_names_as = array(
     </div>
 <?php
 include_once 'includes/modal.php';
-
+createModal(DELETE_TITLE, DELETE_MSG, "Delete");
 ?>

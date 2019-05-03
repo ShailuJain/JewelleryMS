@@ -5,7 +5,7 @@
  * Date: 21-03-201 9
  * Time: 04:18 PM
  */
-require_once 'Table.class.php';
+require_once 'db/models/Table.class.php';
 
 class Role extends Table
 {

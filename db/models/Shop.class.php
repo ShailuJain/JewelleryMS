@@ -10,7 +10,7 @@ SHOP BANK NAME
 SHOP BANK ACCOUNT NO
 SHOP BANK IFSC CODE
 */
-require_once 'Table.class.php';
+require_once 'db/models/Table.class.php';
 class Shop extends Table
 {
     protected $shop_details;

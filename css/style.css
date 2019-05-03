@@ -12015,3 +12015,6 @@ body.sidebar-toggled footer.sticky-footer {
   margin: auto;
   margin-top: 0;
 }
+#list-of-products{
+  min-height: 10rem;
+}
