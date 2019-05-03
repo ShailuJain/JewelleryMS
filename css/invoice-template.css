@@ -7,6 +7,11 @@
 .invoice-header{
     border: solid 1px black;
 }
+
+.main-container{
+    padding: 100px!important;
+}
+
 .label{
     text-align: center;
 }
@@ -81,4 +86,16 @@
     text-align: center;
 }
 
+.print-hidden{
+    margin: 20px;
+    padding: 5px;
+}
+
 @page { margin: 0mm; }
+
+
+@media print {
+    .print-hidden{
+        display: none;
+    }
+}

@@ -79,7 +79,11 @@ LIST;
     <link rel='stylesheet' href='css/invoice-template.css'>
 </head>
 <body>
-    <div class='container p-5'>
+    <div class='container-fluid main-container p-5'>
+        <div class="buttons text-center">
+            <div class="btn btn-primary print-hidden">PRINT</div>
+            <div class="btn btn-primary print-hidden">SAVE</div>
+        </div>
         <div class='invoice'>
             <div class='container shop-details p-0 mb-5'>
                 <h2 class='shop-name'>$s_name</h2>
@@ -148,7 +152,7 @@ LIST;
                     </div>
                     <div class="gst col-md-3 b-left">
                         <div>ROUND/OFF:</div>
-                        <div>GRAND TOTAL:</div>
+                        <div>GRAND TOTAL: $total_amount</div>
                     </div>
                 </div>
                 <div class="amount-in-words b-top row m-0">

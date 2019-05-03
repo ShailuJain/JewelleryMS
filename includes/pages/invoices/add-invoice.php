@@ -2,11 +2,12 @@
 require_once('db/models/Customer.class.php');
 require_once('db/models/Invoice.class.php');
 require_once('db/models/InvoiceProduct.class.php');
-
+require_once ('db/models/Shop.class.php');
 require_once('db/models/Product.class.php');
 require_once('db/models/Category.class.php');
 require_once 'constants.php';
 require_once('helpers/redirect-helper.php');
+require_once('helpers/InvoiceTemplate.class.php');
 if (isset($_POST[ADD_INVOICE])) {
     try {
         //Starting transactions
@@ -27,6 +28,7 @@ if (isset($_POST[ADD_INVOICE])) {
             $i = 0;
             $invoice_id = CRUD::lastInsertId();
             $invoice_product = "";
+            $j = 0;
             foreach ($_POST['product_id'] as $product_id) {
                 $category_id = $_POST['category_id'][$i];
                 $invoice_product = new InvoiceProduct();
@@ -50,6 +52,19 @@ if (isset($_POST[ADD_INVOICE])) {
 
                 //data to be updated in the product table
                 $product = Product::find("product_id = ?", $product_id);
+                //$product->normal_amount = $amount;
+//                $product->gst_rate = $gst_rate;
+//                $newProduct = new Product();
+////                $newProduct->product_name = $product->product_name;
+////                $newProduct->category_name = $cat->category_name;
+////                $newProduct->product_quantity = $product->product_quantity;
+////                $newProduct->hsn_code = $product->hsn_code;
+////                $newProduct->rate = $product->rate;
+////                $newProduct->gst_rate = $product->gst_rate;
+////                $newProduct->
+////                $newProduct = clone $product;
+////                $newProduct->gst_rate = $gst_rate;
+                $products[$j++] = $product;
                 if($invoice_product->product_quantity <= $product->product_quantity){
                     $product->product_quantity -= $invoice_product->product_quantity;
                 }else{
@@ -71,6 +86,22 @@ if (isset($_POST[ADD_INVOICE])) {
                 if ($invoice->update()) {
                     CRUD::commit();
                     setStatusAndMsg("success", "Invoice created successfully");
+
+                    //creating invoice temo
+                    $shop = new Shop();
+                    $shop->shop_name = "Sakshi Jewellers";
+                    $shop->shop_address = "Thane";
+                    $shop->shop_gst_no = "2A7HFPJ1774N1ZX";
+                    $shop->bank_name = "ICIC (GHATKOPAR BRANCH)";
+                    $shop->email = "jaindinesh@gmail.com";
+                    $shop->account_no = "002605009771";
+                    $shop->bank_ifsc = "ICIC0000026";
+                    $shop->pan_no = "AHFPJ1774N";
+
+                    //CUSTOMER DETAILS
+                    $cust = Customer::find("customer_id = ?", $invoice->customer_id);
+                    $invoiceTemplate = new InvoiceTemplate("Invoice", $shop , $cust, $invoice, $products);
+                    $invoiceTemplate->createAndRedirect();
                 } else {
                     throw new Exception('Invoice cannot be created, please ensure values are correct.');
                 }

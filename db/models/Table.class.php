@@ -29,7 +29,7 @@ abstract class Table
     //MAGIC Functions
     /**
      * Sets the variable to the given value.
-     * @param $name - name of the variable 
+     * @param $name - name of the variable
      * @param $value - value of the variable
      */
     public function __set($name, $value)
@@ -99,5 +99,10 @@ abstract class Table
         } catch (Exception $e) {
             print_r($e);
         }
+    }
+
+    public function __clone()
+    {
+        $this->columns_values = clone $this->columns_values;
     }
 }
