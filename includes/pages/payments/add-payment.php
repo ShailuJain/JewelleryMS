@@ -9,16 +9,39 @@ if(isset($_POST[ADD_PAYMENT])) {
         $arr = $_POST;
         unset($arr[ADD_PAYMENT]);
         $arrKeys = array_keys($arr);
-
+        CRUD::setAutoCommitOn(false);
         //creating a new payment object and adding the fields.
+
         $payment = new Payment();
         $invoice = Invoice::find("invoice_id= ?", $arr['invoice_id']);
         if($invoice){
             foreach ($arrKeys as $item) {
                 $payment->$item = $arr[$item];
             }
-            if($payment->insert()){
+            $flag =0;
+            if($payment->insert()) {
+                $flag=1;
+                if ($arr['payment_amount'] <= $invoice->pending_amount) {
+                    $invoice->pending_amount = $invoice->pending_amount - $arr['payment_amount'];
+                    if($invoice->update())
+                        $flag = 1;
+                    else {
+                        $flag = 0;
+                        setStatusAndMsg("error", "invoice could not be updated");
+                    }
+                }else{
+                    $flag = 0;
+                    setStatusAndMsg("error", "invoice could not be updated");
+                }
+            }
+            if ($flag)
+            {
+                CRUD::commit();
                 setStatusAndMsg("success","Payment added successfully");
+            }else
+            {
+                CRUD::rollback();
+                setStatusAndMsg("error","payment could not be inserted");
             }
         }else{
             setStatusAndMsg("error","Invoice Number does not exists");
@@ -29,6 +52,8 @@ if(isset($_POST[ADD_PAYMENT])) {
     {
         setStatusAndMsg("error","Something went wrong");
     }
+
+    CRUD::setAutoCommitOn(true);
 }
 ?>
 <div class="row">
