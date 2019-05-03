@@ -13,6 +13,7 @@ if(isset($_POST[ADD_PAYMENT])) {
         //creating a new payment object and adding the fields.
 
         $payment = new Payment();
+
         $invoice = Invoice::find("invoice_id= ?", $arr['invoice_id']);
         if($invoice){
             foreach ($arrKeys as $item) {
