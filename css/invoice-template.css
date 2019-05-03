@@ -29,7 +29,7 @@
 .b-top{
     border-top: solid 1px black;
 }
-.invoice-body{
+.invoice-main-body{
     border-collapse: collapse;
     min-height: 300px;
     position: relative;
@@ -43,6 +43,42 @@
 }
 .columns .row{
     height: 100%;
+}
+
+.invoice-body-footer{
+
+}
+
+.total-amount{
+    margin-left: -0.1%;
+}
+.gst{
+    margin-left: -0.05%;
+}
+
+.customer-sign-body{
+    display: flex;
+}
+
+.customer-sign-content{
+    align-self: flex-end;
+    width: 100%;
+    padding-left: 16px
+}
+
+
+
+.for-sr{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+.thanks{
+    float: right;
+    padding-right: 150px;
+    padding-left: 132px;
+    text-align: center;
 }
 
 @page { margin: 0mm; }
