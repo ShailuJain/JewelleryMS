@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 02, 2019 at 07:29 PM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.3.1
+-- Generation Time: May 03, 2019 at 09:35 AM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -1140,7 +1140,8 @@ CREATE TABLE `invoices` (
 
 INSERT INTO `invoices` (`invoice_id`, `invoice_no`, `customer_id`, `total_amount`, `pending_amount`, `due_date`, `invoice_date`, `deleted`, `created_at`, `deleted_at`, `created_by`, `deleted_by`, `updated_at`, `updated_by`) VALUES
 (1, 'INVSJ-1', 1, 2339650, 2339650, '2019-06-10', '2019-04-18 05:33:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, '0000-00-00', 0),
-(2, 'INVSJ-2', 58, 221145, 221145, '2019-06-10', '2019-04-18 05:33:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, '0000-00-00', 0);
+(2, 'INVSJ-2', 58, 221145, 221145, '2019-06-10', '2019-04-18 05:33:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, '0000-00-00', 0),
+(4, 'INVSJ-', 6, 465154.695, 465154.695, '2019-06-13', '2019-05-02 00:00:00', 0, '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, '0000-00-00', 0);
 
 -- --------------------------------------------------------
 
@@ -1152,7 +1153,7 @@ CREATE TABLE `invoice_product` (
   `invoice_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
   `product_rate` double NOT NULL,
-  `quantity` double NOT NULL,
+  `product_quantity` double NOT NULL,
   `unit` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1160,11 +1161,13 @@ CREATE TABLE `invoice_product` (
 -- Dumping data for table `invoice_product`
 --
 
-INSERT INTO `invoice_product` (`invoice_id`, `product_id`, `product_rate`, `quantity`, `unit`) VALUES
+INSERT INTO `invoice_product` (`invoice_id`, `product_id`, `product_rate`, `product_quantity`, `unit`) VALUES
 (1, 1, 3205, 500, 'gm'),
 (1, 5, 3205, 230, 'gm'),
 (2, 53, 3205, 58, 'gm'),
-(2, 56, 3205, 11, 'gm');
+(2, 56, 3205, 11, 'gm'),
+(4, 2, 2250, 50.5, 'gm'),
+(4, 4, 3350, 100.89, 'gm');
 
 -- --------------------------------------------------------
 
@@ -1186,13 +1189,6 @@ CREATE TABLE `payments` (
   `deleted_at` datetime NOT NULL,
   `deleted_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `payments`
---
-
-INSERT INTO `payments` (`payment_id`, `invoice_id`, `payment_amount`, `payment_date`, `payment_mode`, `created_at`, `created_by`, `updated_at`, `updated_by`, `deleted`, `deleted_at`, `deleted_by`) VALUES
-(1, 2, 2000, '1999-02-12', 'cash', '0000-00-00 00:00:00', 0, '0000-00-00 00:00:00', 0, 0, '0000-00-00 00:00:00', 0);
 
 -- --------------------------------------------------------
 
@@ -1220,13 +1216,13 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `product_quantity`, `additional_specifications`, `category_id`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
-(1, 'ring', 1330, '', 1, 0, '2019-05-01 12:03:26', '2019-05-02 05:13:01', '0000-00-00 00:00:00', 0, 0, 0),
-(2, 'ring', 1161, '', 2, 0, '2019-05-01 12:03:36', '2019-05-02 13:37:13', '0000-00-00 00:00:00', 0, 0, 0),
-(3, 'Earring', 561.57, '', 1, 0, '2019-05-01 12:03:48', '2019-05-02 13:37:13', '0000-00-00 00:00:00', 0, 0, 0),
-(4, 'Necklace', 630, '', 1, 0, '2019-05-01 12:04:01', '2019-05-02 05:13:49', '0000-00-00 00:00:00', 0, 0, 0),
+(1, 'ring', 1380, '', 1, 0, '2019-05-01 12:03:26', '2019-05-03 12:26:44', '0000-00-00 00:00:00', 0, 0, 0),
+(2, 'ring', 1227.89, '', 2, 0, '2019-05-01 12:03:36', '2019-05-03 12:08:24', '0000-00-00 00:00:00', 0, 0, 0),
+(3, 'Earring', 561.57, '', 1, 0, '2019-05-01 12:03:48', '2019-05-03 11:02:42', '0000-00-00 00:00:00', 0, 0, 0),
+(4, 'Necklace', 630, '', 1, 0, '2019-05-01 12:04:01', '2019-05-03 01:47:08', '0000-00-00 00:00:00', 0, 0, 0),
 (5, 'Baali', 200.89, '', 1, 0, '2019-05-01 12:04:09', '2019-05-02 13:12:51', '0000-00-00 00:00:00', 0, 0, 0),
 (6, 'Bracelet', 1600.89, '', 1, 0, '2019-05-01 12:04:23', '2019-05-02 11:45:06', '0000-00-00 00:00:00', 0, 0, 0),
-(1013, 'Extra Product', 1453.8, '', 3, 0, '2019-05-02 02:45:05', '2019-05-02 13:37:13', '0000-00-00 00:00:00', 0, 0, 0);
+(1013, 'Extra Product', 1453.8, '', 3, 0, '2019-05-02 02:45:05', '2019-05-03 11:02:42', '0000-00-00 00:00:00', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1254,7 +1250,10 @@ CREATE TABLE `purchases` (
 --
 
 INSERT INTO `purchases` (`purchase_id`, `supplier_id`, `purchase_title`, `date_of_purchase`, `total_purchase_amount`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
-(1, 13, '1st Purchase', '2019-05-08', 485165.41, 0, '2019-05-02 13:37:13', '2019-05-02 13:37:13', '0000-00-00 00:00:00', 0, 0, 0);
+(1, 13, '1st Purchase', '2019-05-08', 487544.2465, 0, '2019-05-02 13:37:13', '2019-05-03 11:02:42', '0000-00-00 00:00:00', 0, 0, 0),
+(3, 10, '2nd Purchase', '2019-05-02', 0, 0, '2019-05-02 21:35:22', '2019-05-02 21:35:22', '0000-00-00 00:00:00', 0, 0, 0),
+(4, 10, '2nd Purchase', '2019-05-02', 103372.86, 0, '2019-05-02 21:38:46', '2019-05-02 21:38:47', '0000-00-00 00:00:00', 0, 0, 0),
+(5, 13, 'sgfdx', '2019-05-11', 465154.695, 0, '2019-05-03 01:47:08', '2019-05-03 01:47:08', '0000-00-00 00:00:00', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -1265,8 +1264,8 @@ INSERT INTO `purchases` (`purchase_id`, `supplier_id`, `purchase_title`, `date_o
 CREATE TABLE `purchase_product` (
   `purchase_id` int(11) NOT NULL,
   `product_id` int(11) NOT NULL,
-  `rate_of_purchase` double NOT NULL,
-  `quantity_purchased` double NOT NULL,
+  `product_rate` double NOT NULL,
+  `product_quantity` double NOT NULL,
   `unit` varchar(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -1274,10 +1273,14 @@ CREATE TABLE `purchase_product` (
 -- Dumping data for table `purchase_product`
 --
 
-INSERT INTO `purchase_product` (`purchase_id`, `product_id`, `rate_of_purchase`, `quantity_purchased`, `unit`) VALUES
-(1, 2, 2595, 100, 'gm'),
+INSERT INTO `purchase_product` (`purchase_id`, `product_id`, `product_rate`, `product_quantity`, `unit`) VALUES
+(1, 2, 2595, 100.89, 'gm'),
 (1, 3, 3530, 58.9, 'gm'),
-(1, 1013, 50, 70.3, 'gm');
+(1, 1013, 50, 70.3, 'gm'),
+(3, 2, 2334, 43, 'gm'),
+(4, 2, 2334, 43, 'gm'),
+(5, 2, 2250, 50.5, 'gm'),
+(5, 4, 3350, 100.89, 'gm');
 
 -- --------------------------------------------------------
 
@@ -2456,13 +2459,13 @@ ALTER TABLE `gst`
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -2474,7 +2477,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `roles`
