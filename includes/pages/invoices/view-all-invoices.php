@@ -15,7 +15,7 @@ require_once 'includes/pages/invoices/delete-invoice.php';
     <div class="row">
         <div class="offset-1 col-md-10">
             <div class="table-responsive">
-                <table id="tables" class="table table-bordered">
+                <table class="tables table table-bordered">
                     <thead>
                     <tr>
                         <?php

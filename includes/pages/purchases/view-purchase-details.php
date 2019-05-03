@@ -61,7 +61,7 @@ if (isset($id)) {
             ?>
             <div class="row">
                     <div class="table-responsive">
-                        <table id="tables" class="table table-bordered">
+                        <table class="tables table table-bordered">
                             <thead>
                             <tr>
                                 <?php

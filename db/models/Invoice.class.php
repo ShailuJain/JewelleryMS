@@ -25,7 +25,8 @@ class Invoice extends Table
 
     public static function viewProductDetails($invoice_id)
     {
-        return CRUD::query("SELECT invoices.invoice_date, invoices.due_date, products.product_name, invoice_product.product_quantity, categories.category_name, gst.gst_rate FROM invoices, invoice_product, products, gst, categories WHERE invoices.invoice_id = ? AND invoices.deleted=0 And invoice_product.product_id=products.product_id AND products.category_id = categories.category_id AND categories.gst_id=gst.gst_id", $invoice_id);
+        return CRUD::query("
+SELECT invoices.invoice_date, invoices.due_date, products.product_name, invoice_product.product_quantity, categories.category_name, gst.gst_rate FROM invoices, invoice_product, products, gst, categories WHERE invoices.invoice_id = ? AND invoices.deleted = 0 AND invoice_product.product_id = products.product_id AND products.category_id = categories.category_id AND categories.gst_id = gst.gst_id AND invoices.invoice_id = invoice_product.invoice_id", $invoice_id);
     }
     public static function viewPaymentDetails($invoice_id)
     {
