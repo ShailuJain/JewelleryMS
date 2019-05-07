@@ -67,7 +67,7 @@ if(isset($id)){
                 <div class="form-group col-md-6">
                     <label for="product_quantity" data-toggle="tooltip" data-placement="right" title="" >Adjust Stock <i class="fa fa-question-circle"></i></label>
                     <div class="input-group">
-                        <input type="number" class="form-control" name="product_quantity" id="product_quantity" placeholder="Enter opening stock of product" aria-describedby="per-gm" required min="0" value="<?php echo $prod_to_edit->product_quantity; ?>">
+                        <input type="number" class="form-control" name="product_quantity" id="product_quantity" placeholder="Enter opening stock of product" aria-describedby="per-gm" step="any" required min="0" value="<?php echo $prod_to_edit->product_quantity; ?>">
                         <div class="input-group-append">
                             <span class="input-group-text" id="per-gm">gm's</span>
                         </div>
