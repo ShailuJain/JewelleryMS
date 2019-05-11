@@ -69,7 +69,11 @@ if(isset($_POST[ADD_PAYMENT])) {
                     <?php
                     $result = Invoice::select();
                     foreach ($result as $pay){
-                        echo "<option value='$pay->invoice_id'>$pay->invoice_no</option>";
+                        $selected = "";
+                        if(isset($id) && $pay->invoice_id == $id){
+                            $selected = "selected";
+                        }
+                        echo "<option value='$pay->invoice_id' $selected>$pay->invoice_no</option>";
                     }
                     ?>
                 </select>

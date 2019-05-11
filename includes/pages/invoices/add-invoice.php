@@ -52,18 +52,6 @@ if (isset($_POST[ADD_INVOICE])) {
 
                 //data to be updated in the product table
                 $product = Product::find("product_id = ?", $product_id);
-                //$product->normal_amount = $amount;
-//                $product->gst_rate = $gst_rate;
-//                $newProduct = new Product();
-////                $newProduct->product_name = $product->product_name;
-////                $newProduct->category_name = $cat->category_name;
-////                $newProduct->product_quantity = $product->product_quantity;
-////                $newProduct->hsn_code = $product->hsn_code;
-////                $newProduct->rate = $product->rate;
-////                $newProduct->gst_rate = $product->gst_rate;
-////                $newProduct->
-////                $newProduct = clone $product;
-////                $newProduct->gst_rate = $gst_rate;
                 $products[$j++] = $product;
                 if($invoice_product->product_quantity <= $product->product_quantity){
                     $product->product_quantity -= $invoice_product->product_quantity;
@@ -86,22 +74,6 @@ if (isset($_POST[ADD_INVOICE])) {
                 if ($invoice->update()) {
                     CRUD::commit();
                     setStatusAndMsg("success", "Invoice created successfully");
-
-                    //creating invoice temo
-                    $shop = new Shop();
-                    $shop->shop_name = "Sakshi Jewellers";
-                    $shop->shop_address = "Thane";
-                    $shop->shop_gst_no = "2A7HFPJ1774N1ZX";
-                    $shop->bank_name = "ICIC (GHATKOPAR BRANCH)";
-                    $shop->email = "jaindinesh@gmail.com";
-                    $shop->account_no = "002605009771";
-                    $shop->bank_ifsc = "ICIC0000026";
-                    $shop->pan_no = "AHFPJ1774N";
-
-                    //CUSTOMER DETAILS
-                    $cust = Customer::find("customer_id = ?", $invoice->customer_id);
-                    $invoiceTemplate = new InvoiceTemplate("Invoice", $shop , $cust, $invoice, $products);
-                    $invoiceTemplate->createAndRedirect();
                 } else {
                     throw new Exception('Invoice cannot be created, please ensure values are correct.');
                 }
@@ -120,6 +92,7 @@ if (isset($_POST[ADD_INVOICE])) {
     //ending transactions
     CRUD::setAutoCommitOn(true);
 }
+$inv_no = CRUD::query("SELECT invoice_id FROM invoices ORDER BY invoice_id DESC LIMIT 1")->fetch()->invoice_id;
 ?>
 <div class="row">
     <div class="offset-1 col-md-10">
@@ -138,7 +111,7 @@ if (isset($_POST[ADD_INVOICE])) {
                     <label for="invoice_no" data-toggle="tooltip" data-placement="right" title="">Invoice No. <i
                                 class="fa fa-question-circle"></i></label>
                     <input type="text" class="form-control" name="invoice_no" id="invoice_no"
-                           placeholder="Enter Invoice No. " required>
+                           placeholder="Enter Invoice No. " required value="INVSJ-<?php echo $inv_no+1; ?>">
                 </div>
 
                 <div class="form-group col-md-3 offset-1">

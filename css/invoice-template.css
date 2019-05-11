@@ -19,6 +19,14 @@
     text-align: center;
     font-weight: bold;
 }
+.headings{
+    background-color: #555;
+}
+.heading{
+    font-size: 14px;
+    padding: 4px;
+    color: white;
+}
 .bord{
     border: solid 1px black;
 }
@@ -71,31 +79,37 @@
     padding-left: 16px
 }
 
+.gstin, .pan-no{
+    font-weight: bolder;
+    font-size: 20px;
+}
 
-
-.for-sr{
+.for-shop{
     display: flex;
     justify-content: space-between;
     flex-direction: column;
 }
-
-.thanks{
-    float: right;
-    padding-right: 150px;
-    padding-left: 132px;
-    text-align: center;
-}
-
 .print-hidden{
     margin: 20px;
     padding: 5px;
 }
 
-@page { margin: 0mm; }
+*{
+    color: #000;
+}
+.text-14{
+    font-weight: bold;
+    font-size: 12px;
+}
 
+@page { margin: 0mm; }
 
 @media print {
     .print-hidden{
         display: none;
+    }
+    .headings{
+        background-color: #555;
+        -webkit-print-color-adjust: exact;
     }
 }
