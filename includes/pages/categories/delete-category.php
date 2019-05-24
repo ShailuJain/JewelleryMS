@@ -9,9 +9,11 @@ if (isset($_GET['id'])) {
         //finding category object
         $category = Category::find("category_id = ?", $category_id);
         if ($category) {
-            if ($category->delete()) {
+            if (!$category->isUsed() && $category->delete()) {
                 setStatusAndMsg("success", "Category deleted successfully");
                 redirect_to(VIEW_ALL_CATEGORIES);
+            }else {
+                setStatusAndMsg("error", "Category could not be deleted");
             }
         } else {
             setStatusAndMsg("error", "Category does not exists");
@@ -20,5 +22,3 @@ if (isset($_GET['id'])) {
         setStatusAndMsg("error", "Something went wrong");
     }
 }
-
-

@@ -6,8 +6,7 @@ $rs = Invoice::viewAll();
 $column_names_as = array(
     "invoice_no" => "Invoice NO",
     "customer_name" => "Customer Name",
-    "customer_contact" => "Customer No",
-    "pending_amount" => "Pending Amount",
+    "pending_amount" => "Pending Amount &#8377;",
     "due_date" => "Due Date",
 );
 require_once 'includes/pages/invoices/delete-invoice.php';

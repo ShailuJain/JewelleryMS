@@ -29,11 +29,8 @@ class Payment extends Table
 
     public function insert()
     {
-        if(!$this->exists()){
-            parent::addCreated();
-            return CRUD::insert(self::$table_name, $this->columns_values);
-        }
-        return false;
+        parent::addCreated();
+        return CRUD::insert(self::$table_name, $this->columns_values);
     }
 
     public function update()

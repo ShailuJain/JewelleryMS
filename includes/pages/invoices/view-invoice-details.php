@@ -36,6 +36,12 @@ if (isset($id)) {
                     <input disabled type="date" class="form-control" name="due_date" id="due_date"
                            value="<?php echo $invoice_to_edit->due_date; ?>">
                 </div>
+                <div class="form-group col-md-3">
+                    <label for="due_date" data-toggle="tooltip" data-placement="right" title="">Pending Amount <i
+                                class="fa fa-question-circle"></i></label>
+                    <input disabled type="text" class="form-control" name="due_date" id="due_date"
+                           value="&#8377;<?php echo $invoice_to_edit->pending_amount; ?>">
+                </div>
             </div>
 
             <div class="accordion" id="accordionExample">
@@ -50,12 +56,21 @@ if (isset($id)) {
                     </div>
                     <div id="customerCollapse" class="collapse" aria-labelledby="heading">
                         <div class="card-body">
-                            <div class="form-group">
-                                <label for="customer_name" data-toggle="tooltip" data-placement="right" title="">Customer Name</label>
-                                <?php
-                                $customer = Customer::find("customer_id = ?", $invoice_to_edit->customer_id);
-                                echo "<input value='$customer->customer_name' disabled type='text' class='form-control' name='customer_name' id='customer_name'>";
-                                ?>
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+
+                                    <label for="customer_name" data-toggle="tooltip" data-placement="right" title="">Customer Name</label>
+                                    <?php
+                                    $customer = Customer::find("customer_id = ?", $invoice_to_edit->customer_id);
+                                    echo "<input value='$customer->customer_name' disabled type='text' class='form-control' name='customer_name' id='customer_name'>";
+                                    ?>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label for="customer_contact" data-toggle="tooltip" data-placement="right" title="">Customer Contact</label>
+                                    <?php
+                                    echo "<input value='$customer->customer_contact' disabled type='text' class='form-control' name='customer_contact' id='customer_contact'>";
+                                    ?>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -137,6 +152,9 @@ if (isset($id)) {
                     ?>
                     <div id="paymentCollapse" class="collapse" aria-labelledby="headingTwo">
                         <div class="card-body">
+                            <div class="text-center">
+                                <a class='btn btn-primary text-white' data-toggle='tooltip' href='payments.php?src=add-payment&id=<?php echo $id; ?>' data-html='true' title='Make payment'><i class='fa fa-money-bill-wave'></i> Make Payment</a>
+                            </div>
                             <div class="table-responsive">
                                 <table class="tables table table-bordered">
                                     <thead>

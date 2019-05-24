@@ -52,6 +52,11 @@ SELECT invoices.invoice_date, invoices.due_date, products.product_name, invoice_
         return CRUD::update(self::$table_name, $this->columns_values, "invoice_id={$this->invoice_id}");
     }
     public static function viewAll(){
-        return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, invoices.*,customers.customer_name,customers.customer_contact FROM `invoices` JOIN customers ON invoices.customer_id= customers.customer_id INNER JOIN (SELECT @sr_no:=0) AS a WHERE invoices.deleted = 0");
+        return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, invoices.*,customers.customer_name,customers.customer_contact FROM invoices JOIN customers ON invoices.customer_id=customers.customer_id INNER JOIN (SELECT @sr_no:=0) AS a WHERE invoices.deleted = 0");
+    }
+
+    public static function getPendingAmountCustomers($limit = 5, $offset = 0)
+    {
+        return $rs = CRUD::query("SELECT customers.customer_name, customers.customer_contact, invoices.* FROM invoices JOIN customers ON invoices.customer_id = customers.customer_id WHERE invoices.deleted = 0 AND invoices.pending_amount > 0 ORDER BY due_date ASC LIMIT $offset,$limit");
     }
 }

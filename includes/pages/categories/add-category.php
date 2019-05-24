@@ -48,7 +48,9 @@ if(isset($_POST[ADD_CATEGORY])){
                     ?>
                 </select>
             </div>
-
+            <div class="border-left-warning pl-3 pr-3 form-group">
+                No HSN Code Present? <a href="gst.php?src=add-gst" class="btn btn-outline-primary ml-2">Add HSN</a>
+            </div>
             <button type="submit" name="add_category" id="add_category" class="btn btn-primary">Add Category</button>
         </form>
     </div>

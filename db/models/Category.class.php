@@ -65,5 +65,12 @@ class Category extends Table
         }
         return false;
     }
+    public static function getTotalQuantity($category_id)
+    {
+        $result = CRUD::query("SELECT SUM(product_quantity) as total_quantity FROM products WHERE category_id = ? AND deleted = 0", $category_id);
+        $result_fetch = $result->fetch();
+        $quantity = $result_fetch->total_quantity;
+        return $quantity;
+    }
 
 }
