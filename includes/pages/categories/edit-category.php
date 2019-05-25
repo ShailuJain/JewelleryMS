@@ -33,13 +33,13 @@ if(isset($id)) {
             <form action="" method="post" role="form" enctype="multipart/form-data">
                 <h3>Edit Category</h3>
                 <hr>
-
+                <input type="hidden" name="category_id" value="<?php echo $cat_to_edit->category_id; ?>">
                 <div class="form-group">
                     <label for="category_name" data-toggle="tooltip" data-placement="right" title="" >Category Name <i class="fa fa-question-circle"></i></label>
                     <input type="text" class="form-control" name="category_name" id="category_name"
                            placeholder="Enter category name" value="<?php echo $cat_to_edit->category_name; ?>" required>
                 </div>
-                <button type="submit" name="edit_category" id="edit_category" class="btn btn-primary">Add Category
+                <button type="submit" name="edit_category" id="edit_category" class="btn btn-primary">Edit Category
                 </button>
             </form>
         </div>

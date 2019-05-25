@@ -171,7 +171,7 @@ if(isset($id)) {
                     $script_var[$i++] = array(Product::find("product_id = ?", $prod_id)->category_id, $prod_id, $purchase_product->product_quantity, $purchase_product->product_rate);
                 }
                 $script_var = json_encode($script_var);
-                require_once('includes/pages/commons/add-product-details.php');
+                require_once('includes/pages/commons/add-product-details-invoice.php');
                 ?>
                 <button type="submit" name="edit_purchase" id="edit_purchase" class="btn btn-primary">Edit Purchase
                 </button>

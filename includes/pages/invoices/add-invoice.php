@@ -37,6 +37,7 @@ if (isset($_POST[ADD_INVOICE])) {
                 $cat = Category::find('category_id = ?', $category_id);
                 $invoice_product->product_rate = doubleval($_POST['product_rate'][$i]);
                 $invoice_product->product_quantity = doubleval($_POST['product_quantity'][$i]);
+                $invoice_product->making_charges = doubleval($_POST['making_charges'][$i]);
                 $invoice_product->unit = "gm";
 
 
@@ -46,7 +47,7 @@ if (isset($_POST[ADD_INVOICE])) {
 
                 $gst_rate = CRUD::query("SELECT gst_rate FROM gst INNER JOIN categories ON gst.gst_id = categories.gst_id WHERE categories.category_id = ? AND gst.deleted = 0 AND categories.deleted = 0", $category_id)->fetch()->gst_rate;
 
-                $amount = ($invoice_product->product_quantity * $invoice_product->product_rate);
+                $amount = ($invoice_product->product_quantity * ($invoice_product->product_rate + $invoice_product->making_charges));
                 $gst_amount = $amount * $gst_rate / 100;
                 $totalAmount += $amount + $gst_amount;
 
@@ -73,6 +74,7 @@ if (isset($_POST[ADD_INVOICE])) {
                 $invoice->pending_amount = $totalAmount;
                 if ($invoice->update()) {
                     CRUD::commit();
+                    redirect_to("invoices.php?src=view-invoice&id={$invoice_id}");
                     setStatusAndMsg("success", "Invoice created successfully");
                 } else {
                     throw new Exception('Invoice cannot be created, please ensure values are correct.');
@@ -136,7 +138,7 @@ $inv_no = CRUD::query("SELECT invoice_id FROM invoices ORDER BY invoice_id DESC 
                 </select>
             </div>
             <?php
-            require_once('includes/pages/commons/add-product-details.php');
+            require_once('includes/pages/commons/add-product-details-invoice.php');
             ?>
             <button type="submit" name="add_invoice" id="add_invoice" class="btn btn-primary">Add Invoice</button>
         </form>

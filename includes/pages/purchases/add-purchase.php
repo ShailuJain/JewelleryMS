@@ -116,7 +116,7 @@ require_once ('db/models/Category.class.php');
                 </select>
             </div>
             <?php
-                require_once ('includes/pages/commons/add-product-details.php');
+                require_once('includes/pages/commons/add-product-details-purchase.php');
             ?>
             <button type="submit" name="add_purchase" id="add_purchase" class="btn btn-primary">Add Purchase</button>
         </form>

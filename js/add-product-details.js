@@ -45,31 +45,45 @@ function generateNewProductEntry() {
     count++;
     index++;
     var val = '', val2 = '';
+    var append_string = "<div class='form-row' id='list-product-"+index+"'>\n" +
+        "        <div class='form-group col-md-6'>\n" +
+        "            <select name='category_id[]' id='category-"+index+"' class='form-control' required>\n" +
+        "                <option value=''>"+global.label_texts[0]+"</option>\n" +
+        "            </select>\n" +
+        "        </div>\n" +
+        "        <div class='form-group col-md-6'>\n" +
+        "            <select name='product_id[]' id='product-"+index+"' class='form-control' required>\n" +
+        "                <option value=''>"+global.label_texts[1]+"</option>\n" +
+        "            </select>\n" +
+        "        </div>\n" +
+        "        <div class='form-group col-md-4'>\n" +
+        "            <input type='number' class='form-control' name='product_quantity[]' id='product_quantity-"+index+"' required  min='0.001' step='any' value='"+ val + "' placeholder='"+global.label_texts[2]+"'>\n" +
+        "        </div>\n" +
+        "<div class='form-group col-md-4'>\n" +
+        "            <div class='input-group'>\n" +
+        "                <input type='number' class='form-control' name='product_rate[]' id='product_rate' placeholder='"+global.label_texts[3]+"' required min='0.001' step='any' value='"+ val2 + "' step='any'>\n" +
+        "            </div>\n" +
+        "        </div>";
+    /*
+    If the page is invoice page then we have to add extra column that is making charges column.
+     */
+    /*********************************************/
+    if(page === "invoice"){
+        append_string += "<div class='form-group col-md-3'>\n" +
+            "            <div class='input-group'>\n" +
+            "                <input type='number' class='form-control' name='making_charges[]' id='making_charges' placeholder='"+global.label_texts[4]+"' required min='0.001' step='any' value='"+ val2 + "' step='any'>\n" +
+            "            </div>\n" +
+            "        </div>";
+    }
+    /*********************************************/
+
+    append_string += "<button id='delete-product-" + index + "' class='btn btn-danger delete-product' role='button' type='button' data-value='"+index+"'><i class='fa fa-trash'></i></button>\n" +
+        "    </div>";
     if(edit){
         val = global.defaultEntries[quantityIndex][2];
         val2 = global.defaultEntries[quantityIndex++][3];
     }
-    $('#list-of-products').append("<div class='form-row' id='list-product-"+index+"'>\n" +
-        "        <div class='form-group col-md-3'>\n" +
-        "            <select name='category_id[]' id='category-"+index+"' class='form-control' required>\n" +
-        "                <option value=''>Select Category</option>\n" +
-        "            </select>\n" +
-        "        </div>\n" +
-        "        <div class='form-group col-md-4'>\n" +
-        "            <select name='product_id[]' id='product-"+index+"' class='form-control' required>\n" +
-        "                <option value=''>Select Product</option>\n" +
-        "            </select>\n" +
-        "        </div>\n" +
-        "        <div class='form-group col-md-2'>\n" +
-        "            <input type='number' class='form-control' name='product_quantity[]' id='product_quantity-"+index+"' required  min='0.001' step='any' value='"+ val + "' placeholder='Quantity '>\n" +
-        "        </div>\n" +
-        "<div class='form-group col-md-2'>\n" +
-        "            <div class='input-group'>\n" +
-        "                <input type='number' class='form-control' name='product_rate[]' id='rate_of_purchase' placeholder='Rate' required min='0.001' step='any' value='"+ val2 + "' step='any'>\n" +
-        "            </div>\n" +
-        "        </div>" +
-        "        <button id='delete-product-" + index + "' class='btn btn-danger delete-product' role='button' type='button' data-value='"+index+"'><i class='fa fa-trash'></i></button>\n" +
-        "    </div>");
+    $('#list-of-products').append(append_string);
 }
 function removeProductEntry(id) {
     if(count > 1){
@@ -176,6 +190,10 @@ function initSelectizeOn(category_selector, product_selector) {
      */
     loadCategory(select_category,"query-redirect.php?query=category","No Categories Available");
 }
+
+/**
+ * Generates a new entry for dynamic form. Adds html for single product.
+ */
 function newEntry() {
     generateNewProductEntry();
     initSelectizeOn('#category-'+index, "#product-"+index);

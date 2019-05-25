@@ -67,4 +67,14 @@ $(function(){
      * Data tables
      */
     $('.tables').DataTable();
+
+
+    /*
+     *  Invoice page
+     */
+    $('#invoice_date').change(function (event) {
+        $('#due_date').attr({
+            min: event.target.value,
+        });
+    });
 });
