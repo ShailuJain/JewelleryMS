@@ -46,13 +46,11 @@ if(isset($_POST[ADD_PAYMENT])) {
         }else{
             setStatusAndMsg("error","Invoice Number does not exists");
         }
-
     }
     catch (Exception $ex)
     {
         setStatusAndMsg("error","Something went wrong");
     }
-
     CRUD::setAutoCommitOn(true);
 }
 ?>
