@@ -19,7 +19,7 @@ if(isset($_POST[ADD_PAYMENT])) {
             foreach ($arrKeys as $item) {
                 $payment->$item = $arr[$item];
             }
-            $flag =0;
+            $flag = 0;
             if($payment->insert()) {
                 $flag=1;
                 if ($arr['payment_amount'] <= $invoice->pending_amount) {
@@ -32,7 +32,7 @@ if(isset($_POST[ADD_PAYMENT])) {
                     }
                 }else{
                     $flag = 0;
-                    setStatusAndMsg("error", "invoice could not be updated");
+                    setStatusAndMsg("error", "Payment amount is greater than pending amount");
                 }
             }
             if ($flag)
@@ -42,7 +42,6 @@ if(isset($_POST[ADD_PAYMENT])) {
             }else
             {
                 CRUD::rollback();
-                setStatusAndMsg("error","payment could not be inserted");
             }
         }else{
             setStatusAndMsg("error","Invoice Number does not exists");
@@ -94,7 +93,7 @@ if(isset($_POST[ADD_PAYMENT])) {
 
             <div class="form-group">
                 <label for="additional_specifications" data-toggle="tooltip" data-placement="right" title="" >Date of Payment<i class="fa fa-question-circle"></i></label>
-                <input type="date" class="form-control" name="Payment_date" id="payment_date" placeholder="Enter Date Of Payment" required>
+                <input type="date" class="form-control" name="payment_date" id="payment_date" placeholder="Enter Date Of Payment" required>
             </div>
 
             <button type="submit" name="<?php echo ADD_PAYMENT; ?>" id="<?php echo ADD_PAYMENT; ?>" class="btn btn-primary">Add Payment</button>

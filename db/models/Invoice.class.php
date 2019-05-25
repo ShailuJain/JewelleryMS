@@ -35,8 +35,11 @@ SELECT invoices.invoice_date, invoices.due_date, products.product_name, invoice_
 
     public function insert()
     {
-        parent::addCreated();
-        return CRUD::insert(self::$table_name, $this->columns_values);
+        if(!$this->exists())
+        {
+            parent::addCreated();
+            return CRUD::insert(self::$table_name, $this->columns_values);
+        }
     }
 
     public function update()
@@ -58,5 +61,14 @@ SELECT invoices.invoice_date, invoices.due_date, products.product_name, invoice_
     public static function getPendingAmountCustomers($limit = 5, $offset = 0)
     {
         return $rs = CRUD::query("SELECT customers.customer_name, customers.customer_contact, invoices.* FROM invoices JOIN customers ON invoices.customer_id = customers.customer_id WHERE invoices.deleted = 0 AND invoices.pending_amount > 0 ORDER BY due_date ASC LIMIT $offset,$limit");
+    }
+
+    public function exists()
+    {
+//        $result = CRUD::query("SELECT * FROM (SELECT * FROM products WHERE category_id = ? AND deleted = 0) AS CATEGORY_PRODUCT WHERE product_name = ? AND deleted = 0",$this->category_id, $this->product_name);
+        $result = self::select("*",0,"invoice_no = ?", $this->invoice_no);
+        if($result->rowCount() >= 1)
+            return true;
+        return false;
     }
 }
