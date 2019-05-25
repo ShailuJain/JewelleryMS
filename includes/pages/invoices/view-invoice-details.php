@@ -37,9 +37,15 @@ if (isset($id)) {
                            value="<?php echo $invoice_to_edit->due_date; ?>">
                 </div>
                 <div class="form-group col-md-3">
-                    <label for="due_date" data-toggle="tooltip" data-placement="right" title="">Pending Amount <i
+                    <label for="total_amount" data-toggle="tooltip" data-placement="right" title="">Total Amount <i
                                 class="fa fa-question-circle"></i></label>
-                    <input disabled type="text" class="form-control" name="due_date" id="due_date"
+                    <input disabled type="text" class="form-control" name="total_amount" id="total_amount"
+                           value="&#8377;<?php echo $invoice_to_edit->total_amount; ?>">
+                </div>
+                <div class="form-group col-md-3 offset-1">
+                    <label for="pending_amount" data-toggle="tooltip" data-placement="right" title="">Pending Amount <i
+                                class="fa fa-question-circle"></i></label>
+                    <input disabled type="text" class="form-control" name="pending_amount" id="pending_amount"
                            value="&#8377;<?php echo $invoice_to_edit->pending_amount; ?>">
                 </div>
             </div>
