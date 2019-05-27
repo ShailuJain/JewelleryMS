@@ -28,7 +28,7 @@ function getPendingAmountCustomersHtml($limit = 5, $offset = 0)
             $bg = "bg-success";
         }
         $html .= <<<PROGRESS
-<h4 class="small font-weight-bold">$customer_invoice->customer_name <span class="float-right">Due-Date: $customer_invoice->due_date | Total : &#8377;$customer_invoice->total_amount</span></h4>
+<h4 class="small font-weight-bold">$customer_invoice->customer_name - $customer_invoice->customer_contact  <a class='btn btn-outline-primary make-payment-btn ml-1' data-toggle='tooltip' href='payments.php?src=add-payment&id=$customer_invoice->invoice_id' data-html='true' title='Make payment'>Make Payment <i class='fa fa-money-bill-wave'></i></a><span class="float-right">Due-Date: $customer_invoice->due_date | Total : &#8377;$customer_invoice->total_amount</span></h4>
             <div class="progress mb-4">
                 <div class="progress-bar-striped $bg" role="progressbar" style="width: {$percentage}%" aria-valuenow="$paid_amount" aria-valuemin="0" aria-valuemax="100"></div>
             </div>

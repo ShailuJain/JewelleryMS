@@ -17,7 +17,7 @@ require_once ('db/models/Category.class.php');
             //data to be inserted in purchase table
             $purchase = new Purchase();
             $purchase->supplier_id = $_POST['supplier_id'];
-            $purchase->purchase_title = $_POST['purchase_title'];
+            $purchase->purchase_no = $_POST['purchase_no'];
             $purchase->date_of_purchase = $_POST['date_of_purchase'];
 
             //inserting in purchase table
@@ -84,6 +84,7 @@ require_once ('db/models/Category.class.php');
         //ending transactions
         CRUD::setAutoCommitOn(true);
     }
+$pur_no = CRUD::query("SELECT purchase_id FROM purchases ORDER BY purchase_id DESC LIMIT 1")->fetch()->purchase_id;
 ?>
 <div class="row">
     <div class="offset-1 col-md-10">
@@ -92,8 +93,8 @@ require_once ('db/models/Category.class.php');
             <hr>
             <div class="form-row">
                 <div class="form-group col-md-6">
-                    <label for="purchase_title" data-toggle="tooltip" data-placement="right" title="" >Purchase Title <i class="fa fa-question-circle"></i></label>
-                    <input type="text" class="form-control" name="purchase_title" id="purchase_title" min="0" placeholder="Enter Purchase title">
+                    <label for="purchase_no" data-toggle="tooltip" data-placement="right" title="" >Purchase No <i class="fa fa-question-circle"></i></label>
+                    <input type="text" class="form-control" name="purchase_no" id="purchase_no" min="0" placeholder="Enter Purchase no" value="PURSJ-<?php echo $pur_no+1; ?>">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="date_of_purchase" data-toggle="tooltip" data-placement="right" title="" >Date Of Purchase <i class="fa fa-question-circle"></i></label>

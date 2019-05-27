@@ -12024,3 +12024,9 @@ td { font-size: 14px; }
 .quantity-font{
   font-size: 18px;
 }
+.make-payment-btn{
+  height: 1.25rem;
+  overflow: hidden;
+  font-size: 0.75rem;
+  padding: 0 0.35rem;
+}

@@ -23,6 +23,11 @@ class Purchase extends Table
         parent::__construct($result);
     }
 
+    public static function viewProductDetails($purchase_id)
+    {
+        return CRUD::query("SELECT products.product_name,categories.category_name,purchase_product.product_rate,purchase_product.product_quantity,gst.gst_rate FROM (((products JOIN purchase_product on products.product_id=purchase_product.product_id) JOIN categories ON products.category_id=categories.category_id) JOIN gst on categories.gst_id=gst.gst_id) where purchase_product.purchase_id = ? and gst.hsn_code in(SELECT hsn_code FROM gst WHERE gst_id=categories.gst_id) and gst.wef<='2019-5-8' AND gst.deleted=0 ORDER by wef DESC", $purchase_id);
+    }
+
     public function insert()
     {
         parent::addCreated();

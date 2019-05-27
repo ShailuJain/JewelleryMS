@@ -127,6 +127,9 @@ $inv_no = CRUD::query("SELECT invoice_id FROM invoices ORDER BY invoice_id DESC 
             <div class="form-group">
                 <label for="customer_id" data-toggle="tooltip" data-placement="right" title="">Select Customer <i
                             class="fa fa-question-circle"></i></label>
+                <span class="border-left-warning pl-3 pr-3 float-right">
+                    New Customer? <a href="customers.php?src=add-customer" class="btn btn-outline-primary ml-2 pl-1 pr-1 pt-0 pb-0">Add Customer</a>
+                </span>
                 <select name="customer_id" id="customer_id" class="form-control supplier selectize" required>
                     <option value="">Select Customer</option>
                     <?php
@@ -136,6 +139,7 @@ $inv_no = CRUD::query("SELECT invoice_id FROM invoices ORDER BY invoice_id DESC 
                     }
                     ?>
                 </select>
+
             </div>
             <?php
             require_once('includes/pages/commons/add-product-details-invoice.php');

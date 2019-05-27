@@ -9,7 +9,6 @@ require_once 'constants.php';
 require_once('helpers/redirect-helper.php');
 if (isset($id)) {
     $invoice_to_edit = Invoice::find("invoice_id = ?", $id);
-    $invoice_products_to_edit = InvoiceProduct::select("*", "invoice_id = ?", $id);
     ?>
     <div class="row">
         <div class="offset-1 col-md-10">
@@ -43,8 +42,7 @@ if (isset($id)) {
                            value="&#8377;<?php echo $invoice_to_edit->total_amount; ?>">
                 </div>
                 <div class="form-group col-md-3 offset-1">
-                    <label for="pending_amount" data-toggle="tooltip" data-placement="right" title="">Pending Amount <i
-                                class="fa fa-question-circle"></i></label>
+                    <label for="pending_amount" data-toggle="tooltip" data-placement="right" title="">Pending Amount <i class="fa fa-question-circle"></i></label>
                     <input disabled type="text" class="form-control" name="pending_amount" id="pending_amount"
                            value="&#8377;<?php echo $invoice_to_edit->pending_amount; ?>">
                 </div>

@@ -59,7 +59,7 @@ if(isset($_POST[ADD_SUPPLIER]))
 
                 <div class="form-group col-md-6">
                     <label for="supplier_contact">Contact Number</label>
-                    <input type="number" class="form-control" name="supplier_contact" id="supplier_contact" placeholder="Enter Contact Number of supplier"required>
+                    <input type="number" min= class="form-control" name="supplier_contact" id="supplier_contact" placeholder="Enter Contact Number of supplier"required>
                 </div>
             </div>
 

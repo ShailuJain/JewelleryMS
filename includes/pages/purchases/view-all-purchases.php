@@ -5,9 +5,9 @@ $rs = Purchase::viewAll();
 //This array will store the table headers for the columns we are selecting from databse
 $column_names_as = array(
         "serial_no" => "SR.No",
-        "purchase_title" => "Title",
+        "purchase_no" => "Purchase No",
         "date_of_purchase" => "Date of purchase",
-        "total_purchase_amount" => "Total amount",
+        "total_purchase_amount" => "Total amount &#8377;",
         "supplier_name" => "Supplier"
 );
 ?>
@@ -42,7 +42,7 @@ $column_names_as = array(
                                 echo "<td>$row[$column_name]</td>";
                             }
                         }
-                        echo "<td><a class='btn btn-info text-white' data-toggle='tooltip' data-html='true' title='View Detail' data-delete=''><i class='fa fa-info'></i></a></td>";
+                        echo "<td><a class='btn btn-info text-white' data-toggle='tooltip' href='purchases.php?src=view-purchase-details&id={$row['purchase_id']}' data-html='true' title='View Detail' data-delete=''><i class='fa fa-info'></i></a></td>";
                         echo "<td><a class='btn btn-primary text-white' href='purchases.php?src=edit-purchase&id={$row['purchase_id']}' data-toggle='tooltip' data-html='true' title='Edit' ><i class='fa fa-edit'></i></a></td>";
                         echo "<td><a class='btn btn-danger text-white' data-toggle='tooltip' data-target='#deleteModal' data-html='true' title='Delete' data-delete='purchases.php?form=delete-purchase&id={$row['purchase_id']}'><i class='fa fa-times'></i></a></td>";
                     }

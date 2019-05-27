@@ -4,7 +4,7 @@ try{
         require_once ('db/models/Invoice.class.php');
         require_once ('db/models/InvoiceProduct.class.php');
         $invoice_to_create = Invoice::find("invoice_id = ?", $id);
-        $invoice_products_to_create = InvoiceProduct::select("*", "invoice_id = ?", $id);
+        $invoice_products_to_create = Invoice::viewProductDetails($id);
 
         if($invoice_to_create && $invoice_products_to_create){
             require_once('helpers/InvoiceTemplate.class.php');
@@ -35,11 +35,11 @@ try{
             $products = array();
             $i = 0;
             foreach ($invoice_products_to_create->fetchAll() as $invoice_product){
-                $rs = CRUD::query("SELECT gst.hsn_code, gst.gst_rate, categories.category_name, product.product_name FROM categories INNER JOIN gst ON categories.gst_id = gst.gst_id INNER JOIN (SELECT * FROM products WHERE product_id = ?) AS product WHERE categories.category_id = product.category_id", $invoice_product->product_id)->fetch();
-                $invoice_product->category_name = $rs->category_name;
-                $invoice_product->product_name = $rs->product_name;
-                $invoice_product->hsn_code = $rs->hsn_code;
-                $invoice_product->gst_rate = $rs->gst_rate;
+//                $rs = CRUD::query("SELECT gst.hsn_code, gst.gst_rate, categories.category_name, product.product_name FROM categories INNER JOIN gst ON categories.gst_id = gst.gst_id INNER JOIN (SELECT * FROM products WHERE product_id = ?) AS product WHERE categories.category_id = product.category_id", $invoice_product->product_id)->fetch();
+//                $invoice_product->category_name = $rs->category_name;
+//                $invoice_product->product_name = $rs->product_name;
+//                $invoice_product->hsn_code = $rs->hsn_code;
+//                $invoice_product->gst_rate = $rs->gst_rate;
 
                 $products[$i++] = $invoice_product;
             }

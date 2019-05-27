@@ -25,8 +25,7 @@ class Invoice extends Table
 
     public static function viewProductDetails($invoice_id)
     {
-        return CRUD::query("
-SELECT invoices.invoice_date, invoices.due_date, products.product_name, invoice_product.product_quantity, categories.category_name, gst.gst_rate FROM invoices, invoice_product, products, gst, categories WHERE invoices.invoice_id = ? AND invoices.deleted = 0 AND invoice_product.product_id = products.product_id AND products.category_id = categories.category_id AND categories.gst_id = gst.gst_id AND invoices.invoice_id = invoice_product.invoice_id", $invoice_id);
+        return CRUD::query("SELECT gst2.gst_id, invoice_product.product_id, gst2.wef, invoices.invoice_date, categories.category_name, gst2.gst_rate, gst.hsn_code, products.product_name, invoice_product.product_rate, invoice_product.product_quantity, invoice_product.making_charges FROM invoices INNER JOIN invoice_product ON invoices.invoice_id = ? AND invoices.invoice_id = invoice_product.invoice_id INNER JOIN products ON products.product_id = invoice_product.product_id INNER JOIN categories ON products.category_id = categories.category_id INNER JOIN gst ON categories.gst_id = gst.gst_id INNER JOIN gst as gst2 ON gst.hsn_code = gst2.hsn_code AND gst2.wef <= invoices.invoice_date AND gst2.wef = (SELECT MAX(gst2.wef) as wef FROM invoices INNER JOIN invoice_product ON invoices.invoice_id = ? AND invoices.invoice_id = invoice_product.invoice_id INNER JOIN products ON invoice_product.product_id = products.product_id INNER JOIN categories ON categories.category_id = products.category_id INNER JOIN gst ON gst.gst_id = categories.gst_id INNER JOIN gst as gst2 ON gst2.hsn_code = gst.hsn_code AND gst2.wef <= invoices.invoice_date)", $invoice_id, $invoice_id);
     }
     public static function viewPaymentDetails($invoice_id)
     {
@@ -58,9 +57,15 @@ SELECT invoices.invoice_date, invoices.due_date, products.product_name, invoice_
         return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, invoices.*,customers.customer_name,customers.customer_contact FROM invoices JOIN customers ON invoices.customer_id=customers.customer_id INNER JOIN (SELECT @sr_no:=0) AS a WHERE invoices.deleted = 0");
     }
 
+    /**
+     * Retrieves the customers with pending amount on invoices.
+     * @param int $limit - limit of customers to retrieve
+     * @param int $offset - from where to start till the limit
+     * @return mixed - returns the result of the query i.e the result set for all the pending amount customers
+     */
     public static function getPendingAmountCustomers($limit = 5, $offset = 0)
     {
-        return $rs = CRUD::query("SELECT customers.customer_name, customers.customer_contact, invoices.* FROM invoices JOIN customers ON invoices.customer_id = customers.customer_id WHERE invoices.deleted = 0 AND invoices.pending_amount > 0 ORDER BY due_date ASC LIMIT $offset,$limit");
+        return $rs = CRUD::query("SELECT customers.customer_name, customers.customer_contact, invoices.* FROM invoices JOIN customers ON invoices.customer_id = customers.customer_id WHERE invoices.deleted = 0 AND invoices.pending_amount > 0 and invoices.due_date >= cast(now() as date) ORDER BY due_date ASC LIMIT $offset,$limit");
     }
 
     public function exists()

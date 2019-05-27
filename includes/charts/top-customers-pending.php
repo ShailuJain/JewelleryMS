@@ -9,7 +9,7 @@
                 </a>
                 <div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink">
                     <div class="dropdown-header">Actions:</div>
-                    <a class="dropdown-item" href="#">View All</a>
+                    <a class="dropdown-item" href="<?php require_once ('helpers/redirect-constants.php'); echo VIEW_ALL_INVOICES; ?>">View All</a>
                 </div>
             </div>
         </div>

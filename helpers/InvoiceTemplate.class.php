@@ -32,7 +32,7 @@ class InvoiceTemplate
     private function build()
     {
         //shop Details to be set in invoice
-        $s_name = $this->shop->shop_name;
+        $s_name = strtoupper($this->shop->shop_name);
         $s_add = $this->shop->shop_address;
         $s_contact = $this->shop->shop_contact;
 
@@ -40,6 +40,7 @@ class InvoiceTemplate
         $bank_name = $this->shop->bank_name;
         $acc_no = $this->shop->account_no;
         $bank_ifsc = $this->shop->bank_ifsc;
+
         $shop_gst_no = $this->shop->shop_gst_no;
         $pan_no = $this->shop->pan_no;
 
@@ -60,7 +61,7 @@ class InvoiceTemplate
         $total_amount_with_gst = 0.0;
         foreach ($this->products as $product) {
             //calculation for single product
-            $product_amount = $product->product_quantity * $product->product_rate;
+            $product_amount = $product->product_quantity * ($product->product_rate + $product->making_charges);
             $gst_amount = $product_amount * $product->gst_rate / 100;
             $product_amount_with_gst = $product_amount + $gst_amount;
 
@@ -80,6 +81,8 @@ class InvoiceTemplate
                 </div>
 LIST;
         }
+        require_once ('helpers/functions.php');
+        $total_amount_in_words = ucwords(getIndianCurrency($total_amount_with_gst));
 
         //actually building the invoiceTemplate
         $this->invoiceTemplate = <<<TEMPLATE
@@ -99,8 +102,8 @@ LIST;
         <div class='invoice'>
             <div class='container shop-details p-0 mb-5'>
                 <h2 class='shop-name'>$s_name</h2>
-                <h6 class='shop-address'>$s_add</h6>
-                <h6 class='shop-address'>$s_contact</h6>
+                <h6 class='shop-address'>Address: $s_add</h6>
+                <h6 class='shop-address'>Mob no.: $s_contact</h6>
             </div>
             <div class='invoice-header mb-5'>
                 <div class='label-bold b-bottom'>Tax Invoice</div>
@@ -165,7 +168,7 @@ LIST;
                     </div>
                 </div>
                 <div class="amount-in-words b-top row m-0">
-                    <span class="col-md-12">AMOUNT IN WORDS: </span>
+                    <span class="col-md-12">Amount in words: $total_amount_in_words</span>
                 </div>
                 <div class="gstin-panno row m-0 b-top">
                     <div class="col-md-12 gstin-panno-content">

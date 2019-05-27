@@ -13,10 +13,12 @@ if(isset($_GET['id'])) {
         $invoice = Invoice::find("invoice_id= ?", $payment->invoice_id);
         $invoice->pending_amount += $payment->payment_amount;
         if ($payment) {
-            if ($payment->delete()) {
+            if ($payment->delete() && $invoice->update()) {
                 CRUD::commit();
                 setStatusAndMsg("success", "Payment deleted successfully");
                 redirect_to(VIEW_ALL_PAYMENTS);
+            }else{
+                setStatusAndMsg("error", "Payment could be deleted.");
             }
         } else {
             setStatusAndMsg("error", "Payment do not exists");

@@ -4,9 +4,10 @@ require_once "db/models/{$model_name}.class.php";
 $rs = Invoice::viewAll();
 //This array will store the table headers for the columns we are selecting from database
 $column_names_as = array(
-    "invoice_no" => "Invoice NO",
+    "invoice_no" => "Inv No",
+    "invoice_date" => "Dated",
     "customer_name" => "Customer Name",
-    "pending_amount" => "Pending Amount &#8377;",
+    "pending_amount" => "Bal. &#8377;",
     "due_date" => "Due Date",
 );
 require_once 'includes/pages/invoices/delete-invoice.php';
@@ -23,8 +24,8 @@ require_once 'includes/pages/invoices/delete-invoice.php';
                         }
                         ?>
                         <th>Detail</th>
-                        <th>Invoice</th>
-                        <th>Payments</th>
+                        <th>View</th>
+                        <th>Payment</th>
                         <th>Delete</th>
                     </tr>
                     </thead>

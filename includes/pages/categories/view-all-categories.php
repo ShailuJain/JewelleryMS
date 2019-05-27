@@ -5,6 +5,7 @@ $rs = Category::viewAll();
 $column_names_as = array(
     "serial_no" => "Serial No",
     "category_name" => "Category Name",
+    "total_quantity" => "Category Quantity in gm",
     "hsn_code" => "HSN Code",
     "gst_rate" => "GST Rate"
 );
