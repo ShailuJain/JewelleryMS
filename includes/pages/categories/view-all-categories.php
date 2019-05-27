@@ -38,7 +38,7 @@ require_once 'includes/pages/categories/delete-category.php';
                             echo "<td>$row[$column_name]</td>";
                         }
                         echo "<td><a class='btn btn-primary text-white' href='categories.php?src=edit-category&id={$row["category_id"]}' data-toggle='tooltip' data-html='true' title='Edit this product'><i class='fa fa-edit'></i></a></td>";
-                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this Category' data-delete='categories.php?form=delete-category&id={$row["category_id"]}'><i class='fa fa-times'></i></a></td>";
+                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this Category' data-delete='categories.php?form=delete-category&id={$row["category_id"]}'><i class='fa fa-trash'></i></a></td>";
                         echo "</tr>";
                     }
                     ?>

@@ -45,7 +45,7 @@ require_once 'includes/pages/suppliers/delete-supplier.php';
                             echo "<td>$row[$column_name]</td>";
                         }
                         echo "<td><a class='btn btn-primary text-white' href='suppliers.php?src=edit-supplier&id={$row["supplier_id"]}' data-toggle='tooltip' data-html='true' title='Edit this Supplier'><i class='fa fa-edit'></i></a></td>";
-                        echo "<td><a class='btn btn-danger text-white'  data-toggle='tooltip' data-html='true' title='Delete'  data-delete='suppliers.php?form=delete-supplier&id={$row["supplier_id"]}'><i class='fa fa-times'></i></a></td>";
+                        echo "<td><a class='btn btn-danger text-white'  data-toggle='tooltip' data-html='true' title='Delete'  data-delete='suppliers.php?form=delete-supplier&id={$row["supplier_id"]}'><i class='fa fa-trash'></i></a></td>";
                         echo "</tr>";
                     }
                     ?>

@@ -186,14 +186,11 @@ LIST;
                    <br>
                    <span>NOTE:- NO E-WAY BILL IS REQUIRED TO BE GENERATED AS THE GOODS COVERED UNDER THIS INVOICE ARE EXEMPTED AS PER SERIAL NO. 4/5 TO THE ANNEXURE TO RULE 138 (14) OF THE CGST RULES OF 2017</span>
                 </div>
-                
-                
                 <div class="col-md-2 offset-1 bord customer-sign-body p-0">
                         <div class="customer-sign-content b-top">
                             CUSTOMER SIGN
                         </div>
                 </div>
-                
                 <div class="col-md-4 b-top b-right b-bottom p-0 for-shop">
                             <div class="for-shop-heading text-center b-bottom text-uppercase">
                                 FOR $s_name
@@ -204,7 +201,6 @@ LIST;
                                 </div>
                             </div>
                 </div>
-                
             </div>
             <div class="offset-8 text-center col-md-4 b-bottom b-right b-left">THANKS</div>
             <br>

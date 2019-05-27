@@ -34,17 +34,17 @@ if(isset($_GET['id'])) {
 
         if ($product_flag) {
             $invoice = Invoice::find("invoice_id = ?", $invoice_id);
-            if ($invoice->delete()) {
+            if (!$invoice->isUsed() && $invoice->delete()) {
                 CRUD::commit();
                 setStatusAndMsg("success", "Invoice deleted successfully");
                 redirect_to(VIEW_ALL_INVOICES);
             } else {
                 CRUD::rollback();
-                setStatusAndMsg("error", "Invoice cannot be created");
+                setStatusAndMsg("error", "Invoice contains payments or cannot be deleted");
             }
         } else {
             CRUD::rollback();
-            setStatusAndMsg("error", "Invoice cannot be created");
+            setStatusAndMsg("error", "Invoice cannot be deleted due to products");
         }
     } catch (Exception $ex) {
         CRUD::rollback();

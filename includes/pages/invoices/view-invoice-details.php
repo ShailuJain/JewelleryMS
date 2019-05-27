@@ -12,7 +12,7 @@ if (isset($id)) {
     ?>
     <div class="row">
         <div class="offset-1 col-md-10">
-            <h3>Invoice Details</h3>
+            <h3>Invoice Details <span class="float-right"><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='invoices.php?form=delete-invoice&id=<?php echo $id;?>'>Delete <i class='fa fa-trash'></i></a></span></h3>
             <hr>
             <div class="form-row">
                 <div class="form-group col-md-3">
@@ -168,6 +168,7 @@ if (isset($id)) {
                                             echo "<th>{$column_name_as}</th>";
                                         }
                                         ?>
+                                        <th>Delete</th>
                                     </tr>
                                     </thead>
                                     <tbody>
@@ -182,6 +183,8 @@ if (isset($id)) {
                                                 echo "<td>$row[$column_name]</td>";
                                             }
                                         }
+                                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this payment' data-delete='payments.php?form=delete-payment&id={$row["payment_id"]}'><i class='fa fa-trash'></i></a></td>";
+                                        echo "</tr>";
                                     }
                                     ?>
                                     </tbody>
@@ -195,4 +198,7 @@ if (isset($id)) {
     </div>
     <?php
 }
+include_once 'includes/modal.php';
+$body = "<h4>Note: </h4> Please check if all the usages of this particular entry has been deleted or else entry will not be deleted.";
+createModal(DELETE_TITLE, $body, "Delete");
 ?>

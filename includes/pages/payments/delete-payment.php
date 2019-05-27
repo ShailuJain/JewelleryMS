@@ -16,7 +16,7 @@ if(isset($_GET['id'])) {
             if ($payment->delete() && $invoice->update()) {
                 CRUD::commit();
                 setStatusAndMsg("success", "Payment deleted successfully");
-                redirect_to(VIEW_ALL_PAYMENTS);
+                redirect_to(VIEW_ALL_INVOICES);
             }else{
                 setStatusAndMsg("error", "Payment could be deleted.");
             }
