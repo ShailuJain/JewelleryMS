@@ -10,6 +10,7 @@ $column_names_as = array(
         "total_purchase_amount" => "Total amount &#8377;",
         "supplier_name" => "Supplier"
 );
+require_once 'includes/pages/purchases/delete-purchase.php';
 ?>
     <div class="row">
         <div class="offset-1 col-md-10">
@@ -42,7 +43,7 @@ $column_names_as = array(
                             }
                         }
                         echo "<td><a class='btn btn-info text-white' data-toggle='tooltip' href='purchases.php?src=view-purchase-details&id={$row['purchase_id']}' data-html='true' title='View Detail' data-delete=''><i class='fa fa-info'></i></a></td>";
-                        echo "<td><a class='btn btn-danger text-white' data-toggle='tooltip' data-target='#deleteModal' data-html='true' title='Delete' data-delete='purchases.php?form=delete-purchase&id={$row['purchase_id']}'><i class='fa fa-trash'></i></a></td>";
+                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='purchases.php?form=delete-purchase&id={$row['purchase_id']}'><i class='fa fa-trash'></i></a></td>";
                     }
                     ?>
                     </tbody>
