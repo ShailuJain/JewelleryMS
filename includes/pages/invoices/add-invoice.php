@@ -94,7 +94,16 @@ if (isset($_POST[ADD_INVOICE])) {
     //ending transactions
     CRUD::setAutoCommitOn(true);
 }
-$inv_no = CRUD::query("SELECT invoice_id FROM invoices ORDER BY invoice_id DESC LIMIT 1")->fetch()->invoice_id;
+try{
+    $inv_no_res = CRUD::query("SELECT invoice_id FROM invoices ORDER BY invoice_id DESC LIMIT 1");
+    if($inv_no_res->rowCount() > 0){
+        $inv_no = $inv_no_res->fetch()->invoice_id;
+    }else{
+        $inv_no = 0;
+    }
+}catch (Exception $e){
+    $inv_no = 0;
+}
 ?>
 <div class="row">
     <div class="offset-1 col-md-10">

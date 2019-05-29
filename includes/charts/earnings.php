@@ -8,6 +8,9 @@
         {
             $cat = $result->fetch();
             $quantity = Category::getTotalQuantity($cat->category_id);
+            if(empty($quantity)){
+                $quantity = 0;
+            }
             echo<<<CARD
     <!-- Category quantity card -->
     <div class="col-xl-3 col-md-6 mb-4">

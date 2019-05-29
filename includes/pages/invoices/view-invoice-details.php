@@ -96,9 +96,10 @@ if (isset($id)) {
                     //This array will store the table headers for the columns we are selecting from database
                     $column_names_as = array(
                         "category_name" => "Category Name",
-                        "gst_rate" => "GST Rate",
+                        "gst_rate" => "GST Rate %",
                         "product_name" => "Product Name",
-                        "product_quantity" => "Product Quantity",
+                        "product_quantity" => "Product Quantity gm's",
+                        "product_rate" => "Product Rate &#8377;",
                     );
                     ?>
                     <div id="productCollapse" class="collapse" aria-labelledby="headingOne">

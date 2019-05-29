@@ -84,7 +84,16 @@ require_once ('db/models/Category.class.php');
         //ending transactions
         CRUD::setAutoCommitOn(true);
     }
-$pur_no = CRUD::query("SELECT purchase_id FROM purchases ORDER BY purchase_id DESC LIMIT 1")->fetch()->purchase_id;
+try{
+    $pur_no_res = CRUD::query("SELECT purchase_id FROM purchases ORDER BY purchase_id DESC LIMIT 1");
+    if($pur_no_res->rowCount() > 0){
+        $pur_no = $pur_no_res->fetch()->purchase_id;
+    }else{
+        $pur_no = 0;
+    }
+}catch (Exception $e){
+        $pur_no = 0;
+}
 ?>
 <div class="row">
     <div class="offset-1 col-md-10">
