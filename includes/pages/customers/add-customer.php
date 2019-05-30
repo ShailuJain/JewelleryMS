@@ -42,7 +42,7 @@ if(isset($_POST[ADD_CUSTOMER]))
             <div class="form-row">
                 <div class="form-group col-md-6">
                     <label for="customer_email" data-toggle="tooltip" data-placement="right" title="" >Email <i class="fa fa-question-circle"></i></label>
-                    <input type="email" class="form-control" name="customer_email" id="customer_email" placeholder="Enter email address"required >
+                    <input type="email" class="form-control" name="customer_email" id="customer_email" placeholder="Enter email address">
                 </div>
                 <div class="form-group col-md-6">
                     <label for="customer_contact" data-toggle="tooltip" data-placement="right" title="" >Contact Number <i class="fa fa-question-circle"></i></label>
