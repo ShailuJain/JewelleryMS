@@ -26,8 +26,9 @@ include_once ("includes/header.php");
         <div id="content">
 
             <?php
-            include_once ("includes/navbar.php");
+            //include_once ("includes/navbar.php");
             ?>
+            <div class="mb-5"></div>
 
             <div id="include">
                 <!-- Begin Page Content -->
