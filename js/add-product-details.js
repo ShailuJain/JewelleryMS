@@ -52,7 +52,7 @@ function generateNewProductEntry() {
         "            </select>\n" +
         "        </div>\n" +
         "        <div class='form-group col-md-6'>\n" +
-        "            <select name='product_id[]' id='product-"+index+"' class='form-control' required>\n" +
+        "            <select name='product_id[]' id='product-"+index+"' class='form-control' data-unique='product-select' required>\n" +
         "                <option value=''>"+global.label_texts[1]+"</option>\n" +
         "            </select>\n" +
         "        </div>\n" +
@@ -147,7 +147,7 @@ function initSelectizeOn(category_selector, product_selector) {
                 xhr && xhr.abort();
                 xhr = $.post({
                     url: "query-redirect.php?query=product",
-                    data: {op: 'select', category_id: value},
+                    data: {op: 'select', field: 'product', category_id: value},
                     success: function (result) {
                         select_product.enable();
                         let res = JSON.parse(result);
@@ -179,7 +179,56 @@ function initSelectizeOn(category_selector, product_selector) {
     $select_product = $(product_selector).selectize({
         valueField: 'product_id',
         labelField: 'product_name',
-        searchField: 'product_name',
+        searchField: ['product_name', 'product_label'],
+        onChange: function (value) {
+            var id = this.$input.attr('id');
+            var currSelect = this;
+            var uniqueValue = true;
+            $("[data-unique='product-select']").each(function (index, old_value) {
+                if(!($(this).attr('id') === id)){
+                    if($(this).val() === value){
+                        alert("Already selected");
+                        currSelect.clear();
+                        uniqueValue = false;
+                    }
+                }
+            });
+            if (!value.length || !uniqueValue) return;
+            //This code will find the underlying input field of the selectize select
+
+            //*****************
+            xhr && xhr.abort();
+            xhr = $.post({
+                url: "query-redirect.php?query=product",
+                data: {op: 'select', field: 'product_quantity', product_id: value},
+                success: function (result) {
+                    let res = JSON.parse(result);
+                    if ($.isEmptyObject(res)) {
+                        alert("Invalid");
+                        return;
+                    }
+                    id = id.substring(id.lastIndexOf('-')+1, id.length);
+                    // alert();
+                    $('#product_quantity-'+id).val(res[0].product_quantity);
+                },
+            });
+        },
+        render: {
+            option: function(item, escape) {
+                return '<div class="pl-3 pr-3 pt-1 pb-1">'
+                    + '<strong>'
+                    + escape(item.product_name) + ' - '
+                    + '</strong>'
+                    + escape(item.product_label)
+                    + '</div>';
+            },
+            item: function(item, escape){
+                return '<div>'
+                    + escape(item.product_name) + ' - '
+                    + escape(item.product_label)
+                    + '</div>';
+            }
+        }
     });
     select_product = $select_product[0].selectize;
     select_category = $select_category[0].selectize;

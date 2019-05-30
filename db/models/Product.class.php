@@ -55,14 +55,14 @@ class Product extends Table
 
     public function exists()
     {
-        $result = CRUD::query("SELECT * FROM (SELECT * FROM products WHERE category_id = ? AND deleted = 0) AS CATEGORY_PRODUCT WHERE product_name = ? AND deleted = 0",$this->category_id, $this->product_name);
+        $result = CRUD::query("SELECT * FROM (SELECT * FROM products WHERE category_id = ? AND deleted = 0) AS CATEGORY_PRODUCT WHERE product_name = ? AND product_label = ? AND deleted = 0",$this->category_id, $this->product_name, $this->product_label);
         if($result->rowCount() >= 1)
             return true;
         return false;
     }
     public function existsUpdate()
     {
-        $result = CRUD::query("SELECT * FROM (SELECT * FROM products WHERE category_id = ?) AS CATEGORY_PRODUCT WHERE product_name = ?  AND deleted = 0 AND product_id != ?",$this->category_id, $this->product_name, $this->product_id);
+        $result = CRUD::query("SELECT * FROM (SELECT * FROM products WHERE category_id = ?) AS CATEGORY_PRODUCT WHERE product_name = ? AND product_label = ? AND deleted = 0 AND product_id != ?",$this->category_id, $this->product_name, $this->product_label, $this->product_id);
         if($result->rowCount() >= 1)
             return true;
         return false;

@@ -51,14 +51,18 @@ if(isset($_POST[ADD_PRODUCT])){
                 </select>
             </div>
             <div class="form-row">
-                <div class="form-group col-md-6">
+                <div class="form-group col-md-4">
                     <label for="product_name" data-toggle="tooltip" data-placement="right" title="" >Product Name <i class="fa fa-question-circle"></i></label>
                     <input type="text" class="form-control" name="product_name" id="product_name" placeholder="Enter name of product" required maxlength="150" pattern="^[a-zA-z][a-zA-Z0-9 \(\)]*$" title="Product name is not valid">
                 </div>
-                <div class="form-group col-md-6">
-                    <label for="product_quantity" data-toggle="tooltip" data-placement="right" title="" >Opening Stock <i class="fa fa-question-circle"></i></label>
+                <div class="form-group col-md-4">
+                    <label for="product_label" data-toggle="tooltip" data-placement="right" title="" >Product Label <i class="fa fa-question-circle"></i></label>
+                    <input type="number" class="form-control" name="product_label" id="product_label" placeholder="Enter label of product" required maxlength="150" title="Product label is not valid">
+                </div>
+                <div class="form-group col-md-4">
+                    <label for="product_quantity" data-toggle="tooltip" data-placement="right" title="" >Enter quantity<i class="fa fa-question-circle"></i></label>
                     <div class="input-group">
-                        <input type="number" class="form-control" name="product_quantity" id="product_quantity" placeholder="Enter opening stock of product" aria-describedby="per-gm" required min="0" step="any">
+                        <input type="number" class="form-control" name="product_quantity" id="product_quantity" placeholder="Enter weight of product" aria-describedby="per-gm" required min="0" step="any">
                         <div class="input-group-append">
                             <span class="input-group-text" id="per-gm">gm's</span>
                         </div>

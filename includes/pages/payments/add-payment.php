@@ -79,7 +79,7 @@ if(isset($_POST[ADD_PAYMENT])) {
                 <div class="form-group col-md-6">
                     <label for="payment_amount" data-toggle="tooltip" data-placement="right" title="" >Payment Amount <i class="fa fa-question-circle"></i></label>
                     <div class="input-group-append">
-                        <input type="number" class="form-control" name="payment_amount" id="payment_amount" min="1" placeholder="Enter Payment Amount" aria-describedby="per-rs" required pattern="[0-9]">
+                        <input type="number" class="form-control" name="payment_amount" id="payment_amount" min="1" placeholder="Enter Payment Amount" aria-describedby="per-rs" required >
                         <span class="input-group-text" id="per-rs">₹</span>
                     </div>
                 </div>
