@@ -36,7 +36,7 @@ if(isset($_POST[ADD_PRODUCT])){
 <div class="row">
     <div class="offset-1 col-md-10">
         <form id="form" action="" method="post" role="form" enctype="multipart/form-data">
-            <h3>Add New Product</h3>
+            <h3>Add New Product<span class="float-right"><a href="<?php require_once ('helpers/redirect-constants.php'); echo VIEW_ALL_PRODUCTS; ?>" class='btn btn-info text-white'>View All Products <i class='fa fa-eye'></i></a></span></h3>
             <hr>
             <div class="form-group">
                 <label for="category_id" data-toggle="tooltip" data-placement="right" title="" >Category Name <i class="fa fa-question-circle"></i></label>

@@ -98,7 +98,7 @@ try{
 <div class="row">
     <div class="offset-1 col-md-10">
         <form action="" method="post" role="form" enctype="multipart/form-data">
-            <h3>New Purchase - Purchase details</h3>
+            <h3>New Purchase - Purchase details<span class="float-right"><a href="<?php require_once ('helpers/redirect-constants.php'); echo VIEW_ALL_PURCHASES; ?>" class='btn btn-info text-white'>View All Purchases <i class='fa fa-eye'></i></a></span></h3>
             <hr>
             <div class="form-row">
                 <div class="form-group col-md-6">

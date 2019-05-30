@@ -9,4 +9,5 @@ if(isset($_GET['src']))
 }else{
     $include_page = "pages/categories/view-all-categories.php";
 }
+$title = "Categories";
 require_once ('helpers/static-components.php');

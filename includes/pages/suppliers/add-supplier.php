@@ -33,7 +33,7 @@ if(isset($_POST[ADD_SUPPLIER]))
 <div class="row">
     <div class="offset-1 col-md-10">
         <form action="" method="post" role="form" enctype="multipart/form-data">
-            <h3>Add New Supplier</h3>
+            <h3>Add New Supplier<span class="float-right"><a href="<?php require_once ('helpers/redirect-constants.php'); echo VIEW_ALL_SUPPLIERS; ?>" class='btn btn-info text-white'>View All Suppliers <i class='fa fa-eye'></i></a></span></h3>
             <hr>
 
             <div class="form-group">

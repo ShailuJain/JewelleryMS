@@ -9,4 +9,5 @@ if(isset($_GET['src']))
 }else{
     $include_page = "pages/gst/view-all-gst.php";
 }
+$title = "GST";
 require_once ('helpers/static-components.php');
