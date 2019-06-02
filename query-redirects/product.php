@@ -30,7 +30,7 @@ if(isset($_POST['op']))
                     $str = 1;
                 }
                 require_once('db/models/Product.class.php');
-                $res = Product::select("product_id,product_name,product_label", 0, $str);
+                $res = Product::select("product_id,product_name,product_label", 0, $str . "AND product_quantity > 0");
                 echo json_encode($res->fetchAll());
             }
             break;

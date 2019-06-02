@@ -56,6 +56,7 @@ if (isset($_POST[ADD_INVOICE])) {
                 $products[$j++] = $product;
                 if($invoice_product->product_quantity <= $product->product_quantity){
                     $product->product_quantity -= $invoice_product->product_quantity;
+                    $product->deleted = 1;
                 }else{
                     throw new Exception('Invoice could not be created, as product quantity is not available');
                 }
