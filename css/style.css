@@ -12030,3 +12030,14 @@ td { font-size: 14px; }
   font-size: 0.75rem;
   padding: 0 0.35rem;
 }
+
+
+@media print {
+  .print-hidden{
+    display: none;
+  }
+  .headings{
+    background-color: #555;
+    -webkit-print-color-adjust: exact;
+  }
+}

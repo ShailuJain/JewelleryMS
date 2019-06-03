@@ -23,11 +23,6 @@ class Purchase extends Table
         parent::__construct($result);
     }
 
-    public static function viewProductDetails($purchase_id)
-    {
-        return CRUD::query("SELECT gst2.gst_id, purchase_product.product_id, gst2.wef, purchases.date_of_purchase, categories.category_name, gst2.gst_rate, gst.hsn_code, products.product_name, purchase_product.product_rate, purchase_product.product_quantity FROM purchases INNER JOIN purchase_product ON purchases.purchase_id = ? AND purchases.purchase_id = purchase_product.purchase_id INNER JOIN products ON products.product_id = purchase_product.product_id INNER JOIN categories ON products.category_id = categories.category_id INNER JOIN gst ON categories.gst_id = gst.gst_id INNER JOIN gst as gst2 ON gst.hsn_code = gst2.hsn_code AND gst2.wef <= purchases.date_of_purchase AND gst2.wef IN (SELECT MAX(gst2.wef) as wef FROM purchases INNER JOIN purchase_product ON purchases.purchase_id = ? AND purchases.purchase_id = purchase_product.purchase_id INNER JOIN products ON purchase_product.product_id = products.product_id INNER JOIN categories ON categories.category_id = products.category_id INNER JOIN gst ON gst.gst_id = categories.gst_id INNER JOIN gst as gst2 ON gst2.hsn_code = gst.hsn_code AND gst2.wef <= purchases.date_of_purchase GROUP BY products.product_id)", $purchase_id, $purchase_id);
-    }
-
     public function insert()
     {
         parent::addCreated();
@@ -49,7 +44,7 @@ class Purchase extends Table
     }
 
     public static function viewAll(){
-        return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, purchases.*, suppliers.supplier_name FROM purchases INNER JOIN suppliers ON purchases.supplier_id=suppliers.supplier_id INNER JOIN (SELECT @sr_no:=0) AS a WHERE purchases.deleted = 0");
+        return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, purchases.* FROM purchases INNER JOIN (SELECT @sr_no:=0) AS a WHERE purchases.deleted = 0");
 
     }
 }

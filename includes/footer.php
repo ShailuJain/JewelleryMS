@@ -1,4 +1,4 @@
-<footer class="sticky-footer bg-white">
+<footer class="sticky-footer bg-white print-hidden">
     <div class="container my-auto">
         <div class="copyright text-center my-auto">
             <span>Copyright &copy; <a href="https://github.com/half-code">Shailesh Jain</a> 2019</span>

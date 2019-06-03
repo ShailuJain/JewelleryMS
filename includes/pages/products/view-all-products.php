@@ -6,6 +6,7 @@ $column_names_as = array(
     "serial_no" => "Serial No",
     "category_name" => "Category Name",
     "product_name" => "Product Name",
+    "product_label" => "Product Label",
     "product_quantity" => "Product Quantity",
     "additional_specifications" => "Additional Specifications",
 );

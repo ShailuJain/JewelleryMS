@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 30, 2019 at 06:04 PM
+-- Generation Time: Jun 03, 2019 at 01:16 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -75,7 +75,8 @@ CREATE TABLE `customers` (
 --
 
 INSERT INTO `customers` (`customer_id`, `customer_name`, `customer_address`, `customer_email`, `customer_contact`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
-(1006, 'Ankit Anchliya', 'NSP', 'ankit@gmail.com', '9632587410', 0, '2019-05-30 15:52:24', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0);
+(1006, 'Ankit Anchliya', 'NSP', 'ankit@gmail.com', '9632587410', 0, '2019-05-30 15:52:24', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0),
+(1007, 'suresh kumhar', 'NSP', '', '9638527410', 0, '2019-05-30 21:53:34', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -131,7 +132,10 @@ CREATE TABLE `invoices` (
 --
 
 INSERT INTO `invoices` (`invoice_id`, `invoice_no`, `customer_id`, `total_amount`, `pending_amount`, `due_date`, `invoice_date`, `deleted`, `created_at`, `deleted_at`, `created_by`, `deleted_by`, `updated_at`, `updated_by`) VALUES
-(3, 'INVSJ-1', 1006, 37080, 37080, '2019-07-31', '2019-05-30', 0, '2019-05-30 15:52:59', '0000-00-00 00:00:00', 0, 0, '2019-05-30', 0);
+(3, 'INVSJ-1', 1006, 37080, 37080, '2019-07-31', '2019-05-30', 0, '2019-05-30 15:52:59', '0000-00-00 00:00:00', 0, 0, '2019-05-30', 0),
+(4, 'INVSJ-4', 1006, 8454.24, 8454.24, '2019-09-19', '2019-05-30', 0, '2019-05-30 21:50:36', '0000-00-00 00:00:00', 0, 0, '2019-05-30', 0),
+(5, 'INVSJ-5', 1007, 8528.4, 8528.4, '2019-11-11', '2019-05-30', 0, '2019-05-30 21:55:45', '0000-00-00 00:00:00', 0, 0, '2019-05-30', 0),
+(6, 'INVSJ-6', 1007, 9270, 9270, '2019-06-30', '2019-06-02', 0, '2019-06-02 14:50:37', '0000-00-00 00:00:00', 0, 0, '2019-06-02', 0);
 
 -- --------------------------------------------------------
 
@@ -153,7 +157,10 @@ CREATE TABLE `invoice_product` (
 --
 
 INSERT INTO `invoice_product` (`invoice_id`, `product_id`, `product_rate`, `product_quantity`, `making_charges`, `unit`) VALUES
-(3, 5, 3250, 10, 350, 'gm');
+(3, 5, 3250, 10, 350, 'gm'),
+(4, 8, 3250, 2.28, 350, 'gm'),
+(5, 6, 3250, 2.3, 350, 'gm'),
+(6, 7, 3250, 2.5, 350, 'gm');
 
 -- --------------------------------------------------------
 
@@ -163,7 +170,8 @@ INSERT INTO `invoice_product` (`invoice_id`, `product_id`, `product_rate`, `prod
 
 CREATE TABLE `payments` (
   `payment_id` int(11) NOT NULL,
-  `invoice_id` int(11) NOT NULL,
+  `payment_of` varchar(255) NOT NULL,
+  `fk_id` int(11) NOT NULL,
   `payment_amount` double NOT NULL,
   `payment_date` date NOT NULL,
   `payment_mode` varchar(15) NOT NULL,
@@ -203,9 +211,10 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`product_id`, `product_name`, `product_label`, `product_quantity`, `additional_specifications`, `category_id`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
-(5, 'Ring', 0, 90, '', 1, 0, '2019-05-30 15:51:43', '2019-05-30 15:52:59', '0000-00-00 00:00:00', 0, 0, 0),
-(6, 'ring', 1, 2.3, '', 1, 0, '2019-05-30 18:06:03', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0),
-(7, 'ring', 50, 2.5, '', 1, 0, '2019-05-30 18:36:18', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0);
+(6, 'ring', 1, 0, '', 1, 1, '2019-05-30 18:06:03', '2019-05-30 21:55:45', '0000-00-00 00:00:00', 0, 0, 0),
+(7, 'ring', 50, 0, '', 1, 1, '2019-05-30 18:36:18', '2019-06-02 14:50:37', '0000-00-00 00:00:00', 0, 0, 0),
+(8, 'Earring', 1, 0, '', 1, 1, '2019-05-30 21:49:20', '2019-05-30 21:50:36', '0000-00-00 00:00:00', 0, 0, 0),
+(9, 'haar', 1, 9, '', 1, 0, '2019-06-03 12:48:03', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -215,8 +224,10 @@ INSERT INTO `products` (`product_id`, `product_name`, `product_label`, `product_
 
 CREATE TABLE `purchases` (
   `purchase_id` int(11) NOT NULL,
-  `supplier_id` int(11) NOT NULL,
+  `supplier_detail` varchar(255) NOT NULL,
   `purchase_no` varchar(255) NOT NULL,
+  `purchase_quantity` double NOT NULL,
+  `purchase_rate` double NOT NULL,
   `date_of_purchase` date NOT NULL,
   `total_purchase_amount` double NOT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
@@ -228,19 +239,12 @@ CREATE TABLE `purchases` (
   `deleted_by` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- --------------------------------------------------------
-
 --
--- Table structure for table `purchase_product`
+-- Dumping data for table `purchases`
 --
 
-CREATE TABLE `purchase_product` (
-  `purchase_id` int(11) NOT NULL,
-  `product_id` int(11) NOT NULL,
-  `product_rate` double NOT NULL,
-  `product_quantity` double NOT NULL,
-  `unit` varchar(5) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+INSERT INTO `purchases` (`purchase_id`, `supplier_detail`, `purchase_no`, `purchase_quantity`, `purchase_rate`, `date_of_purchase`, `total_purchase_amount`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
+(1, 'shailesh', 'PURSJ-1', 100, 3250, '2019-06-02', 0, 0, '2019-06-02 18:00:30', '0000-00-00 00:00:00', '2019-06-02 18:46:28', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -264,19 +268,16 @@ CREATE TABLE `roles` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `suppliers`
+-- Table structure for table `udhaari`
 --
 
-CREATE TABLE `suppliers` (
-  `supplier_id` int(11) NOT NULL,
-  `supplier_name` varchar(255) NOT NULL,
-  `supplier_shopname` varchar(255) NOT NULL,
-  `supplier_address` text NOT NULL,
-  `supplier_contact` varchar(10) NOT NULL,
-  `supplier_email` varchar(255) NOT NULL,
-  `gst_no` varchar(255) NOT NULL,
-  `deleted` int(1) NOT NULL DEFAULT '0',
-  `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
+CREATE TABLE `udhaari` (
+  `udhaari_id` int(11) NOT NULL,
+  `udhaari_amount` double NOT NULL,
+  `udhaari_date` date NOT NULL,
+  `due_date` date NOT NULL,
+  `deleted` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   `deleted_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL,
@@ -360,22 +361,16 @@ ALTER TABLE `purchases`
   ADD PRIMARY KEY (`purchase_id`);
 
 --
--- Indexes for table `purchase_product`
---
-ALTER TABLE `purchase_product`
-  ADD PRIMARY KEY (`purchase_id`,`product_id`);
-
---
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
   ADD PRIMARY KEY (`role_id`);
 
 --
--- Indexes for table `suppliers`
+-- Indexes for table `udhaari`
 --
-ALTER TABLE `suppliers`
-  ADD PRIMARY KEY (`supplier_id`);
+ALTER TABLE `udhaari`
+  ADD PRIMARY KEY (`udhaari_id`);
 
 --
 -- Indexes for table `users`
@@ -391,43 +386,43 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `customers`
 --
 ALTER TABLE `customers`
-  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1007;
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1008;
 
 --
 -- AUTO_INCREMENT for table `gst`
 --
 ALTER TABLE `gst`
-  MODIFY `gst_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `gst_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `invoices`
 --
 ALTER TABLE `invoices`
-  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
-  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=28;
+  MODIFY `payment_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `product_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -436,10 +431,10 @@ ALTER TABLE `roles`
   MODIFY `role_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `suppliers`
+-- AUTO_INCREMENT for table `udhaari`
 --
-ALTER TABLE `suppliers`
-  MODIFY `supplier_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1002;
+ALTER TABLE `udhaari`
+  MODIFY `udhaari_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`

@@ -1,7 +1,6 @@
 <?php
 require_once('db/models/Supplier.class.php');
 require_once('db/models/Purchase.class.php');
-require_once('db/models/PurchaseProduct.class.php');
 
 require_once('db/models/Product.class.php');
 require_once('db/models/Category.class.php');
@@ -53,81 +52,62 @@ if (isset($id)) {
                             <div class="form-row">
                                 <div class="form-group col-md-4">
 
-                                    <label for="supplier_name" data-toggle="tooltip" data-placement="right" title="">Supplier Name</label>
+                                    <label for="supplier_detail" data-toggle="tooltip" data-placement="right" title="">Supplier Name</label>
                                     <?php
-                                    $supplier = Supplier::find("supplier_id = ?", $purchase_to_edit->supplier_id);
-                                    echo "<input value='$supplier->supplier_name' disabled type='text' class='form-control' name='supplier_name' id='supplier_name'>";
-                                    ?>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="supplier_contact" data-toggle="tooltip" data-placement="right" title="">Supplier Contact</label>
-                                    <?php
-                                    echo "<input value='$supplier->supplier_contact' disabled type='text' class='form-control' name='supplier_contact' id='supplier_contact'>";
-                                    ?>
-                                </div>
-                                <div class="form-group col-md-4">
-                                    <label for="gst_no" data-toggle="tooltip" data-placement="right" title="">Supplier GST No</label>
-                                    <?php
-                                    echo "<input value='$supplier->gst_no' disabled type='text' class='form-control' name='gst_no' id='gst_no'>";
+                                    echo "<input value='$purchase_to_edit->supplier_detail' disabled type='text' class='form-control' name='supplier_detail' id='supplier_detail'>";
                                     ?>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card">
-                    <div class="card-header" id="headingOne" data-toggle="collapse"
-                         data-target="#productCollapse"
-                         aria-expanded="true" aria-controls="productCollapse">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" type="button">
-                                Product Details
-                            </button>
-                        </h5>
-                    </div>
-                    <?php
-                    $model_name = "Purchase";
-                    require_once "db/models/{$model_name}.class.php";
-                    $rs = Purchase::viewProductDetails($id);
-                    //This array will store the table headers for the columns we are selecting from database
-                    $column_names_as = array(
-                        "category_name" => "Category Name",
-                        "gst_rate" => "GST Rate %",
-                        "product_name" => "Product Name",
-                        "product_quantity" => "Product Quantity gm's",
-                        "product_rate" => "Product Rate &#8377;",
-                    );
-                    ?>
-                    <div id="productCollapse" class="collapse" aria-labelledby="headingOne">
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="tables table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <?php
-                                        foreach ($column_names_as as $column_name_as) {
-                                            echo "<th>{$column_name_as}</th>";
-                                        }
-                                        ?>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingOne" data-toggle="collapse"
+                     data-target="#productCollapse"
+                     aria-expanded="true" aria-controls="productCollapse">
+                    <h5 class="mb-0">
+                        <button class="btn btn-link" type="button">
+                            Product Details
+                        </button>
+                    </h5>
+                </div>
+                <?php
+                $model_name = "Purchase";
+                require_once "db/models/{$model_name}.class.php";
+                $rs = Purchase::select();
+                //This array will store the table headers for the columns we are selecting from database
+                $column_names_as = array(
+                    "purchase_quantity" => "Purchased Quantity gm's",
+                    "purchase_rate" => "Purchased Rate &#8377;",
+                    "total_purchase_amount" => "Total amount &#8377;",
+                );
+                ?>
+                <div id="productCollapse" class="collapse" aria-labelledby="headingOne">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="tables table table-bordered">
+                                <thead>
+                                <tr>
                                     <?php
-                                    $column_names = array_keys($column_names_as);
-                                    while ($row = $rs->fetch(PDO::FETCH_ASSOC)) {
-                                        echo "<tr>";
-                                        foreach ($column_names as $column_name) {
-                                            if (empty($row[$column_name])) {
-                                                echo "<td>NULL</td>";
-                                            } else {
-                                                echo "<td>$row[$column_name]</td>";
-                                            }
-                                        }
+                                    foreach ($column_names_as as $column_name_as) {
+                                        echo "<th>{$column_name_as}</th>";
                                     }
                                     ?>
-                                    </tbody>
-                                </table>
-                            </div>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <?php
+                                $column_names = array_keys($column_names_as);
+                                while ($row = $rs->fetch(PDO::FETCH_ASSOC)) {
+                                    echo "<tr>";
+                                    foreach ($column_names as $column_name) {
+                                        echo "<td>$row[$column_name]</td>";
+                                    }
+                                }
+                                ?>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>

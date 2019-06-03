@@ -6,9 +6,9 @@ $rs = Purchase::viewAll();
 $column_names_as = array(
         "serial_no" => "SR.No",
         "purchase_no" => "Purchase No",
+        "supplier_detail" => "Supplier",
         "date_of_purchase" => "Date of purchase",
-        "total_purchase_amount" => "Total amount &#8377;",
-        "supplier_name" => "Supplier"
+        "total_purchase_amount" => "Total amount &#8377;"
 );
 require_once 'includes/pages/purchases/delete-purchase.php';
 ?>
@@ -33,14 +33,7 @@ require_once 'includes/pages/purchases/delete-purchase.php';
                     while($row = $rs->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
                         foreach ($column_names as $column_name) {
-                            if(empty($row[$column_name]))
-                            {
-                                echo "<td>NULL</td>";
-                            }
-                            else
-                            {
-                                echo "<td>$row[$column_name]</td>";
-                            }
+                            echo "<td>$row[$column_name]</td>";
                         }
                         echo "<td><a class='btn btn-info text-white' data-toggle='tooltip' href='purchases.php?src=view-purchase-details&id={$row['purchase_id']}' data-html='true' title='View Detail' data-delete=''><i class='fa fa-info'></i></a></td>";
                         echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='purchases.php?form=delete-purchase&id={$row['purchase_id']}'><i class='fa fa-trash'></i></a></td>";
