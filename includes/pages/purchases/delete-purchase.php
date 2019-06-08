@@ -1,6 +1,5 @@
 <?php
 require_once('db/models/Purchase.class.php');
-require_once('db/models/Supplier.class.php');
 require_once('db/models/Product.class.php');
 require_once('db/models/Category.class.php');
 require_once 'constants.php';

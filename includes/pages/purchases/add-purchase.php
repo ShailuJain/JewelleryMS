@@ -1,6 +1,5 @@
 <?php
 require_once ('db/models/Purchase.class.php');
-require_once ('db/models/Supplier.class.php');
 require_once ('db/models/Product.class.php');
 require_once ('db/models/Category.class.php');
     require_once 'constants.php';
@@ -15,6 +14,7 @@ require_once ('db/models/Category.class.php');
             $purchase->date_of_purchase = $_POST['date_of_purchase'];
             $purchase->purchase_rate = $_POST['purchase_rate'];
             $purchase->purchase_quantity = $_POST['purchase_quantity'];
+            $purchase->total_purchase_amount = $_POST['total_purchase_amount'];
 
             //inserting in purchase table
             if($purchase->insert())
@@ -41,7 +41,7 @@ try{
 <div class="row">
     <div class="offset-1 col-md-10">
         <form action="" method="post" role="form" enctype="multipart/form-data">
-            <h3>New Purchase - Purchase details<span class="float-right"><a href="<?php require_once ('helpers/redirect-constants.php'); echo VIEW_ALL_PURCHASES; ?>" class='btn btn-info text-white'>View All Purchases <i class='fa fa-eye'></i></a></span></h3>
+            <h3>New Purchase - Purchase details<span class="float-right print-hidden"><a href="<?php require_once ('helpers/redirect-constants.php'); echo VIEW_ALL_PURCHASES; ?>" class='btn btn-info text-white'>View All Purchases <i class='fa fa-eye'></i></a></span></h3>
             <hr>
             <div class="form-row">
                 <div class="form-group col-md-6">
@@ -66,15 +66,30 @@ try{
             <div class="form-row">
                 <div class="form-group col-md-4">
                     <label for="purchase_quantity" data-toggle="tooltip" data-placement="right" title="" >Product Quantity <i class="fa fa-question-circle"></i></label>
-                    <input name="purchase_quantity" id="purchase_quantity" class="form-control" required placeholder="Enter product quantity">
+                    <div class="input-group">
+                        <input type="number" class="form-control" name="purchase_quantity" id="purchase_quantity" placeholder="Enter product quantity" aria-describedby="per-gm" required step="any">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="per-gm">gm's</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="purchase_rate" data-toggle="tooltip" data-placement="right" title="" >Product Rate <i class="fa fa-question-circle"></i></label>
-                    <input name="purchase_rate" id="purchase_rate" class="form-control" required placeholder="Enter rate of purchase">
+                    <div class="input-group">
+                        <input type="number" class="form-control" name="purchase_rate" id="purchase_rate" placeholder="Enter rate of purchase" aria-describedby="rs" required step="any">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="rs">&#8377;</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="form-group col-md-4">
                     <label for="total_purchase_amount" data-toggle="tooltip" data-placement="right" title="" >Total Amount <i class="fa fa-question-circle"></i></label>
-                    <input name="total_purchase_amount" id="total_purchase_amount" class="form-control" required placeholder="Enter total purchase amount">
+                    <div class="input-group">
+                        <input type="number" class="form-control" name="total_purchase_amount" id="total_purchase_amount" placeholder="Enter total purchase amount" aria-describedby="rs" required step="any">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="rs">&#8377;</span>
+                        </div>
+                    </div>
                 </div>
             </div>
             <button type="submit" name="add_purchase" id="add_purchase" class="btn btn-primary">Add Purchase</button>

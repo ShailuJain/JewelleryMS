@@ -12,7 +12,7 @@ if (isset($id)) {
     ?>
     <div class="row">
         <div class="offset-1 col-md-10">
-            <h3>Invoice Details <span class="float-right"><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='invoices.php?form=delete-invoice&id=<?php echo $id;?>'>Delete <i class='fa fa-trash'></i></a></span></h3>
+            <h3>Invoice Details <span class="float-right ml-2"><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='invoices.php?form=delete-invoice&id=<?php echo $id;?>'>Delete <i class='fa fa-trash'></i></a></span><span class="float-right ml-2"><a href="<?php require_once ('helpers/redirect-constants.php'); echo VIEW_ALL_INVOICES; ?>" class='btn btn-info text-white'>View All Invoices <i class='fa fa-eye'></i></a></span></h3>
             <hr>
             <div class="form-row">
                 <div class="form-group col-md-3">
@@ -40,11 +40,6 @@ if (isset($id)) {
                                 class="fa fa-question-circle"></i></label>
                     <input disabled type="text" class="form-control" name="total_amount" id="total_amount"
                            value="&#8377;<?php echo $invoice_to_edit->total_amount; ?>">
-                </div>
-                <div class="form-group col-md-3 offset-1">
-                    <label for="pending_amount" data-toggle="tooltip" data-placement="right" title="">Pending Amount <i class="fa fa-question-circle"></i></label>
-                    <input disabled type="text" class="form-control" name="pending_amount" id="pending_amount"
-                           value="&#8377;<?php echo $invoice_to_edit->pending_amount; ?>">
                 </div>
             </div>
 
@@ -127,65 +122,6 @@ if (isset($id)) {
                                                 echo "<td>$row[$column_name]</td>";
                                             }
                                         }
-                                    }
-                                    ?>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-header" id="headingTwo" data-toggle="collapse"
-                         data-target="#paymentCollapse"
-                         aria-expanded="true" aria-controls="paymentCollapse">
-                        <h5 class="mb-0">
-                            <button class="btn btn-link" type="button">
-                                Payment Details
-                            </button>
-                        </h5>
-                    </div>
-                    <?php
-                    $rs = Invoice::viewPaymentDetails($id);
-                    //This array will store the table headers for the columns we are selecting from database
-                    $column_names_as = array(
-                        "payment_id" => "Payment Id",
-                        "payment_amount" => "Payment Amount",
-                        "payment_date" => "Payment Date",
-                        "payment_mode" => "Payment Mode",
-                    );
-                    ?>
-                    <div id="paymentCollapse" class="collapse" aria-labelledby="headingTwo">
-                        <div class="card-body">
-                            <div class="text-center">
-                                <a class='btn btn-primary text-white' data-toggle='tooltip' href='payments.php?src=add-payment&id=<?php echo $id; ?>' data-html='true' title='Make payment'><i class='fa fa-money-bill-wave'></i> Make Payment</a>
-                            </div>
-                            <div class="table-responsive">
-                                <table class="tables table table-bordered">
-                                    <thead>
-                                    <tr>
-                                        <?php
-                                        foreach ($column_names_as as $column_name_as) {
-                                            echo "<th>{$column_name_as}</th>";
-                                        }
-                                        ?>
-                                        <th>Delete</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody>
-                                    <?php
-                                    $column_names = array_keys($column_names_as);
-                                    while ($row = $rs->fetch(PDO::FETCH_ASSOC)) {
-                                        echo "<tr>";
-                                        foreach ($column_names as $column_name) {
-                                            if (empty($row[$column_name])) {
-                                                echo "<td>NULL</td>";
-                                            } else {
-                                                echo "<td>$row[$column_name]</td>";
-                                            }
-                                        }
-                                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this payment' data-delete='payments.php?form=delete-payment&id={$row["payment_id"]}'><i class='fa fa-trash'></i></a></td>";
-                                        echo "</tr>";
                                     }
                                     ?>
                                     </tbody>

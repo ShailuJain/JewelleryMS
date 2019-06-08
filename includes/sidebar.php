@@ -50,6 +50,20 @@
 
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInvoice" aria-expanded="true" aria-controls="collapseInvoice">
+            <i class="fas fa-fw fa-money-bill-alt"></i>
+            <span>Invoice</span>
+        </a>
+        <div id="collapseInvoice" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item ajax-link" href="invoices.php?src=add-invoice">Create Invoice</a>
+                <a class="collapse-item ajax-link" href="invoices.php?src=view-all-invoices">View All Invoices</a>
+            </div>
+        </div>
+    </li>
+
+    <!-- Nav Item - Utilities Collapse Menu -->
+    <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePurchase" aria-expanded="true" aria-controls="collapsePurchase">
             <i class="fas fa-fw fa-shopping-bag"></i>
             <span>Purchase</span>
@@ -66,28 +80,13 @@
     <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePayment" aria-expanded="true" aria-controls="collapsePayment">
-            <i class="fas fa-fw fa-shopping-bag"></i>
-            <span>Payment</span>
+            <i class="fas fa-fw fa-money-bill-wave"></i>
+            <span>Udhaari</span>
         </a>
         <div id="collapsePayment" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item ajax-link" href="payments.php?src=add-payment">Make Payment</a>
-                <a class="collapse-item ajax-link" href="payments.php?src=view-all-payments">View All Payments</a>
-            </div>
-        </div>
-    </li>
-
-
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseSupplier" aria-expanded="true" aria-controls="collapseSupplier">
-            <i class="fas fa-fw fa-user-circle "></i>
-            <span>Supplier</span>
-        </a>
-        <div id="collapseSupplier" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item ajax-link" href="suppliers.php?src=add-supplier">Add Supplier</a>
-                <a class="collapse-item ajax-link" href="suppliers.php?src=view-all-suppliers">View All Suppliers</a>
+                <a class="collapse-item ajax-link" href="udhaari.php?src=add-udhaari">Create Udhaari</a>
+                <a class="collapse-item ajax-link" href="udhaari.php?src=view-all-udhaaris">View All Udhaari</a>
             </div>
         </div>
     </li>
@@ -107,20 +106,6 @@
         </div>
     </li>
 
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseInvoice" aria-expanded="true" aria-controls="collapseInvoice">
-            <i class="fas fa-fw fa-money-bill-alt"></i>
-            <span>Invoice</span>
-        </a>
-        <div id="collapseInvoice" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item ajax-link" href="invoices.php?src=add-invoice">Create Invoice</a>
-                <a class="collapse-item ajax-link" href="invoices.php?src=view-all-invoices">View All Invoices</a>
-            </div>
-        </div>
-    </li>
-
     <!-- Divider -->
     <hr class="sidebar-divider">
 
@@ -130,18 +115,18 @@
     </div>
 
     <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser" aria-expanded="true" aria-controls="collapseUser">
-            <i class="fas fa-fw fa-user"></i>
-            <span>User</span>
-        </a>
-        <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item ajax-link" href="users.php?src=add-user-2">Add user</a>
-                <a class="collapse-item ajax-link" href="users.php?src=view-all-users">View All Users</a>
-            </div>
-        </div>
-    </li>
+<!--    <li class="nav-item">-->
+<!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser" aria-expanded="true" aria-controls="collapseUser">-->
+<!--            <i class="fas fa-fw fa-user"></i>-->
+<!--            <span>User</span>-->
+<!--        </a>-->
+<!--        <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">-->
+<!--            <div class="bg-white py-2 collapse-inner rounded">-->
+<!--                <a class="collapse-item ajax-link" href="users.php?src=add-user-2">Add user</a>-->
+<!--                <a class="collapse-item ajax-link" href="users.php?src=view-all-users">View All Users</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </li>-->
 
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGST" aria-expanded="true" aria-controls="collapseGST">

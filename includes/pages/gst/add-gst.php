@@ -41,7 +41,12 @@ if(isset($_POST[ADD_GST])){
 
                 <div class="form-group col-md-6">
                     <label for="gst_rate" data-toggle="tooltip" data-placement="right" title="Rate provided for the hsn code" >GST Rate % <i class="fa fa-question-circle"></i></label>
-                    <input type="number" class="form-control" name="gst_rate" id="gst_rate" placeholder="Enter GST rate" required min="1" max="100">
+                    <div class="input-group">
+                        <input type="number" class="form-control" name="gst_rate" id="gst_rate" placeholder="Enter GST rate" aria-describedby="percent" required min="1" max="100" step="any">
+                        <div class="input-group-append">
+                            <span class="input-group-text" id="percent">%</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 

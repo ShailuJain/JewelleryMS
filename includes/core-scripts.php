@@ -18,6 +18,7 @@
 <script src="vendor/datatables/dataTables.bootstrap4.js"></script>
 <script src="vendor/izi-toast/js/iziToast.min.js"></script>
 <script src="vendor/selectize/js/selectize.min.js"></script>
+<script src="js/purchase/purchase-script.js"></script>
 
 <!-- Custom script for purchase form-->
 

@@ -1,5 +1,4 @@
 <?php
-require_once('db/models/Supplier.class.php');
 require_once('db/models/Purchase.class.php');
 
 require_once('db/models/Product.class.php');
@@ -11,7 +10,10 @@ if (isset($id)) {
     ?>
     <div class="row">
         <div class="offset-1 col-md-10">
-            <h3>Purchase Details</h3>
+            <div class="buttons text-center">
+                <div class="btn btn-primary print-hidden" id="printBtn">PRINT</div>
+            </div>
+            <h3>Purchase Details <span class="float-right print-hidden"><a href="<?php require_once ('helpers/redirect-constants.php'); echo VIEW_ALL_PURCHASES; ?>" class='btn btn-info text-white'>View All Purchases <i class='fa fa-eye'></i></a></span></h3>
             <hr>
             <div class="form-row">
                 <div class="form-group col-md-3">
@@ -75,7 +77,7 @@ if (isset($id)) {
                 <?php
                 $model_name = "Purchase";
                 require_once "db/models/{$model_name}.class.php";
-                $rs = Purchase::select();
+                $rs = Purchase::select("*",0, "purchase_id = ?", $id);
                 //This array will store the table headers for the columns we are selecting from database
                 $column_names_as = array(
                     "purchase_quantity" => "Purchased Quantity gm's",
