@@ -54,7 +54,7 @@ class Customer extends Table
 
     public function exists()
     {
-        $result = self::select("*",0,"customer_contact = ? OR customer_email = ?",$this->customer_contact, $this->customer_email);
+        $result = self::select("*",0,"customer_contact = ?",$this->customer_contact);
         if($result->rowCount() >= 1){
             return true;
         }
@@ -62,7 +62,7 @@ class Customer extends Table
     }
     public function existsUpdate()
     {
-        $result = self::select("*",0,"customer_contact = ? OR customer_email = ? AND customer_id != ?",$this->customer_contact, $this->customer_email, $this->customer_id);
+        $result = self::select("*",0,"customer_contact = ? AND customer_id != ?",$this->customer_contact, $this->customer_id);
         if($result->rowCount() >= 1){
             return true;
         }

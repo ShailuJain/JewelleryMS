@@ -57,11 +57,11 @@ function generateNewProductEntry() {
         "            </select>\n" +
         "        </div>\n" +
         "        <div class='form-group col-md-4'>\n" +
-        "            <input type='number' class='form-control' name='product_quantity[]' id='product_quantity-"+index+"' required  min='0.001' step='any' value='"+ val + "' placeholder='"+global.label_texts[2]+"'>\n" +
+        "            <input type='number' class='form-control' name='product_quantity[]' id='product_quantity-"+index+"' required  min='0.001' step='any' value='"+ val + "' placeholder='"+global.label_texts[2]+"' disabled>\n" +
         "        </div>\n" +
         "<div class='form-group col-md-4'>\n" +
         "            <div class='input-group'>\n" +
-        "                <input type='number' class='form-control' name='product_rate[]' id='product_rate' placeholder='"+global.label_texts[3]+"' required min='0.001' step='any' value='"+ val2 + "' step='any'>\n" +
+        "                <input type='number' class='form-control' name='product_rate[]' id='product_rate' placeholder='"+global.label_texts[3]+"' required min='0.001' step='any' value='"+ val2 + "' step='any' dia>\n" +
         "            </div>\n" +
         "        </div>";
     /*
@@ -182,6 +182,7 @@ function initSelectizeOn(category_selector, product_selector) {
         searchField: ['product_name', 'product_label'],
         onChange: function (value) {
             var id = this.$input.attr('id');
+            var num_id = id.substring(id.lastIndexOf('-')+1, id.length);
             var currSelect = this;
             var uniqueValue = true;
             $("[data-unique='product-select']").each(function (index, old_value) {
@@ -193,7 +194,11 @@ function initSelectizeOn(category_selector, product_selector) {
                     }
                 }
             });
-            if (!value.length || !uniqueValue) return;
+            if(!value.length){
+                $('#product_quantity-'+num_id).val('');
+                return;
+            }
+            if (!uniqueValue) return;
             //This code will find the underlying input field of the selectize select
 
             //*****************
@@ -207,9 +212,8 @@ function initSelectizeOn(category_selector, product_selector) {
                         alert("Invalid");
                         return;
                     }
-                    id = id.substring(id.lastIndexOf('-')+1, id.length);
                     // alert();
-                    $('#product_quantity-'+id).val(res[0].product_quantity);
+                    $('#product_quantity-'+num_id).val(res[0].product_quantity);
                 },
             });
         },

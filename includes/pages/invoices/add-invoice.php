@@ -20,7 +20,6 @@ if (isset($_POST[ADD_INVOICE])) {
         $invoice->customer_id = $_POST['customer_id'];
         $invoice->invoice_no = $_POST['invoice_no'];
         $invoice->invoice_date = $_POST['invoice_date'];
-        $invoice->due_date = $_POST['due_date'];
 
         //inserting in invoice table
         if ($invoice->insert()) {
@@ -36,9 +35,7 @@ if (isset($_POST[ADD_INVOICE])) {
                 $invoice_product->product_id = $product_id;
                 $cat = Category::find('category_id = ?', $category_id);
                 $invoice_product->product_rate = doubleval($_POST['product_rate'][$i]);
-                $invoice_product->product_quantity = doubleval($_POST['product_quantity'][$i]);
                 $invoice_product->making_charges = doubleval($_POST['making_charges'][$i]);
-                $invoice_product->unit = "gm";
 
 
 //                    $gst_rate = CRUD::query("SELECT gst_rate from gst WHERE gst_id = (SELECT gst_id from categories WHERE category_id = 3 AND deleted = 0) AND deleted = 0");
@@ -47,19 +44,16 @@ if (isset($_POST[ADD_INVOICE])) {
 
                 $gst_rate = CRUD::query("SELECT gst_rate FROM gst INNER JOIN categories ON gst.gst_id = categories.gst_id WHERE categories.category_id = ? AND gst.deleted = 0 AND categories.deleted = 0", $category_id)->fetch()->gst_rate;
 
-                $amount = ($invoice_product->product_quantity * ($invoice_product->product_rate + $invoice_product->making_charges));
-                $gst_amount = $amount * $gst_rate / 100;
-                $totalAmount += $amount + $gst_amount;
 
                 //data to be updated in the product table
                 $product = Product::find("product_id = ?", $product_id);
                 $products[$j++] = $product;
-                if($invoice_product->product_quantity <= $product->product_quantity){
-                    $product->product_quantity -= $invoice_product->product_quantity;
-                    $product->deleted = 1;
-                }else{
-                    throw new Exception('Invoice could not be created, as product quantity is not available');
-                }
+                $product->deleted = 1;
+
+
+                $amount = ($product->product_quantity * ($invoice_product->product_rate + $invoice_product->making_charges));
+                $gst_amount = $amount * $gst_rate / 100;
+                $totalAmount += $amount + $gst_amount;
 
                 if ($invoice_product->insert() && $product->update()) {
                     $flag = true;
@@ -72,7 +66,6 @@ if (isset($_POST[ADD_INVOICE])) {
             if ($flag) {
                 $invoice = Invoice::find("invoice_id = ?", $invoice_id);
                 $invoice->total_amount = $totalAmount;
-                $invoice->pending_amount = $totalAmount;
                 if ($invoice->update()) {
                     CRUD::commit();
                     redirect_to("invoices.php?src=view-invoice&id={$invoice_id}");
@@ -82,7 +75,7 @@ if (isset($_POST[ADD_INVOICE])) {
                 }
             } else {
                 CRUD::rollback();
-                setStatusAndMsg("error", "Invoice cannot be created");
+                setStatusAndMsg("error", "Invoice cannot be created, products mismatched");
             }
         } else {
             CRUD::rollback();
@@ -112,24 +105,16 @@ try{
             <h3>New Invoice - Invoice Details<span class="float-right"><a href="<?php require_once ('helpers/redirect-constants.php'); echo VIEW_ALL_INVOICES; ?>" class='btn btn-info text-white'>View All Invoices <i class='fa fa-eye'></i></a></span></h3>
             <hr>
             <div class="form-row">
-
-                <div class="form-group col-md-3">
-                    <label for="invoice_date" data-toggle="tooltip" data-placement="right" title="">Invoice Date <i
-                                class="fa fa-question-circle"></i></label>
-                    <input type="date" class="form-control" name="invoice_date" id="invoice_date" value="<?php echo date('Y-m-d'); ?>" required>
-                </div>
-
-                <div class="form-group col-md-4 offset-1">
+                <div class="form-group col-md-6">
                     <label for="invoice_no" data-toggle="tooltip" data-placement="right" title="">Invoice No. <i
                                 class="fa fa-question-circle"></i></label>
                     <input type="text" class="form-control" name="invoice_no" id="invoice_no"
                            placeholder="Enter Invoice No. " required value="INVSJ-<?php echo $inv_no+1; ?>">
                 </div>
-
-                <div class="form-group col-md-3 offset-1">
-                    <label for="due_date" data-toggle="tooltip" data-placement="right" title="">Due Date <i
+                <div class="form-group col-md-6">
+                    <label for="invoice_date" data-toggle="tooltip" data-placement="right" title="">Invoice Date <i
                                 class="fa fa-question-circle"></i></label>
-                    <input type="date" class="form-control" name="due_date" id="due_date" value="" required>
+                    <input type="date" class="form-control" name="invoice_date" id="invoice_date" value="<?php echo date('Y-m-d'); ?>" required>
                 </div>
             </div>
             <h3>Customer Details</h3>

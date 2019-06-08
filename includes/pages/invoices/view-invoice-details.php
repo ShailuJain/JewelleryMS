@@ -28,14 +28,7 @@ if (isset($id)) {
                     <input disabled type="text" class="form-control" name="invoice_no" id="invoice_no"
                            placeholder="Enter Invoice No. " value="<?php echo $invoice_to_edit->invoice_no; ?>">
                 </div>
-
                 <div class="form-group col-md-3 offset-1">
-                    <label for="due_date" data-toggle="tooltip" data-placement="right" title="">Due Date <i
-                                class="fa fa-question-circle"></i></label>
-                    <input disabled type="date" class="form-control" name="due_date" id="due_date"
-                           value="<?php echo $invoice_to_edit->due_date; ?>">
-                </div>
-                <div class="form-group col-md-3">
                     <label for="total_amount" data-toggle="tooltip" data-placement="right" title="">Total Amount <i
                                 class="fa fa-question-circle"></i></label>
                     <input disabled type="text" class="form-control" name="total_amount" id="total_amount"
@@ -93,6 +86,7 @@ if (isset($id)) {
                         "category_name" => "Category Name",
                         "gst_rate" => "GST Rate %",
                         "product_name" => "Product Name",
+                        "product_label" => "Product Label",
                         "product_quantity" => "Product Quantity gm's",
                         "product_rate" => "Product Rate &#8377;",
                     );

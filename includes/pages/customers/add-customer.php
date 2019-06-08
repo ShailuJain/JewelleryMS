@@ -52,7 +52,7 @@ if(isset($_POST[ADD_CUSTOMER]))
 
             <div class="form-group">
                 <label for="customer_address" data-toggle="tooltip" data-placement="right" title="" >Address <i class="fa fa-question-circle"></i></label>
-                <textarea class="form-control" name="customer_address" id="customer_address" placeholder="Enter address" required></textarea>
+                <textarea class="form-control" name="customer_address" id="customer_address" placeholder="Enter address"></textarea>
             </div>
 
             <button type="submit" name="add_customer" id="add_customer" class="btn btn-primary">Add Customer</button>
