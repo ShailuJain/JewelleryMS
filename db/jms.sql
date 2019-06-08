@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 03, 2019 at 01:16 PM
+-- Generation Time: Jun 08, 2019 at 01:18 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -115,7 +115,6 @@ CREATE TABLE `invoices` (
   `invoice_no` varchar(20) NOT NULL,
   `customer_id` int(11) NOT NULL,
   `total_amount` double NOT NULL,
-  `pending_amount` double NOT NULL,
   `due_date` date NOT NULL,
   `invoice_date` date NOT NULL,
   `deleted` int(1) NOT NULL,
@@ -131,11 +130,11 @@ CREATE TABLE `invoices` (
 -- Dumping data for table `invoices`
 --
 
-INSERT INTO `invoices` (`invoice_id`, `invoice_no`, `customer_id`, `total_amount`, `pending_amount`, `due_date`, `invoice_date`, `deleted`, `created_at`, `deleted_at`, `created_by`, `deleted_by`, `updated_at`, `updated_by`) VALUES
-(3, 'INVSJ-1', 1006, 37080, 37080, '2019-07-31', '2019-05-30', 0, '2019-05-30 15:52:59', '0000-00-00 00:00:00', 0, 0, '2019-05-30', 0),
-(4, 'INVSJ-4', 1006, 8454.24, 8454.24, '2019-09-19', '2019-05-30', 0, '2019-05-30 21:50:36', '0000-00-00 00:00:00', 0, 0, '2019-05-30', 0),
-(5, 'INVSJ-5', 1007, 8528.4, 8528.4, '2019-11-11', '2019-05-30', 0, '2019-05-30 21:55:45', '0000-00-00 00:00:00', 0, 0, '2019-05-30', 0),
-(6, 'INVSJ-6', 1007, 9270, 9270, '2019-06-30', '2019-06-02', 0, '2019-06-02 14:50:37', '0000-00-00 00:00:00', 0, 0, '2019-06-02', 0);
+INSERT INTO `invoices` (`invoice_id`, `invoice_no`, `customer_id`, `total_amount`, `due_date`, `invoice_date`, `deleted`, `created_at`, `deleted_at`, `created_by`, `deleted_by`, `updated_at`, `updated_by`) VALUES
+(3, 'INVSJ-1', 1006, 37080, '2019-07-31', '2019-05-30', 0, '2019-05-30 15:52:59', '0000-00-00 00:00:00', 0, 0, '2019-05-30', 0),
+(4, 'INVSJ-4', 1006, 8454.24, '2019-09-19', '2019-05-30', 0, '2019-05-30 21:50:36', '0000-00-00 00:00:00', 0, 0, '2019-05-30', 0),
+(5, 'INVSJ-5', 1007, 8528.4, '2019-11-11', '2019-05-30', 0, '2019-05-30 21:55:45', '0000-00-00 00:00:00', 0, 0, '2019-05-30', 0),
+(6, 'INVSJ-6', 1007, 9270, '2019-06-30', '2019-06-02', 0, '2019-06-02 14:50:37', '0000-00-00 00:00:00', 0, 0, '2019-06-02', 0);
 
 -- --------------------------------------------------------
 
@@ -230,6 +229,7 @@ CREATE TABLE `purchases` (
   `purchase_rate` double NOT NULL,
   `date_of_purchase` date NOT NULL,
   `total_purchase_amount` double NOT NULL,
+  `pending_amount` double NOT NULL,
   `deleted` int(1) NOT NULL DEFAULT '0',
   `created_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` datetime NOT NULL,
@@ -243,8 +243,9 @@ CREATE TABLE `purchases` (
 -- Dumping data for table `purchases`
 --
 
-INSERT INTO `purchases` (`purchase_id`, `supplier_detail`, `purchase_no`, `purchase_quantity`, `purchase_rate`, `date_of_purchase`, `total_purchase_amount`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
-(1, 'shailesh', 'PURSJ-1', 100, 3250, '2019-06-02', 0, 0, '2019-06-02 18:00:30', '0000-00-00 00:00:00', '2019-06-02 18:46:28', 0, 0, 0);
+INSERT INTO `purchases` (`purchase_id`, `supplier_detail`, `purchase_no`, `purchase_quantity`, `purchase_rate`, `date_of_purchase`, `total_purchase_amount`, `pending_amount`, `deleted`, `created_at`, `updated_at`, `deleted_at`, `created_by`, `updated_by`, `deleted_by`) VALUES
+(1, 'shailesh', 'PURSJ-1', 100, 3250, '2019-06-02', 250060, 0, 0, '2019-06-02 18:00:30', '0000-00-00 00:00:00', '2019-06-02 18:46:28', 0, 0, 0),
+(2, 'sunil', 'PURSJ-2', 500.5, 3350, '2019-06-08', 952095, 0, 0, '2019-06-08 16:24:36', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -273,7 +274,8 @@ CREATE TABLE `roles` (
 
 CREATE TABLE `udhaari` (
   `udhaari_id` int(11) NOT NULL,
-  `udhaari_amount` double NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `pending_amount` double NOT NULL,
   `udhaari_date` date NOT NULL,
   `due_date` date NOT NULL,
   `deleted` int(11) NOT NULL,
@@ -422,7 +424,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT for table `purchases`
 --
 ALTER TABLE `purchases`
-  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `purchase_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `roles`
