@@ -95,7 +95,8 @@ class CRUD
             self::init();
         if(strpos($query, "?") === false){
             $res = self::$pdo->query($query);
-            error_log("query" . implode(",",self::$pdo->errorInfo()) . "\n", 3, "php-error.log");
+            error_log("query : " . $query . PHP_EOL, 3, "php-error.log");
+            error_log("query : " . implode(",",self::$pdo->errorInfo()) . "\n", 3, "php-error.log");
             return $res;
         }
         return self::executePreparedStatement($query, ...$params);
@@ -116,7 +117,7 @@ class CRUD
             self::init();
         if(self::tableExists($tableName)){
             $query = "SELECT {$rows} FROM {$tableName} WHERE deleted={$deleted} AND {$condition}";
-            error_log("select" . $query . '\n', 3, "php-error.log");
+            error_log("select" . $query . PHP_EOL, 3, "php-error.log");
             if(self::isPreparedStatement($query)){
                 return self::executePreparedStatement($query, ...$params);
             }
@@ -164,6 +165,7 @@ class CRUD
             $keys = array_keys($associativeArray);
             for($i = 0; $i<count($associativeArray); $i++)
                 $pdoStmt->bindValue($i+1, $associativeArray[$keys[$i]]);
+            error_log("select" . $query . PHP_EOL, 3, "php-error.log");
             if($pdoStmt->execute())
                 return true;
         }
@@ -189,11 +191,10 @@ class CRUD
             $keys = array_keys($associativeArray);
             for($i = 0; $i<count($associativeArray); $i++)
                 $pdoStmt->bindValue($i+1, $associativeArray[$keys[$i]]);
+            error_log("update : " . $query . "\n", 3, "php-error.log");
             if($pdoStmt->execute()){
                 return true;
             }
-            error_log("update : " . $query . "\n", 3, "php-error.log");
-            error_log("update : " . implode(",",$pdoStmt->errorInfo()) . "\n", 3, "php-error.log");
         }
         return false;
     }
@@ -240,7 +241,8 @@ class CRUD
         if($result_bool){
             return $stmt;
         }
-        error_log("executePreparedStatement" . implode(",",$stmt->errorInfo()) . "\n", 3, "php-error.log");
+        error_log("executePreparedStatement : " . $query. "\n", 3, "php-error.log");
+        error_log("executePreparedStatement : " . implode(",",$stmt->errorInfo()) . "\n", 3, "php-error.log");
     }
 
     public static function lastInsertId(){

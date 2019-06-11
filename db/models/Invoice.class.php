@@ -25,7 +25,7 @@ class Invoice extends Table
 
     public static function viewProductDetails($invoice_id)
     {
-        return CRUD::query("SELECT gst2.gst_id, invoice_product.product_id, gst2.wef, invoices.invoice_date, categories.category_name, gst2.gst_rate, gst.hsn_code, products.product_name, invoice_product.product_rate, invoice_product.product_quantity, invoice_product.making_charges FROM invoices INNER JOIN invoice_product ON invoices.invoice_id = ? AND invoices.invoice_id = invoice_product.invoice_id INNER JOIN products ON products.product_id = invoice_product.product_id INNER JOIN categories ON products.category_id = categories.category_id INNER JOIN gst ON categories.gst_id = gst.gst_id INNER JOIN gst as gst2 ON gst.hsn_code = gst2.hsn_code AND gst2.wef <= invoices.invoice_date AND gst2.wef IN (SELECT MAX(gst2.wef) as wef FROM invoices INNER JOIN invoice_product ON invoices.invoice_id = ? AND invoices.invoice_id = invoice_product.invoice_id INNER JOIN products ON invoice_product.product_id = products.product_id INNER JOIN categories ON categories.category_id = products.category_id INNER JOIN gst ON gst.gst_id = categories.gst_id INNER JOIN gst as gst2 ON gst2.hsn_code = gst.hsn_code AND gst2.wef <= invoices.invoice_date GROUP BY products.product_id)", $invoice_id, $invoice_id);
+        return CRUD::query("SELECT gst2.gst_id, invoice_product.product_id, gst2.wef, invoices.invoice_date, categories.category_name, gst2.gst_rate, gst.hsn_code, products.product_name, products.product_label, invoice_product.product_rate, products.product_quantity, invoice_product.making_charges FROM invoices INNER JOIN invoice_product ON invoices.invoice_id = ? AND invoices.invoice_id = invoice_product.invoice_id INNER JOIN products ON products.product_id = invoice_product.product_id INNER JOIN categories ON products.category_id = categories.category_id INNER JOIN gst ON categories.gst_id = gst.gst_id INNER JOIN gst as gst2 ON gst.hsn_code = gst2.hsn_code AND gst2.wef <= invoices.invoice_date AND gst2.wef IN (SELECT MAX(gst2.wef) as wef FROM invoices INNER JOIN invoice_product ON invoices.invoice_id = ? AND invoices.invoice_id = invoice_product.invoice_id INNER JOIN products ON invoice_product.product_id = products.product_id INNER JOIN categories ON categories.category_id = products.category_id INNER JOIN gst ON gst.gst_id = categories.gst_id INNER JOIN gst as gst2 ON gst2.hsn_code = gst.hsn_code AND gst2.wef <= invoices.invoice_date GROUP BY products.product_id)", $invoice_id, $invoice_id);
     }
     public static function viewPaymentDetails($invoice_id)
     {
@@ -55,19 +55,6 @@ class Invoice extends Table
     }
     public static function viewAll(){
         return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, invoices.*,customers.customer_name,customers.customer_contact FROM invoices JOIN customers ON invoices.customer_id=customers.customer_id INNER JOIN (SELECT @sr_no:=0) AS a WHERE invoices.deleted = 0");
-    }
-    /**
-     * @return bool: Returns true if this particular entry in used by another table
-     */
-    public function isUsed()
-    {
-        $result = CRUD::select("payments","*",0, "invoice_id = ?", $this->invoice_id);
-        if($result){
-            if($result->rowCount()>0){
-                return true;
-            }
-        }
-        return false;
     }
     /**
      * Retrieves the customers with pending amount on invoices.

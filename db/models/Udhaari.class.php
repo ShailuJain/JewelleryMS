@@ -20,7 +20,25 @@ class Udhaari extends Table
     }
     public static function viewAll()
     {
-        return CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, udhaari.*, invoices.invoice_no FROM udhaari INNER JOIN invoices on udhaari.invoice_id = invoices.invoice_id INNER JOIN (SELECT @sr_no:= 0) AS a WHERE udhaari.deleted = 0");
+        return CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, udhaari.*, customers.customer_name FROM udhaari INNER JOIN customers on udhaari.customer_id = customers.customer_id INNER JOIN (SELECT @sr_no:= 0) AS a WHERE udhaari.deleted = 0");
+    }
+    public static function viewPaymentDetails($udhaari_id)
+    {
+        require_once ('db/models/Payment.class.php');
+        return Payment::viewAll("udhaari", "udhaari_id", $udhaari_id);
+    }
+    /**
+     * @return bool: Returns true if this particular entry in used by another table
+     */
+    public static function isUsed($udhaari_id)
+    {
+        $result = self::viewPaymentDetails($udhaari_id);
+        if($result){
+            if($result->rowCount()>0){
+                return true;
+            }
+        }
+        return false;
     }
     public function __construct($result = null)
     {

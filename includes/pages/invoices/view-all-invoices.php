@@ -7,8 +7,7 @@ $column_names_as = array(
     "invoice_no" => "Inv No",
     "invoice_date" => "Dated",
     "customer_name" => "Customer Name",
-    "pending_amount" => "Bal. &#8377;",
-    "due_date" => "Due Date",
+    "customer_contact" => "Customer Contact",
 );
 require_once 'includes/pages/invoices/delete-invoice.php';
 ?>

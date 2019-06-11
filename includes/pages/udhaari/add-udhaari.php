@@ -14,10 +14,15 @@ if (isset($_POST[ADD_UDHAARI])) {
         foreach ($arrKeys as $item) {
             $udhaari->$item = $arr[$item];
         }
-        if ($udhaari->insert()) {
-            setStatusAndMsg("success", "Udhaari added successfully");
+        if ($udhaari->udhaari_amount > 0) {
+            $udhaari->pending_amount = $udhaari->udhaari_amount;
+            if ($udhaari->insert()) {
+                setStatusAndMsg("success", "Udhaari added successfully");
+            } else {
+                setStatusAndMsg("error", "udhaari could not be created");
+            }
         }else{
-            setStatusAndMsg("error", "udhaari could not be updated");
+            setStatusAndMsg("error", "Amount must be greater than 0.");
         }
     } catch (Exception $ex) {
         setStatusAndMsg("error", "Something went wrong");
@@ -67,7 +72,9 @@ try {
 
             <div class="form-row mt-3">
                 <div class="form-group col-md-8">
-                    <label style="width: 100%;" for="customer_id" data-toggle="tooltip" data-placement="right" title="">Select Customer <i class="fa fa-question-circle"></i><span class="border-left-warning pl-3 pr-3 float-right">
+                    <label style="width: 100%;" for="customer_id" data-toggle="tooltip" data-placement="right" title="">Select
+                        Customer <i class="fa fa-question-circle"></i><span
+                                class="border-left-warning pl-3 pr-3 float-right">
                     New Customer? <a href="customers.php?src=add-customer"
                                      class="btn btn-outline-primary ml-2 pl-1 pr-1 pt-0 pb-0">Add Customer</a>
                 </span></label>
@@ -83,10 +90,11 @@ try {
 
                 </div>
                 <div class="form-group col-md-4">
-                    <label for="pending_amount" data-toggle="tooltip" data-placement="right" title="">Total Udhaari <i
+                    <label for="udhaari_amount" data-toggle="tooltip" data-placement="right" title="">Total Udhaari <i
                                 class="fa fa-question-circle"></i></label>
                     <div class="input-group">
-                        <input type="number" class="form-control" name="pending_amount" id="pending_amount" placeholder="Enter total udhaari" aria-describedby="rs" required step="any">
+                        <input type="number" class="form-control" name="udhaari_amount" id="udhaari_amount"
+                               placeholder="Enter total udhaari" aria-describedby="rs" required step="any" min="1">
                         <div class="input-group-append">
                             <span class="input-group-text" id="rs">&#8377;</span>
                         </div>

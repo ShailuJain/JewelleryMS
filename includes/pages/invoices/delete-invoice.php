@@ -21,20 +21,18 @@ if(isset($_GET['id'])) {
         $res = InvoiceProduct::select("*", "invoice_id = ?", $invoice_id);
         $invoice_products = $res->fetchAll();
         $invoice_products_count = $res->rowCount();
-        $invoice_products_to_be_deleted = array();
 
         foreach ($invoice_products as $i_p) {
-            $product = Product::find("product_id = ?", $i_p->product_id);
-            $product->product_quantity += $i_p->product_quantity;
+            $product = Product::findNoDeletedColumn("product_id = ?", $i_p->product_id);
+            $product->deleted = 0;
             if (!$product->update()) {
                 $product_flag = false;
             }
-            $invoice_products_to_be_deleted[$i_p->invoice_id . ',' . $i_p->product_id] = 1;
         }
 
         if ($product_flag) {
             $invoice = Invoice::find("invoice_id = ?", $invoice_id);
-            if (!$invoice->isUsed() && $invoice->delete()) {
+            if ($invoice->delete()) {
                 CRUD::commit();
                 setStatusAndMsg("success", "Invoice deleted successfully");
                 redirect_to(VIEW_ALL_INVOICES);
