@@ -199,7 +199,7 @@ function initSelectizeOn(category_selector, product_selector) {
                 return;
             }
             if (!uniqueValue) return;
-            //This code will find the underlying input field of the selectize select
+            //This code will find the under lying input field of the selectize select
 
             //*****************
             xhr && xhr.abort();

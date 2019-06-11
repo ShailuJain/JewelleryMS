@@ -63,6 +63,21 @@
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
+<!--    <li class="nav-item">-->
+<!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePurchase" aria-expanded="true" aria-controls="collapsePurchase">-->
+<!--            <i class="fas fa-fw fa-shopping-bag"></i>-->
+<!--            <span>Purchase</span>-->
+<!--        </a>-->
+<!--        <div id="collapsePurchase" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">-->
+<!--            <div class="bg-white py-2 collapse-inner rounded">-->
+<!--                <a class="collapse-item ajax-link" href="purchases.php?src=add-purchase">Add Purchase</a>-->
+<!--                <a class="collapse-item ajax-link" href="purchases.php?src=view-all-purchases">View All Purchases</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </li>-->
+
+
+    <!-- Nav Item - Utilities Collapse Menu -->
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePayment" aria-expanded="true" aria-controls="collapsePayment">
             <i class="fas fa-fw fa-money-bill-wave"></i>
@@ -99,6 +114,21 @@
     <div class="sidebar-heading">
         Settings
     </div>
+
+    <!-- Nav Item - Pages Collapse Menu -->
+<!--    <li class="nav-item">-->
+<!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUser" aria-expanded="true" aria-controls="collapseUser">-->
+<!--            <i class="fas fa-fw fa-user"></i>-->
+<!--            <span>User</span>-->
+<!--        </a>-->
+<!--        <div id="collapseUser" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">-->
+<!--            <div class="bg-white py-2 collapse-inner rounded">-->
+<!--                <a class="collapse-item ajax-link" href="users.php?src=add-user-2">Add user</a>-->
+<!--                <a class="collapse-item ajax-link" href="users.php?src=view-all-users">View All Users</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </li>-->
+
     <li class="nav-item">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseGST" aria-expanded="true" aria-controls="collapseGST">
             <i class="fas fa-fw fa-user"></i>

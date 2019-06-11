@@ -18,9 +18,14 @@ class Payment extends Table
     {
         return CRUD::find(self::$table_name, $condition, ...$params);
     }
-    public static function viewAll()
+    public static function viewAll($payment_of_table = null, $payment_of_table_id = null, $id = null)
     {
-        return CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, payments.*, invoices.invoice_no FROM payments INNER JOIN invoices on payments.invoice_id = invoices.invoice_id INNER JOIN (SELECT @sr_no:= 0) AS a WHERE payments.deleted = 0");
+        if(!$payment_of_table || !$payment_of_table_id) throw new InvalidArgumentException("payment of cannot be null");
+        $query = "SELECT @sr_no:=@sr_no+1 as serial_no, payments.*, $payment_of_table.* FROM payments INNER JOIN $payment_of_table on payments.fk_id = $payment_of_table.$payment_of_table_id INNER JOIN (SELECT @sr_no:= 0) AS a WHERE payments.deleted = 0 AND payments.payment_of = '$payment_of_table'";
+        if($id){
+            $query .= " AND $payment_of_table.$payment_of_table_id = $id";
+        }
+        return CRUD::query($query);
     }
     public function __construct($result = null)
     {

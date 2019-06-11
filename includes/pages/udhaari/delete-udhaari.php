@@ -1,27 +1,29 @@
 <?php
-require_once ('db/models/Payment.class.php');
-require_once ('db/models/Invoice.class.php');
+require_once ('db/models/Udhaari.class.php');
 require_once ('helpers/redirect-helper.php');
 require_once('helpers/redirect-constants.php');
 if(isset($_GET['id'])) {
     try {
-        $payment_id = $_GET['id'];
+        $udhaari_id = $_GET['id'];
         CRUD::setAutoCommitOn(false);
 
         //finding category object
-        $payment = Payment::find("payment_id = ?", $payment_id);
-        $invoice = Invoice::find("invoice_id= ?", $payment->invoice_id);
-        $invoice->pending_amount += $payment->payment_amount;
-        if ($payment) {
-            if ($payment->delete() && $invoice->update()) {
-                CRUD::commit();
-                setStatusAndMsg("success", "Payment deleted successfully");
-                redirect_to(VIEW_ALL_INVOICES);
+        $udhaari = Udhaari::find("udhaari_id = ?", $udhaari_id);
+        if ($udhaari) {
+            if(!Udhaari::isUsed($udhaari->udhaari_id)) {
+                if ($udhaari->delete()) {
+                    CRUD::commit();
+                    setStatusAndMsg("success", "Udhaari deleted successfully");
+                    redirect_to(VIEW_ALL_UDHAARIS);
+                } else {
+                    CRUD::rollback();
+                    setStatusAndMsg("error", "Udhaari could be deleted.");
+                }
             }else{
-                setStatusAndMsg("error", "Payment could be deleted.");
+                setStatusAndMsg("error", "Payments exists for this udhaari. Please delete the payments first.");
             }
         } else {
-            setStatusAndMsg("error", "Payment do not exists");
+            setStatusAndMsg("error", "Udhaari do not exists");
         }
     } catch (Exception $ex) {
         setStatusAndMsg("error", "Something went wrong");

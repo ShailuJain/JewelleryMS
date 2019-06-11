@@ -1,13 +1,14 @@
 <?php
 require_once('db/models/Payment.class.php');
-require_once('db/models/Invoice.class.php');
+require_once ('db/models/Purchase.class.php');
+require_once ('db/models/Udhaari.class.php');
 require_once 'constants.php';
 require_once('helpers/redirect-helper.php');
+require_once('helpers/redirect-constants.php');
 if (isset($_POST[ADD_PAYMENT])) {
     try {
         $arr = $_POST;
         unset($arr[ADD_PAYMENT]);
-        $arrKeys = array_keys($arr);
         CRUD::setAutoCommitOn(false);
         //creating a new payment object and adding the fields.
 
@@ -16,42 +17,54 @@ if (isset($_POST[ADD_PAYMENT])) {
         $payment_of_model_id = "";
         if(isset($arr['purchase_no'])){
             $payment_of_model = "Purchase";
+            $payment_of_table = "purchases";
             $payment_of_model_id = "purchase_id";
+            $redirect = VIEW_ALL_PAYMENTS_PURCHASE;
             unset($arr['purchase_no']);
         }else if (isset($arr['udhaari_no'])){
             $payment_of_model = "Udhaari";
+            $payment_of_table = "udhaari";
             $payment_of_model_id = "udhaari_id";
+            $redirect = VIEW_ALL_PAYMENTS_UDHAARI;
             unset($arr['udhaari_no']);
         }
-        $payment_of = $payment_of_model::find("$payment_of_model_id = ?", $arr[$payment_of_model_id]);
-        if ($payment_of) {
-            foreach ($arrKeys as $item) {
-                $payment->$item = $arr[$item];
-            }
-            $flag = 0;
-            if ($payment->insert()) {
-                $flag = 1;
-                if ($arr['payment_amount'] <= $payment_of->pending_amount) {
-                    $payment_of->pending_amount = $payment_of->pending_amount - $arr['payment_amount'];
-                    if ($payment_of->update())
-                        $flag = 1;
-                    else {
-                        $flag = 0;
-                        setStatusAndMsg("error", "$payment_of_model could not be updated");
-                    }
-                } else {
-                    $flag = 0;
-                    setStatusAndMsg("error", "Payment amount is greater than pending amount");
+
+        $arrKeys = array_keys($arr);
+        $payment->payment_of = $payment_of_table;
+        $payment_of = $payment_of_model::find("$payment_of_model_id = ?", $arr['fk_id']);
+        if($arr['payment_amount'] > 0) {
+            if ($payment_of) {
+                foreach ($arrKeys as $item) {
+                    $payment->$item = $arr[$item];
                 }
-            }
-            if ($flag) {
-                CRUD::commit();
-                setStatusAndMsg("success", "Payment added successfully");
+                $flag = 0;
+                if ($payment->insert()) {
+                    $flag = 1;
+                    if ($arr['payment_amount'] <= $payment_of->pending_amount) {
+                        $payment_of->pending_amount -= $arr['payment_amount'];
+                        if ($payment_of->update())
+                            $flag = 1;
+                        else {
+                            $flag = 0;
+                            setStatusAndMsg("error", "$payment_of_model could not be updated");
+                        }
+                    } else {
+                        $flag = 0;
+                        setStatusAndMsg("error", "Payment amount is greater than pending amount");
+                    }
+                }
+                if ($flag) {
+                    CRUD::commit();
+                    setStatusAndMsg("success", "Payment added successfully");
+                    redirect_to($redirect);
+                } else {
+                    CRUD::rollback();
+                }
             } else {
-                CRUD::rollback();
+                setStatusAndMsg("error", "$payment_of_model Number does not exists");
             }
-        } else {
-            setStatusAndMsg("error", "Invoice Number does not exists");
+        }else{
+            setStatusAndMsg("error", "Payment Amount must be greater than 0");
         }
     } catch (Exception $ex) {
         setStatusAndMsg("error", "Something went wrong");
@@ -69,8 +82,7 @@ if (isset($payment_of)) {
     <?php
     if (isset($id)) {
         echo "<input type='hidden' value='$id' name='fk_id'>";
-        if ($payment_of === "purchase") {
-            require_once ('db/models/Purchase.class.php');
+        if ($payment_of === "purchases") {
             $value = Purchase::find("purchase_id = ?", $id);
             echo<<<LABEL
         <label for="purchase_no" data-toggle="tooltip" data-placement="right" title="">Purchase Number <i
@@ -78,8 +90,7 @@ if (isset($payment_of)) {
         <input type="text" readonly name="purchase_no" id="purchase_no" class="form-control" required value='$value->purchase_no'>
 LABEL;
         }else if ($payment_of === "udhaari") {
-            require_once ('db/models/Udhaari.class.php');
-            $value = Purchase::find("udhaari_id = ?", $id);
+            $value = Udhaari::find("udhaari_id = ?", $id);
             echo<<<LABEL
         <label for="udhaari_no" data-toggle="tooltip" data-placement="right" title="">Udhaari Number <i
                     class="fa fa-question-circle"></i></label>
@@ -96,7 +107,7 @@ LABEL;
                             class="fa fa-question-circle"></i></label>
                 <div class="input-group-append">
                     <input type="number" class="form-control" name="payment_amount" id="payment_amount" min="1"
-                           placeholder="Enter Payment Amount" aria-describedby="per-rs" required>
+                           placeholder="Enter Payment Amount" aria-describedby="per-rs" required step="any">
                     <span class="input-group-text" id="per-rs">₹</span>
                 </div>
             </div>
