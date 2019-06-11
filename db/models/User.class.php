@@ -10,7 +10,7 @@ require_once 'db/models/Table.class.php';
 class User extends Table
 {
     public static $table_name = "users";
-    public static function select($rows="*", $deleted=0, $condition = 1, ...$params)
+    public static function select($rows="*",$deleted=0,$condition = 1, ...$params)
     {
         return CRUD::select(self::$table_name, $rows, $deleted, $condition, ...$params);
     }
@@ -27,7 +27,6 @@ class User extends Table
     {
         return CRUD::insert(self::$table_name, $this->columns_values);
     }
-
     public function update()
     {
         return CRUD::update(self::$table_name, $this->columns_values, "user_id={$this->user_id}");

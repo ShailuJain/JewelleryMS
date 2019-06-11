@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<?php
+include_once ("db/models/User.class.php");
+include_once ("includes/pages/process/process-forgot-password.php");
+?>
 <head>
 
   <meta charset="utf-8">
@@ -40,13 +43,11 @@
                     <h1 class="h4 text-gray-900 mb-2">Forgot Your Password?</h1>
                     <p class="mb-4">We get it, stuff happens. Just enter your email address below and we'll send you a link to reset your password!</p>
                   </div>
-                  <form class="user">
+                  <form class="user" action="forgot-password.php" method="post">
                     <div class="form-group">
-                      <input type="email" class="form-control form-control-user" id="exampleInputEmail" aria-describedby="emailHelp" placeholder="Enter Email Address...">
+                      <input type="email" class="form-control form-control-user" id="email_address" name="email_address" aria-describedby="emailHelp" placeholder="Enter Email Address...">
                     </div>
-                    <a href="login.php" class="btn btn-primary btn-user btn-block">
-                      Reset Password
-                    </a>
+                    <button type="submit" class="btn btn-primary btn-block btn-user" name="forgot-password" id="forgot-password">Reset Password</button>
                   </form>
                   <hr>
                   <div class="text-center">
@@ -68,14 +69,7 @@
   </div>
 
   <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
-  <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-  <!-- Core plugin JavaScript-->
-  <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-  <!-- Custom scripts for all pages-->
-  <script src="js/sb-admin-2.min.js"></script>
+  <script src="includes/core-scripts.php"></script>
 
 </body>
 
