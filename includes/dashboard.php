@@ -17,7 +17,7 @@
 
         <!-- Area Chart -->
         <?php
-        include_once ("includes/charts/top-customers-pending.php");
+//        include_once ("includes/charts/top-customers-pending.php");
         ?>
 
         <!-- Pie Chart -->
