@@ -63,18 +63,23 @@
     </li>
 
     <!-- Nav Item - Utilities Collapse Menu -->
+<!--    <li class="nav-item">-->
+<!--        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePayment" aria-expanded="true" aria-controls="collapsePayment">-->
+<!--            <i class="fas fa-fw fa-money-bill-wave"></i>-->
+<!--            <span>Udhaari</span>-->
+<!--        </a>-->
+<!--        <div id="collapsePayment" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">-->
+<!--            <div class="bg-white py-2 collapse-inner rounded">-->
+<!--                <a class="collapse-item ajax-link" href="udhaari.php?src=add-udhaari">Create Udhaari</a>-->
+<!--                <a class="collapse-item ajax-link" href="udhaari.php?src=view-all-udhaaris">View All Udhaari</a>-->
+<!--                <a class="collapse-item ajax-link" href="payments.php?src=view-all-payments&p-of=udhaari">View Udhaari Payments</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </li>-->
     <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapsePayment" aria-expanded="true" aria-controls="collapsePayment">
-            <i class="fas fa-fw fa-money-bill-wave"></i>
-            <span>Udhaari</span>
-        </a>
-        <div id="collapsePayment" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item ajax-link" href="udhaari.php?src=add-udhaari">Create Udhaari</a>
-                <a class="collapse-item ajax-link" href="udhaari.php?src=view-all-udhaaris">View All Udhaari</a>
-                <a class="collapse-item ajax-link" href="payments.php?src=view-all-payments&p-of=udhaari">View Udhaari Payments</a>
-            </div>
-        </div>
+        <a class="nav-link" href="udhaari-dashboard.php">
+            <i class="fas fa-fw fa-chart-area"></i>
+             <span>Udhaari</span></a>
     </li>
 
 

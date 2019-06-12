@@ -56,16 +56,7 @@ class Invoice extends Table
     public static function viewAll(){
         return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, invoices.*,customers.customer_name,customers.customer_contact FROM invoices JOIN customers ON invoices.customer_id=customers.customer_id INNER JOIN (SELECT @sr_no:=0) AS a WHERE invoices.deleted = 0");
     }
-    /**
-     * Retrieves the customers with pending amount on invoices.
-     * @param int $limit - limit of customers to retrieve
-     * @param int $offset - from where to start till the limit
-     * @return mixed - returns the result of the query i.e the result set for all the pending amount customers
-     */
-    public static function getPendingAmountCustomers($limit = 5, $offset = 0)
-    {
-        return $rs = CRUD::query("SELECT customers.customer_name, customers.customer_contact, invoices.* FROM invoices JOIN customers ON invoices.customer_id = customers.customer_id WHERE invoices.deleted = 0 AND invoices.pending_amount > 0 and invoices.due_date >= cast(now() as date) ORDER BY due_date ASC LIMIT $offset,$limit");
-    }
+
 
     public function exists()
     {
