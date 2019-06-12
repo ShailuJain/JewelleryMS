@@ -23,7 +23,7 @@ class Category extends Table
         parent::__construct($result);
     }
     public static function viewAll(){
-        return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, categories.category_id, categories.category_name, gst.gst_rate, gst.hsn_code, SUM(products.product_quantity) as total_quantity FROM (SELECT * FROM categories WHERE categories.deleted = 0) as categories LEFT JOIN gst ON categories.gst_id = gst.gst_id LEFT JOIN products ON products.category_id = categories.category_id INNER JOIN (SELECT @sr_no:= 0) AS a GROUP BY categories.category_id");
+        return $rs = CRUD::query("SELECT @sr_no:=@sr_no+1 as serial_no, categories.category_id, categories.category_name, gst.gst_rate, gst.hsn_code, SUM(products.product_quantity) as total_quantity FROM (SELECT * FROM categories WHERE categories.deleted = 0) as categories LEFT JOIN gst ON categories.gst_id = gst.gst_id LEFT JOIN products ON products.category_id = categories.category_id AND products.deleted = 0 INNER JOIN (SELECT @sr_no:= 0) AS a GROUP BY categories.category_id");
     }
     public function insert()
     {

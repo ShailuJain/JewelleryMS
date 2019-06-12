@@ -27,6 +27,17 @@ class Udhaari extends Table
         require_once ('db/models/Payment.class.php');
         return Payment::viewAll("udhaari", "udhaari_id", $udhaari_id);
     }
+
+    /**
+     * Retrieves the customers with pending amount on udhaari.
+     * @param int $limit - limit of customers to retrieve
+     * @param int $offset - from where to start till the limit
+     * @return mixed - returns the result of the query i.e the result set for all the pending amount customers
+     */
+    public static function getPendingAmountCustomers($limit = 5, $offset = 0)
+    {
+        return $rs = CRUD::query("SELECT customers.customer_name, customers.customer_contact, udhaari.* FROM udhaari JOIN customers ON udhaari.customer_id = customers.customer_id WHERE udhaari.deleted = 0 AND udhaari.pending_amount > 0 and udhaari.due_date >= cast(now() as date) ORDER BY due_date ASC LIMIT $offset,$limit");
+    }
     /**
      * @return bool: Returns true if this particular entry in used by another table
      */
