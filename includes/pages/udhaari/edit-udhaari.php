@@ -15,9 +15,9 @@ if (!$flag) {
             $arrKeys = array_keys($arr);
             $udhaari = Udhaari::find("udhaari_id = ?", $udhaari_id);
 
-            foreach ($arrKeys as $item) {
-                $udhaari->$item = $arr[$item];
-            }
+
+            $udhaari->due_date = $arr['due_date'];
+            $udhaari->udhaari_amount = $arr['udhaari_amount'];
             $udhaari->pending_amount = $udhaari->udhaari_amount;
             if ($udhaari->update()) {
                 setStatusAndMsg("success", "udhaari updated successfully");
@@ -43,7 +43,7 @@ if (!$flag) {
                                 <label for="udhaari_no" data-toggle="tooltip" data-placement="right" title="">Udhaari
                                     No. <i class="fa fa-question-circle"></i></label>
                                 <input type="text" class="form-control" name="udhaari_no" id="udhaari_no" required
-                                       value="<?php echo $udhaari_to_edit->udhaari_no; ?>" readonly>
+                                       value="<?php echo $udhaari_to_edit->udhaari_no; ?>" disabled>
                             </div>
                         <div class="form-group col-md-4">
                             <label for="due_date" data-toggle="tooltip" data-placement="right" title="">Due Date <i

@@ -15137,7 +15137,7 @@ function initCanvas(canvas, config) {
 	};
 
 	// Force canvas to display as block to avoid extra space caused by inline
-	// elements, which would interfere with the responsive resize process.
+	// elements, which would interfere with the responsive resize auth.
 	// https://github.com/chartjs/Chart.js/issues/2538
 	style.display = style.display || 'block';
 

@@ -2,7 +2,7 @@
 <html lang="en">
 <?php
 include_once ("db/models/User.class.php");
-include_once ("includes/pages/process/process-forgot-password.php");
+include_once("includes/pages/auth/process-forgot-password.php");
 ?>
 <head>
 

@@ -6,10 +6,8 @@
         </div>
         <!-- Card Body -->
         <div class="card-body">
-            <?php
-                require_once ('helpers/get-pending-customers.php');
-                echo getPendingAmountCustomersHtml();
-            ?>
+            <div id="dueDateContainer"></div>
+            <div class="col-md-12 text-center"><button class="btn btn-dark" role="button" id="dueDatePassedLoadMore">Load More</button></div>
         </div>
     </div>
 </div>
@@ -21,10 +19,8 @@
         </div>
         <!-- Card Body -->
         <div class="card-body">
-            <?php
-            require_once ('helpers/get-pending-customers.php');
-            echo getPendingAmountCustomersHtml();
-            ?>
+            <div id="normalContainer"></div>
+            <div class="col-md-12 text-center"><button class="btn btn-dark" role="button" id="normalLoadMore">Load More</button></div>
         </div>
     </div>
 </div>

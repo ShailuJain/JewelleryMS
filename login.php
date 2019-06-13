@@ -3,7 +3,7 @@
 <?php
 $title = "Login Page";
 include_once ("includes/header.php");
-require_once ("includes/pages/process/process-login.php");
+require_once("includes/pages/auth/process-login.php");
 ?>
 <body class="bg-gradient-primary">
 

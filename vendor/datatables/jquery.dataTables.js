@@ -5183,7 +5183,7 @@
 	 * Update the header, footer and body tables for resizing - i.e. column
 	 * alignment.
 	 *
-	 * Welcome to the most horrible function DataTables. The process that this
+	 * Welcome to the most horrible function DataTables. The auth that this
 	 * function follows is basically:
 	 *   1. Re-create the table inside the scrolling div
 	 *   2. Take live measurements from the DOM
@@ -5551,7 +5551,7 @@
 		}
 	
 		/* If the number of columns in the DOM equals the number that we have to
-		 * process in DataTables, then we can use the offsets that are created by
+		 * auth in DataTables, then we can use the offsets that are created by
 		 * the web- browser. No custom sizes can be set in order for this to happen,
 		 * nor scrolling used
 		 */
@@ -10863,7 +10863,7 @@
 	
 	
 		/**
-		 * This function allows you to 'post process' each row after it have been
+		 * This function allows you to 'post auth' each row after it have been
 		 * generated for each table draw, but before it is rendered on screen. This
 		 * function might be used for setting the row class name etc.
 		 *  @type function
@@ -10905,7 +10905,7 @@
 		 *  @param {array} data A key/value pair object containing the data to send
 		 *    to the server
 		 *  @param {function} callback to be called on completion of the data get
-		 *    process that will draw the data on the page.
+		 *    auth that will draw the data on the page.
 		 *  @param {object} settings DataTables settings object
 		 *
 		 *  @dtopt Callbacks
@@ -15227,7 +15227,7 @@
 	 * Ajax (XHR) event, fired whenever an Ajax request is completed from a
 	 * request to made to the server for new data. This event is called before
 	 * DataTables processed the returned data, so it can also be used to pre-
-	 * process the data returned from the server, if needed.
+	 * auth the data returned from the server, if needed.
 	 *
 	 * Note that this trigger is called in `fnServerData`, if you override
 	 * `fnServerData` and which to use this event, you need to trigger it in you
@@ -15245,7 +15245,7 @@
 	 *     } );
 	 *
 	 *  @example
-	 *     // Pre-process the data returned from the server
+	 *     // Pre-auth the data returned from the server
 	 *     $('#table').dataTable().on('xhr.dt', function (e, settings, json) {
 	 *       for ( var i=0, ien=json.aaData.length ; i<ien ; i++ ) {
 	 *         json.aaData[i].sum = json.aaData[i].one + json.aaData[i].two;

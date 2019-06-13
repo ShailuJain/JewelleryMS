@@ -19,6 +19,7 @@
 <script src="vendor/izi-toast/js/iziToast.min.js"></script>
 <script src="vendor/selectize/js/selectize.min.js"></script>
 <script src="js/purchase/purchase-script.js"></script>
+<script src="js/udhaari/get-pending-amount-customers.js"></script>
 
 <!-- Custom script for purchase form-->
 

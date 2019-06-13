@@ -3589,7 +3589,7 @@ jQuery.extend( {
 										}
 
 										// Process the value(s)
-										// Default process is resolve
+										// Default auth is resolve
 										( special || deferred.resolveWith )( that, args );
 									}
 								},
@@ -5223,7 +5223,7 @@ jQuery.event = {
 			for ( ; cur !== this; cur = cur.parentNode || this ) {
 
 				// Don't check non-elements (#13208)
-				// Don't process clicks on disabled elements (#6911, #8165, #11382, #11764)
+				// Don't auth clicks on disabled elements (#6911, #8165, #11382, #11764)
 				if ( cur.nodeType === 1 && !( event.type === "click" && cur.disabled === true ) ) {
 					matchedHandlers = [];
 					matchedSelectors = {};

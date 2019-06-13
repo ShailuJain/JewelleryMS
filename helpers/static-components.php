@@ -8,6 +8,7 @@ if(session_status() !== PHP_SESSION_ACTIVE)
 <?php
 include_once ('constants.php');
 include_once ("includes/header.php");
+include_once ("helpers/redirect-helper.php");
 ?>
 
 <body id="page-top">
@@ -33,7 +34,12 @@ include_once ("includes/header.php");
             <div id="include">
                 <!-- Begin Page Content -->
                 <?php
-                include_once ("includes/{$include_page}");
+                /**
+                 * here @ is used to suppress warnings so if the page does not exists then it will suppress the warning and redirect it to the 404 php.
+                 */
+                if(!@include_once ("includes/{$include_page}")){
+                    redirect_to('404.php');
+                }
                 ?>
                 <!-- /.container-fluid -->
             </div>

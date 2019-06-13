@@ -6,7 +6,7 @@ if (!isset($_GET['token'])) {
 } else {
     $token = $_GET['token'];
 }
-include_once("includes/pages/process/process-reset.php");
+include_once("includes/pages/auth/process-reset.php");
 
 ?>
 <head>

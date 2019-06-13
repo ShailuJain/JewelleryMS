@@ -65,7 +65,7 @@ try {
                 <div class="form-group col-md-3 offset-1">
                     <label for="due_date" data-toggle="tooltip" data-placement="right" title="">Due Date <i
                                 class="fa fa-question-circle"></i></label>
-                    <input type="date" class="form-control" name="due_date" id="due_date" value="" required>
+                    <input type="date" class="form-control" name="due_date" id="due_date" value="" required min="<?php echo date('Y-m-d'); ?>">
                 </div>
             </div>
 

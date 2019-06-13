@@ -32,11 +32,16 @@ class Udhaari extends Table
      * Retrieves the customers with pending amount on udhaari.
      * @param int $limit - limit of customers to retrieve
      * @param int $offset - from where to start till the limit
+     * @param boolean $dueDatePassed -
      * @return mixed - returns the result of the query i.e the result set for all the pending amount customers
      */
-    public static function getPendingAmountCustomers($limit = 5, $offset = 0)
+    public static function getPendingAmountCustomers($limit = 5, $offset = 0, $dueDatePassed = false)
     {
-        return $rs = CRUD::query("SELECT customers.customer_name, customers.customer_contact, udhaari.* FROM udhaari JOIN customers ON udhaari.customer_id = customers.customer_id WHERE udhaari.deleted = 0 AND udhaari.pending_amount > 0 and udhaari.due_date >= cast(now() as date) ORDER BY due_date ASC LIMIT $offset,$limit");
+        if($dueDatePassed === "true"){
+            return $rs = CRUD::query("SELECT customers.customer_name, customers.customer_contact, udhaari.* FROM udhaari JOIN customers ON udhaari.customer_id = customers.customer_id WHERE udhaari.deleted = 0 AND udhaari.pending_amount > 0 and udhaari.due_date <= cast(now() as date) ORDER BY due_date DESC LIMIT $offset,$limit");
+        }else{
+            return $rs = CRUD::query("SELECT customers.customer_name, customers.customer_contact, udhaari.* FROM udhaari JOIN customers ON udhaari.customer_id = customers.customer_id WHERE udhaari.deleted = 0 AND udhaari.pending_amount > 0 and udhaari.due_date >= cast(now() as date) ORDER BY due_date ASC LIMIT $offset,$limit");
+        }
     }
     /**
      * @return bool: Returns true if this particular entry in used by another table
