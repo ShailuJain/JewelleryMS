@@ -31,7 +31,7 @@ function getPendingAmountCustomersHtml($limit = 5, $offset = 0, $dueDatePassed =
             $edit_btn = "<a class='btn btn-outline-danger make-payment-btn ' href='udhaari.php?src=edit-udhaari-due-date&id=$customer_udhaari->udhaari_id' data-toggle='tooltip' data-html='true' title='' data-original-title='Edit this udhaari'><i class='fa fa-edit'> Extend Due date</i></a>";
         }
         $html .= <<<PROGRESS
-<h4 class="small font-weight-bold">$customer_udhaari->customer_name - $customer_udhaari->customer_contact <a class='btn btn-outline-primary make-payment-btn ml-1' data-toggle='tooltip' href='payments.php?src=add-udhaari&p-of=udhaari&id=$customer_udhaari->udhaari_id' data-html='true' title='Make payment'>Make Payment <i class='fa fa-money-bill-wave'></i></a> $edit_btn <span class="float-right">Due-Date: $customer_udhaari->due_date | Total : &#8377;$customer_udhaari->udhaari_amount</span></h4>
+<h4 class="small font-weight-bold">$customer_udhaari->customer_name - $customer_udhaari->customer_contact <a class='btn btn-outline-primary make-payment-btn ml-1' data-toggle='tooltip' href='payments.php?src=add-payment&p-of=udhaari&id=$customer_udhaari->udhaari_id' data-html='true' title='Make payment'>Make Payment <i class='fa fa-money-bill-wave'></i></a> $edit_btn <span class="float-right">Due-Date: $customer_udhaari->due_date | Total : &#8377;$customer_udhaari->udhaari_amount</span></h4>
             <div class="progress mb-4" data-toggle="tooltip" title="PAID: &#8377; {$paid_amount}<br>PENDING: &#8377; {$customer_udhaari->pending_amount}" data-html="true">
                 <div class="progress-bar-striped $bg" role="progressbar" style="width: {$percentage}%" aria-valuenow="$paid_amount" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
