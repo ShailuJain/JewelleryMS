@@ -1,6 +1,5 @@
 <?php
     session_start();
-    $_SESSION['user_id'] = null;
-    $_SESSION['role'] = null;
+    unset($_SESSION['user_id']);
     session_unset();
-    header("Location: ../../../login.php");
+    header("Location: ../../../index.php");

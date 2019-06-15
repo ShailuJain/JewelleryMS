@@ -77,4 +77,12 @@ $(function(){
             min: event.target.value,
         });
     });
+
+
+    /**
+     * This is used to login into hidden modlue when the user double clicks the profile icon
+     */
+    $('#h-profile').dblclick(function () {
+        window.location = "http://localhost/JewelleryMS/login.php";
+    });
 });

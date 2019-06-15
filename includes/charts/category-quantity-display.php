@@ -7,7 +7,7 @@
         for ($i = 0; $i< $count; $i++)
         {
             $cat = $result->fetch();
-            $quantity = Category::getTotalQuantity($cat->category_id);
+            $quantity = number_format((float) Category::getTotalQuantity($cat->category_id), 4);
             if(empty($quantity)){
                 $quantity = 0;
             }
