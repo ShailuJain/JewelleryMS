@@ -54,7 +54,7 @@ if (isset($payment_of)) {
                             echo "<td>$row[$column_name]</td>";
                         }
                         echo "<td><a class='btn btn-primary text-white' href='payments.php?src=edit-payment&id={$row["payment_id"]}' data-toggle='tooltip' data-html='true' title='Edit this payment'><i class='fa fa-edit'></i></a></td>";
-                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this payment' data-delete='payments.php?form=delete-payment&id={$row["payment_id"]}'><i class='fa fa-trash'></i></a></td>";
+                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this payment' data-delete='payments.php?src=delete-payment&p-of=$payment_of_table&id={$row["payment_id"]}'><i class='fa fa-trash'></i></a></td>";
                         echo "</tr>";
                     }
                     ?>

@@ -42,7 +42,7 @@ require_once 'includes/pages/udhaari/delete-udhaari.php';
                         echo "<td><a class='btn btn-primary text-white' href='udhaari.php?src=edit-udhaari&id={$row["udhaari_id"]}' data-toggle='tooltip' data-html='true' title='Edit this udhaari'><i class='fa fa-edit'></i></a></td>";
                         echo "<td><a class='btn btn-info text-white' data-toggle='tooltip' href='udhaari.php?src=view-udhaari-details&id={$row['udhaari_id']}' data-html='true' title='View Detail'><i class='fa fa-info'></i></a></td>";
                         echo "<td><a class='btn btn-secondary text-white' data-toggle='tooltip' href='payments.php?src=add-payment&p-of=udhaari&id={$row['udhaari_id']}' data-html='true' title='Make udhaari'><i class='fa fa-money-bill-wave'></i></a></td>";
-                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this udhaari' data-delete='udhaari.php?form=delete-udhaari&id={$row["udhaari_id"]}'><i class='fa fa-trash'></i></a></td>";
+                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this udhaari' data-delete='udhaari.php?src=delete-udhaari&id={$row["udhaari_id"]}'><i class='fa fa-trash'></i></a></td>";
                         echo "</tr>";
                     }
                     ?>

@@ -4,12 +4,13 @@ require_once('db/models/Udhaari.class.php');
 
 require_once 'constants.php';
 require_once('helpers/redirect-helper.php');
+require_once('includes/pages/payments/delete-payment.php');
 if (isset($id)) {
     $udhaari_to_edit = Udhaari::find("udhaari_id = ?", $id);
     ?>
     <div class="row">
         <div class="offset-1 col-md-10">
-            <h3>Udhaari Details <span class="float-right"><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='udhaaris.php?form=delete-udhaari&id=<?php echo $id;?>'>Delete <i class='fa fa-trash'></i></a></span></h3>
+            <h3>Udhaari Details <span class="float-right"><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='udhaaris.php?src=delete-udhaari&id=<?php echo $id;?>'>Delete <i class='fa fa-trash'></i></a></span></h3>
             <hr>
             <div class="form-row">
                 <div class="form-group col-md-3">
@@ -126,7 +127,7 @@ if (isset($id)) {
                                                 echo "<td>$row[$column_name]</td>";
                                             }
                                         }
-                                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this payment' data-delete='payments.php?form=delete-payment&id={$row["payment_id"]}'><i class='fa fa-trash'></i></a></td>";
+                                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this payment' data-delete='payments.php?src=delete-payment&p-of=udhaari&id={$row["payment_id"]}'><i class='fa fa-trash'></i></a></td>";
                                         echo "</tr>";
                                     }
                                     ?>

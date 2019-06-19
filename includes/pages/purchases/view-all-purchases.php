@@ -38,7 +38,7 @@ require_once 'includes/pages/purchases/delete-purchase.php';
                         }
                         echo "<td><a class='btn btn-info text-white' data-toggle='tooltip' href='purchases.php?src=view-purchase-details&id={$row['purchase_id']}' data-html='true' title='View Detail' data-delete=''><i class='fa fa-info'></i></a></td>";
                         echo "<td><a class='btn btn-secondary text-white' data-toggle='tooltip' href='payments.php?src=add-payment&p-of=purchase&id={$row['purchase_id']}' data-html='true' title='Make payment'><i class='fa fa-money-bill-wave'></i></a></td>";
-                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='purchases.php?form=delete-purchase&id={$row['purchase_id']}'><i class='fa fa-trash'></i></a></td>";
+                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='purchases.php?src=delete-purchase&id={$row['purchase_id']}'><i class='fa fa-trash'></i></a></td>";
                     }
                     ?>
                     </tbody>

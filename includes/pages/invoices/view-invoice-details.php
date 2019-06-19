@@ -12,7 +12,7 @@ if (isset($id)) {
     ?>
     <div class="row">
         <div class="offset-1 col-md-10">
-            <h3>Invoice Details <span class="float-right ml-2"><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='invoices.php?form=delete-invoice&id=<?php echo $id;?>'>Delete <i class='fa fa-trash'></i></a></span><span class="float-right ml-2"><a href="<?php require_once ('helpers/redirect-constants.php'); echo VIEW_ALL_INVOICES; ?>" class='btn btn-info text-white'>View All Invoices <i class='fa fa-eye'></i></a></span></h3>
+            <h3>Invoice Details <span class="float-right ml-2"><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='invoices.php?src=delete-invoice&id=<?php echo $id;?>'>Delete <i class='fa fa-trash'></i></a></span><span class="float-right ml-2"><a href="<?php require_once ('helpers/redirect-constants.php'); echo VIEW_ALL_INVOICES; ?>" class='btn btn-info text-white'>View All Invoices <i class='fa fa-eye'></i></a></span></h3>
             <hr>
             <div class="form-row">
                 <div class="form-group col-md-3">

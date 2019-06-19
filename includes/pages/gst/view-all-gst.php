@@ -36,7 +36,7 @@ require_once 'includes/pages/gst/delete-gst.php';
                         echo "<td>$row[$column_name]</td>";
                     }
                     echo "<td><a class='btn btn-primary text-white' href='gst.php?src=edit-gst&id={$row["gst_id"]}' data-toggle='tooltip' data-html='true' title='Edit this GST entry'><i class='fa fa-edit'></i></a></td>";
-                    echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this GST entry' data-delete='gst.php?form=delete-gst&hsn_code={$row["hsn_code"]}'><i class='fa fa-trash'></i></a></td>";
+                    echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this GST entry' data-delete='gst.php?src=delete-gst&hsn_code={$row["hsn_code"]}'><i class='fa fa-trash'></i></a></td>";
                 }
                 ?>
                 </tbody>
