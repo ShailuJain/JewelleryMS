@@ -1,4 +1,7 @@
 <?php
+if(session_status() !== PHP_SESSION_ACTIVE){
+    session_start();
+}
 if(isset($_SESSION['user_id'])) {
     $include_page = "udhaari_dashboard.php";
     $title = "Udhaari";
