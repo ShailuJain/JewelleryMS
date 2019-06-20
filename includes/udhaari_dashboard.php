@@ -3,7 +3,7 @@
     <hr>
     <?php
     require_once ('db/models/Udhaari.class.php');
-        $pending = number_format((float) Udhaari::getTotalPendingUdhaari(), 4);
+        $pending = number_format((float) Udhaari::getTotalPendingUdhaari(), 2);
         if(empty($pending)){
             $pending = 0;
         }
