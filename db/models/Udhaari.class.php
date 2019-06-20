@@ -56,6 +56,15 @@ class Udhaari extends Table
         }
         return false;
     }
+
+
+    public static function getTotalPendingUdhaari()
+    {
+        $result = CRUD::query("SELECT SUM(pending_amount) as total_pending FROM udhaari WHERE deleted = 0");
+        $result_fetch = $result->fetch();
+        $quantity = $result_fetch->total_pending;
+        return $quantity;
+    }
     public function __construct($result = null)
     {
         parent::__construct($result);
