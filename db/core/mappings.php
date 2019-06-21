@@ -16,5 +16,6 @@ $tableMappings = array(
     "invoice_product"=>"InvoiceProduct",
     "purchases"=>"Purchase",
     "udhaari"=>"Udhaari",
+    "udhaari_transactions"=>"UdhaariTransaction",
     "users"=>"User"
 );

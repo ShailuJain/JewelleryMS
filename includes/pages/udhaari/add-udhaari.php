@@ -1,10 +1,13 @@
 <?php
 require_once('db/models/Udhaari.class.php');
+require_once('db/models/UdhaariTransaction.class.php');
 require_once('db/models/Customer.class.php');
 require_once 'constants.php';
 require_once('helpers/redirect-helper.php');
 if (isset($_POST[ADD_UDHAARI])) {
     try {
+
+        CRUD::setAutoCommitOn(false);
 
         $new_udhaari = new Udhaari();
         $new_udhaari->udhaari_date = $_POST['udhaari_date'];
@@ -14,23 +17,41 @@ if (isset($_POST[ADD_UDHAARI])) {
         $new_udhaari->udhaari_amount = $_POST['udhaari_amount'];
         $new_udhaari->pending_amount = $_POST['udhaari_amount'];
 
+
+        $udhaari_transaction = new UdhaariTransaction();
+        $udhaari_transaction->udhaari_amount = $new_udhaari->udhaari_amount;
+        $udhaari_transaction->udhaari_transaction_date = date('Y-m-d');
+
+
         $udhaari_if_exists = Udhaari::find("customer_id = ?",$new_udhaari->customer_id);
         if($udhaari_if_exists != null){
             $udhaari_if_exists->due_date = $new_udhaari->due_date;
             $udhaari_if_exists->udhaari_amount += $new_udhaari->udhaari_amount;
             $udhaari_if_exists->pending_amount += $new_udhaari->pending_amount;
 
-            if($udhaari_if_exists->update()){
+            $udhaari_transaction->udhaari_id = $udhaari_if_exists->udhaari_id;
+
+            if($udhaari_if_exists->update() && $udhaari_transaction->insert()){
+                CRUD::commit();
                 setStatusAndMsg("success", "Udhaari updated successfully");
             } else {
+                CRUD::rollback();
                 setStatusAndMsg("error", "udhaari could not be updated");
             }
         }else{
             if ($new_udhaari->udhaari_amount > 0) {
                 $new_udhaari->pending_amount = $new_udhaari->udhaari_amount;
                 if ($new_udhaari->insert()) {
-                    setStatusAndMsg("success", "Udhaari added successfully");
+
+                    $udhaari_transaction->udhaari_id = CRUD::lastInsertId();
+                    if($udhaari_transaction->insert()){
+                        CRUD::commit();
+                        setStatusAndMsg("success", "Udhaari added successfully");
+                    }else{
+                        throw new PDOException('transaction could not be made.');
+                    }
                 } else {
+                    CRUD::rollback();
                     setStatusAndMsg("error", "udhaari could not be created");
                 }
             }else{
@@ -38,8 +59,10 @@ if (isset($_POST[ADD_UDHAARI])) {
             }
         }
     } catch (Exception $ex) {
+        CRUD::rollback();
         setStatusAndMsg("error", "Something went wrong");
     }
+    CRUD::setAutoCommitOn(true);
 }
 try {
     $udhaari_no_res = CRUD::query("SELECT udhaari_id FROM udhaari ORDER BY udhaari_id DESC LIMIT 1");
