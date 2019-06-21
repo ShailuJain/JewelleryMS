@@ -12030,6 +12030,16 @@ td { font-size: 14px; }
   font-size: 0.75rem;
   padding: 0 0.35rem;
 }
+#customer-udhaari-accordion .card{
+  border: none;
+}
+#customer-udhaari-accordion .card-header{
+  background-color: #ffffff;
+  border: none;
+}
+#customer-udhaari-accordion .card .card-header[data-toggle="collapse"]{
+  padding: 0.1rem 3.25rem 0.1rem 1.25rem;
+}
 
 
 @media print {
