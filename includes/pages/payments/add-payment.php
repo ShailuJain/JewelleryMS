@@ -19,13 +19,13 @@ if (isset($_POST[ADD_PAYMENT])) {
             $payment_of_model = "Purchase";
             $payment_of_table = "purchases";
             $payment_of_model_id = "purchase_id";
-            $redirect = VIEW_ALL_PAYMENTS_PURCHASE;
+            $redirect = VIEW_ALL_PURCHASES;
             unset($arr['purchase_no']);
         }else if (isset($arr['udhaari_no'])){
             $payment_of_model = "Udhaari";
             $payment_of_table = "udhaari";
             $payment_of_model_id = "udhaari_id";
-            $redirect = VIEW_ALL_PAYMENTS_UDHAARI;
+            $redirect = VIEW_ALL_UDHAARIS;
             unset($arr['udhaari_no']);
         }
 

@@ -5,24 +5,37 @@ require_once 'constants.php';
 require_once('helpers/redirect-helper.php');
 if (isset($_POST[ADD_UDHAARI])) {
     try {
-        $arr = $_POST;
-        unset($arr[ADD_UDHAARI]);
-        $arrKeys = array_keys($arr);
 
-        $udhaari = new Udhaari();
+        $new_udhaari = new Udhaari();
+        $new_udhaari->udhaari_date = $_POST['udhaari_date'];
+        $new_udhaari->udhaari_no = $_POST['udhaari_no'];
+        $new_udhaari->due_date = $_POST['due_date'];
+        $new_udhaari->customer_id = $_POST['customer_id'];
+        $new_udhaari->udhaari_amount = $_POST['udhaari_amount'];
+        $new_udhaari->pending_amount = $_POST['udhaari_amount'];
 
-        foreach ($arrKeys as $item) {
-            $udhaari->$item = $arr[$item];
-        }
-        if ($udhaari->udhaari_amount > 0) {
-            $udhaari->pending_amount = $udhaari->udhaari_amount;
-            if ($udhaari->insert()) {
-                setStatusAndMsg("success", "Udhaari added successfully");
+        $udhaari_if_exists = Udhaari::find("customer_id = ?",$new_udhaari->customer_id);
+        if($udhaari_if_exists != null){
+            $udhaari_if_exists->due_date = $new_udhaari->due_date;
+            $udhaari_if_exists->udhaari_amount += $new_udhaari->udhaari_amount;
+            $udhaari_if_exists->pending_amount += $new_udhaari->pending_amount;
+
+            if($udhaari_if_exists->update()){
+                setStatusAndMsg("success", "Udhaari updated successfully");
             } else {
-                setStatusAndMsg("error", "udhaari could not be created");
+                setStatusAndMsg("error", "udhaari could not be updated");
             }
         }else{
-            setStatusAndMsg("error", "Amount must be greater than 0.");
+            if ($new_udhaari->udhaari_amount > 0) {
+                $new_udhaari->pending_amount = $new_udhaari->udhaari_amount;
+                if ($new_udhaari->insert()) {
+                    setStatusAndMsg("success", "Udhaari added successfully");
+                } else {
+                    setStatusAndMsg("error", "udhaari could not be created");
+                }
+            }else{
+                setStatusAndMsg("error", "Amount must be greater than 0.");
+            }
         }
     } catch (Exception $ex) {
         setStatusAndMsg("error", "Something went wrong");
@@ -56,9 +69,7 @@ try {
                 </div>
 
                 <div class="form-group col-md-4 offset-1">
-                    <label for="udhaari_no" data-toggle="tooltip" data-placement="right" title="">Udhaari No. <i
-                                class="fa fa-question-circle"></i></label>
-                    <input type="text" class="form-control" name="udhaari_no" id="udhaari_no"
+                    <input type="hidden" class="form-control" name="udhaari_no" id="udhaari_no"
                            placeholder="Enter udhaari No. " required value="UDRSJ-<?php echo $udhaari_no + 1; ?>">
                 </div>
 
@@ -68,9 +79,8 @@ try {
                     <input type="date" class="form-control" name="due_date" id="due_date" value="" required min="<?php echo date('Y-m-d'); ?>">
                 </div>
             </div>
-
-
-            <div class="form-row mt-3">
+            <hr>
+            <div class="form-row mt-4">
                 <div class="form-group col-md-8">
                     <label style="width: 100%;" for="customer_id" data-toggle="tooltip" data-placement="right" title="">Select
                         Customer <i class="fa fa-question-circle"></i><span
