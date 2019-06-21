@@ -17,12 +17,12 @@ function loadPendingAmountList(limit = 5, offset = 0, dueDatePassed = false) {
         url: "get-pending-customers.php",
         data: {limit: limit, offset: offset, dueDatePassed: dueDatePassed},
         success: function (res) {
-            console.log(res);
             if(dueDatePassed){
                 $('#dueDateContainer').append(res);
             }else{
                 $('#normalContainer').append(res);
             }
+            $('[data-toggle="tooltip"]').tooltip();
         },
         error: function (res) {
             alert("Something went wrong" + res);
