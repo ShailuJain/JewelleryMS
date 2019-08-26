@@ -39,10 +39,12 @@ if(isset($_GET['id'])) {
             } else {
                 CRUD::rollback();
                 setStatusAndMsg("error", "Invoice contains payments or cannot be deleted");
+                redirect_to(VIEW_ALL_INVOICES);
             }
         } else {
             CRUD::rollback();
             setStatusAndMsg("error", "Invoice cannot be deleted due to products");
+            redirect_to(VIEW_ALL_INVOICES);
         }
     } catch (Exception $ex) {
         CRUD::rollback();

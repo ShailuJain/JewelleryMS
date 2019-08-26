@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 21, 2019 at 07:32 AM
--- Server version: 10.1.40-MariaDB
--- PHP Version: 7.3.5
+-- Generation Time: Jul 03, 2019 at 02:41 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.2
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -530,6 +530,19 @@ INSERT INTO `udhaari` (`udhaari_id`, `udhaari_no`, `customer_id`, `udhaari_amoun
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `udhaari_transactions`
+--
+
+CREATE TABLE `udhaari_transactions` (
+  `udhaari_transaction_id` int(11) NOT NULL,
+  `udhaari_id` int(11) NOT NULL,
+  `udhaari_transaction_date` date NOT NULL,
+  `udhaari_amount` double NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -616,6 +629,12 @@ ALTER TABLE `udhaari`
   ADD PRIMARY KEY (`udhaari_id`);
 
 --
+-- Indexes for table `udhaari_transactions`
+--
+ALTER TABLE `udhaari_transactions`
+  ADD PRIMARY KEY (`udhaari_transaction_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -672,6 +691,12 @@ ALTER TABLE `purchases`
 --
 ALTER TABLE `udhaari`
   MODIFY `udhaari_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+
+--
+-- AUTO_INCREMENT for table `udhaari_transactions`
+--
+ALTER TABLE `udhaari_transactions`
+  MODIFY `udhaari_transaction_id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
