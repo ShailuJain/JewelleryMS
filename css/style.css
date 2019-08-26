@@ -12035,8 +12035,4 @@ td { font-size: 14px; }
   .print-hidden{
     display: none;
   }
-  .headings{
-    background-color: #555;
-    -webkit-print-color-adjust: exact;
-  }
 }

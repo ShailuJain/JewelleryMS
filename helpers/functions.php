@@ -28,6 +28,6 @@ function getIndianCurrency(float $number)
         } else $str[] = null;
     }
     $Rupees = implode('', array_reverse($str));
-    $paise = ($decimal) ? "." . ($words[$decimal / 10] . " " . $words[$decimal % 10]) . ' Paise' : '';
-    return ($Rupees ? $Rupees . 'Rupees ' : '') . $paise;
+    $paise = ($decimal) ? ($words[$decimal / 10] . " " . $words[$decimal % 10]) . ' Paise' : '';
+    return ($Rupees ? $Rupees . 'Rupees ' : '') . $paise . ' only';
 }

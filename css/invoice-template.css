@@ -1,8 +1,19 @@
 .invoice{
-    /*border: solid 1px black;*/
+    border: solid 1px black;
+}
+.detail-header{
+    display: flex;
+}
+.detail-1, .detail-2, .detail-3{
+    flex: 1;
+    text-align: center;
+}
+.detail-1{
+    text-align: justify;
 }
 .shop-details{
     /*text-align: center;*/
+    position: relative;
 }
 .invoice-header{
     border: solid 1px black;
@@ -20,12 +31,10 @@
     font-weight: bold;
 }
 .headings{
-    background-color: #555;
 }
 .heading{
     font-size: 14px;
     padding: 4px;
-    color: white;
 }
 .bord{
     border: solid 1px black;
@@ -44,7 +53,7 @@
 }
 .invoice-main-body{
     border-collapse: collapse;
-    min-height: 300px;
+    min-height: 500px;
     position: relative;
 }
 .columns{
@@ -61,7 +70,9 @@
 .invoice-body-footer{
 
 }
-
+.heading-gst{
+    font-size: 12px;
+}
 .total-amount{
     margin-left: -0.1%;
 }
@@ -77,11 +88,6 @@
     align-self: flex-end;
     width: 100%;
     padding-left: 16px
-}
-
-.gstin, .pan-no{
-    font-weight: bolder;
-    font-size: 20px;
 }
 
 .for-shop{
@@ -101,15 +107,14 @@
     font-weight: bold;
     font-size: 12px;
 }
+.bold{
+    font-weight: bold;
+}
 
 @page { margin: 0mm; }
 
 @media print {
     .print-hidden{
         display: none;
-    }
-    .headings{
-        background-color: #555;
-        -webkit-print-color-adjust: exact;
     }
 }
