@@ -184,7 +184,7 @@ if (isset($id)) {
                                                 echo "<td>$row[$column_name]</td>";
                                             }
                                         }
-                                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this payment' data-delete='payments.php?src=delete-payment&p-of=udhaari&id={$row["payment_id"]}'><i class='fa fa-trash'></i></a></td>";
+                                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this payment' data-delete='udhaari.php?src=delete-udhaari-transaction&id={$row["udhaari_transaction_id"]}'><i class='fa fa-trash'></i></a></td>";
                                         echo "</tr>";
                                     }
                                     ?>
