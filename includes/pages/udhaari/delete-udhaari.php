@@ -17,7 +17,7 @@ if(isset($_GET['id'])) {
                     redirect_to(VIEW_ALL_UDHAARIS);
                 } else {
                     CRUD::rollback();
-                    setStatusAndMsg("error", "Udhaari could be deleted.");
+                    setStatusAndMsg("error", "Udhaari could not be deleted.");
                 }
             }else{
                 setStatusAndMsg("error", "Payments exists for this udhaari. Please delete the payments first.");
