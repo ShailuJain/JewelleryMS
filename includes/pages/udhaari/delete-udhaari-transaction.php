@@ -17,8 +17,6 @@ if(isset($_GET['id'])) {
         $udhaari_id = $udhaari_transaction_row->udhaari_id;
         $udhaari_amount = $udhaari_transaction_row->udhaari_amount;
 
-        /*******UPDATING THE ROW OF UDHAARI*****/
-
         $udhaari = Udhaari::find("udhaari_id = ?", $udhaari_id);
 
         //udhaari_amount of udhaari table - udhaari_amount of udhaari_transactions table
@@ -29,18 +27,23 @@ if(isset($_GET['id'])) {
 
         if($paymentMade <= $difference){
 
+            //UPDATING THE ROW IN UDHAARI TABLE
+            $udhaari->udhaari_amount = $difference;
+            $udhaari->update();
+
             //DELETING THE ROW FROM UDHAARI TRANSACTION
             $udhaari_transaction_row->delete();
+
+            CRUD::commit();
+            redirect_to(VIEW_ALL_UDHAARIS);
         }else{
             CRUD::rollback();
             setStatusAndMsg("error", "Udhaari transaction could not be deleted.");
+            redirect_to(VIEW_ALL_UDHAARIS);
         }
 
-        /*******UPDATING THE ROW OF UDHAARI*****/
 
 
-        //DELETING THE ROW FROM UDHAARI TRANSACTION
-        $udhaari_transaction_row->delete();
 
 
 

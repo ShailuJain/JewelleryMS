@@ -42,6 +42,6 @@ class UdhaariTransaction extends Table
          * Called the query method because this table was not having column as deleted and the delete function
          * internally updates the deleted column
         */
-        return CRUD::query("DELETE FROM udhaari_transactions where udhaari_transactions_id = ?", $this->udhaari_transaction_id);
+        return CRUD::query("DELETE FROM udhaari_transactions where udhaari_transaction_id = ?", $this->udhaari_transaction_id);
     }
 }
