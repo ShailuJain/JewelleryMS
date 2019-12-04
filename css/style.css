@@ -12036,3 +12036,7 @@ td { font-size: 14px; }
     display: none;
   }
 }
+
+.btn{
+  cursor: pointer;
+}
