@@ -45,10 +45,6 @@ if (isset($id)) {
                     <input disabled type="text" class="form-control" name="pending_amount" id="pending_amount"
                            value="&#8377;<?php echo $udhaari_to_edit->pending_amount; ?>">
                 </div>
-                <div class="form-group col-md-12">
-                    <label for="description" data-toggle="tooltip" data-placement="right" title="" >Description<i class="fa fa-question-circle"></i></label>
-                    <textarea disabled class="form-control" id="description" name="description" maxlength="250"><?php echo $udhaari_to_edit->description; ?></textarea>
-                </div>
             </div>
 
             <div class="accordion" id="accordionExample">
@@ -158,6 +154,7 @@ if (isset($id)) {
                     //This array will store the table headers for the columns we are selecting from database
                     $udhaari_transaction_column = array(
                         "udhaari_transaction_id" => "Udhaari Transaction ID",
+                        "description" => "Description",
                         "udhaari_transaction_date" => "Udhaari Transaction Date",
                         "udhaari_amount" => "Udhaari Amount",
                     );

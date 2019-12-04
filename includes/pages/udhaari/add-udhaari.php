@@ -16,12 +16,12 @@ if (isset($_POST[ADD_UDHAARI])) {
         $new_udhaari->customer_id = $_POST['customer_id'];
         $new_udhaari->udhaari_amount = $_POST['udhaari_amount'];
         $new_udhaari->pending_amount = $_POST['udhaari_amount'];
-        $new_udhaari->description = $_POST['description'];
 
 
         $udhaari_transaction = new UdhaariTransaction();
         $udhaari_transaction->udhaari_amount = $new_udhaari->udhaari_amount;
         $udhaari_transaction->udhaari_transaction_date = date('Y-m-d');
+        $udhaari_transaction->description = $_POST['description'];
 
 
         $udhaari_if_exists = Udhaari::find("customer_id = ?", $new_udhaari->customer_id);
