@@ -1,6 +1,7 @@
 <?php
 require_once('db/models/Customer.class.php');
 require_once('db/models/Udhaari.class.php');
+require_once('db/models/UdhaariTransaction.class.php');
 
 require_once 'constants.php';
 require_once('helpers/redirect-helper.php');
@@ -10,7 +11,7 @@ if (isset($id)) {
     ?>
     <div class="row">
         <div class="offset-1 col-md-10">
-            <h3>Udhaari Details <span class="float-right"><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='udhaaris.php?src=delete-udhaari&id=<?php echo $id;?>'>Delete <i class='fa fa-trash'></i></a></span></h3>
+            <h3>Udhaari Details <span class="float-right"><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='udhaari.php?src=delete-udhaari&id=<?php echo $id;?>'>Delete <i class='fa fa-trash'></i></a></span></h3>
             <hr>
             <div class="form-row">
                 <div class="form-group col-md-3">
@@ -132,6 +133,63 @@ if (isset($id)) {
                                             }
                                         }
                                         echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this payment' data-delete='payments.php?src=delete-payment&p-of=udhaari&id={$row["payment_id"]}'><i class='fa fa-trash'></i></a></td>";
+                                        echo "</tr>";
+                                    }
+                                    ?>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header" id="headingTwo" data-toggle="collapse"
+                         data-target="#udhariTransaction"
+                         aria-expanded="true" aria-controls="paymentCollapse">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" type="button">
+                                Udhari Transaction Details
+                            </button>
+                        </h5>
+                    </div>
+                    <?php
+                    $rs = UdhaariTransaction::viewUdhaariTransactions($id);
+                    //This array will store the table headers for the columns we are selecting from database
+                    $udhaari_transaction_column = array(
+                        "udhaari_transaction_id" => "Udhaari Transaction ID",
+                        "udhaari_transaction_date" => "Udhaari Transaction Date",
+                        "udhaari_amount" => "Udhaari Amount",
+                    );
+                    ?>
+                    <div id="udhariTransaction" class="collapse" aria-labelledby="headingTwo">
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table class="tables table table-bordered">
+                                    <thead>
+                                    <tr>
+                                        <?php
+                                        foreach ($udhaari_transaction_column as $udhaari_transaction) {
+                                            echo "<th>{$udhaari_transaction}</th>";
+                                        }
+                                        ?>
+                                        <th>Delete</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <?php
+                                    $column_names = array_keys($udhaari_transaction_column);
+                                    while ($row = $rs->fetch(PDO::FETCH_ASSOC)) {
+//                                        die(var_dump($row));
+                                        echo "<tr>";
+                                        foreach ($column_names as $column_name) {
+                                            if (empty($row[$column_name])) {
+                                                echo "<td>NULL</td>";
+                                            } else {
+                                                echo "<td>$row[$column_name]</td>";
+                                            }
+                                        }
+                                        echo "<td><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete this payment' data-delete='udhaari.php?src=delete-udhaari-transaction&id={$row["udhaari_transaction_id"]}'><i class='fa fa-trash'></i></a></td>";
                                         echo "</tr>";
                                     }
                                     ?>
