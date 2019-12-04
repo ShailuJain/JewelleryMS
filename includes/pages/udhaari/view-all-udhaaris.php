@@ -5,6 +5,7 @@ $rs = Udhaari::viewAll();
 $column_names_as = array(
     "udhaari_no" => "Udhaari No",
     "customer_name" => "Customer Name",
+    "description" => "Description",
     "due_date" => "Due Date",
     "udhaari_amount" => "Udhaari Amount",
     "pending_amount" => "Pending Amount",

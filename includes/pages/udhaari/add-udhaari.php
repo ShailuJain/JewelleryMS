@@ -16,6 +16,7 @@ if (isset($_POST[ADD_UDHAARI])) {
         $new_udhaari->customer_id = $_POST['customer_id'];
         $new_udhaari->udhaari_amount = $_POST['udhaari_amount'];
         $new_udhaari->pending_amount = $_POST['udhaari_amount'];
+        $new_udhaari->description = $_POST['description'];
 
 
         $udhaari_transaction = new UdhaariTransaction();
@@ -23,7 +24,7 @@ if (isset($_POST[ADD_UDHAARI])) {
         $udhaari_transaction->udhaari_transaction_date = date('Y-m-d');
 
 
-        $udhaari_if_exists = Udhaari::find("customer_id = ?",$new_udhaari->customer_id);
+        $udhaari_if_exists = Udhaari::find("customer_id = ?", $new_udhaari->customer_id);
         if($udhaari_if_exists != null){
             $udhaari_if_exists->due_date = $new_udhaari->due_date;
             $udhaari_if_exists->udhaari_amount += $new_udhaari->udhaari_amount;
@@ -132,6 +133,10 @@ try {
                             <span class="input-group-text" id="rs">&#8377;</span>
                         </div>
                     </div>
+                </div>
+                <div class="form-group col-md-12">
+                    <label for="description" data-toggle="tooltip" data-placement="right" title="" >Additional Description (Max. 255 chars) <i class="fa fa-question-circle"></i></label>
+                    <textarea class="form-control" id="description" name="description" placeholder="Enter additional description" maxlength="250"></textarea>
                 </div>
                 <!--                <div class="form-group col-md-4">-->
                 <!--                    <label for="total_purchase_amount" data-toggle="tooltip" data-placement="right" title="" >Total Amount <i class="fa fa-question-circle"></i></label>-->
