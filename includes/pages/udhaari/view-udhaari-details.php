@@ -1,6 +1,7 @@
 <?php
 require_once('db/models/Customer.class.php');
 require_once('db/models/Udhaari.class.php');
+require_once('db/models/UdhaariTransaction.class.php');
 
 require_once 'constants.php';
 require_once('helpers/redirect-helper.php');
@@ -10,7 +11,7 @@ if (isset($id)) {
     ?>
     <div class="row">
         <div class="offset-1 col-md-10">
-            <h3>Udhaari Details <span class="float-right"><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='udhaaris.php?src=delete-udhaari&id=<?php echo $id;?>'>Delete <i class='fa fa-trash'></i></a></span></h3>
+            <h3>Udhaari Details <span class="float-right"><a class='btn btn-danger text-white delete' data-toggle='modal' data-target='#deleteModal' data-html='true' title='Delete' data-delete='udhaari.php?src=delete-udhaari&id=<?php echo $id;?>'>Delete <i class='fa fa-trash'></i></a></span></h3>
             <hr>
             <div class="form-row">
                 <div class="form-group col-md-3">
@@ -149,7 +150,7 @@ if (isset($id)) {
                         </h5>
                     </div>
                     <?php
-                    $rs = Udhaari::viewUdhaariTransactions($id);
+                    $rs = UdhaariTransaction::viewUdhaariTransactions($id);
                     //This array will store the table headers for the columns we are selecting from database
                     $udhaari_transaction_column = array(
                         "udhaari_transaction_id" => "Udhaari Transaction ID",

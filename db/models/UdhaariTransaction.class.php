@@ -19,6 +19,9 @@ class UdhaariTransaction extends Table
         return CRUD::findNoDeletedColumn(self::$table_name, $condition, ...$params);
     }
 
+    public static function viewUdhaariTransactions($udhaari_id){
+        return CRUD::findAll(self::$table_name,"*", "udhaari_id = ?", $udhaari_id);
+    }
 
 
     public function __construct($result = null)

@@ -18,15 +18,19 @@ if(isset($_GET['id'])) {
                 } else {
                     CRUD::rollback();
                     setStatusAndMsg("error", "Udhaari could not be deleted.");
+                    redirect_to(VIEW_UDHAARI_WITH_ID . $udhaari_id);
                 }
             }else{
                 setStatusAndMsg("error", "Payments exists for this udhaari. Please delete the payments first.");
+                redirect_to(VIEW_UDHAARI_WITH_ID . $udhaari_id);
             }
         } else {
             setStatusAndMsg("error", "Udhaari do not exists");
+            redirect_to(VIEW_ALL_UDHAARIS);
         }
     } catch (Exception $ex) {
         setStatusAndMsg("error", "Something went wrong");
+        redirect_to(VIEW_ALL_UDHAARIS);
     }
 
     CRUD::setAutoCommitOn(true);

@@ -28,10 +28,6 @@ class Udhaari extends Table
         return Payment::viewAll("udhaari", "udhaari_id", $udhaari_id);
     }
 
-    public static function viewUdhaariTransactions($udhaari_id){
-        return CRUD::query("SELECT udhaari_transactions.* FROM udhaari_transactions join udhaari on udhaari.udhaari_id = udhaari_transactions.udhaari_id where udhaari.udhaari_id = {$udhaari_id}");
-    }
-
     /**
      * Retrieves the customers with pending amount on udhaari.
      * @param int $limit - limit of customers to retrieve
