@@ -8,6 +8,8 @@ $column_names_as = array(
     "invoice_date" => "Dated",
     "customer_name" => "Customer Name",
     "customer_contact" => "Customer Contact",
+    "product_name"=>"Product Name",
+    "created_at" => "Invoice Created On"
 );
 require_once 'includes/pages/invoices/delete-invoice.php';
 ?>
@@ -30,14 +32,20 @@ require_once 'includes/pages/invoices/delete-invoice.php';
                     <tbody>
                     <?php
                     $column_names = array_keys($column_names_as);
-                    while($row = $rs->fetch(PDO::FETCH_ASSOC)) {
+                    while ($row = $rs->fetch(PDO::FETCH_ASSOC)) {
                         echo "<tr>";
                         foreach ($column_names as $column_name) {
-                            if(empty($row[$column_name])) {
+                            if (empty($row[$column_name])) {
                                 echo "<td>NULL</td>";
-                            }
-                            else {
-                                echo "<td>$row[$column_name]</td>";
+                            } else {
+                                if ($column_name == 'created_at') {
+                                    $dateTime = new DateTime($row[$column_name]);
+                                    $date = $dateTime->format('d/m/Y');
+                                    echo "<td>$date</td>";
+                                } else {
+                                    echo "<td>$row[$column_name]</td>";
+                                }
+
                             }
                         }
                         echo "<td><a class='btn btn-info text-white' data-toggle='tooltip' href='invoices.php?src=view-invoice-details&id={$row['invoice_id']}' data-html='true' title='View Detail'><i class='fa fa-info'></i></a></td>";
