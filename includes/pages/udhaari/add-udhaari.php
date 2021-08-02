@@ -20,7 +20,7 @@ if (isset($_POST[ADD_UDHAARI])) {
 
         $udhaari_transaction = new UdhaariTransaction();
         $udhaari_transaction->udhaari_amount = $new_udhaari->udhaari_amount;
-        $udhaari_transaction->udhaari_transaction_date = date('Y-m-d');
+        $udhaari_transaction->udhaari_transaction_date = $_POST['udhaari_date'];
         $udhaari_transaction->description = $_POST['description'];
 
 
