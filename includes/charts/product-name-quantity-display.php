@@ -19,7 +19,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">$row->product_name Quantity</div>
-                        <div class="quantity-font mb-0 font-weight-bold text-gray-800">$quantity gm's</div>
+                        <div class="quantity-font mb-0 font-weight-bold text-gray-800">$row->product_count | $quantity gm's</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-balance-scale fa-2x text-gray-300"></i>
