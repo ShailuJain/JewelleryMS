@@ -33,7 +33,7 @@ class Product extends Table
 
     public static function getUniqueProductNameQuantity()
     {
-        return  CRUD::query("SELECT product_name, SUM(product_quantity) as total_quantity FROM products WHERE deleted = 0 GROUP BY product_name");
+        return  CRUD::query("SELECT product_name, SUM(product_quantity) as total_quantity, COUNT(product_name) as product_count FROM products WHERE deleted = 0 GROUP BY product_name");
     }
 
     public function insert()
