@@ -108,15 +108,19 @@ class InvoiceTemplate
                 $total_amount += $product_amount;
                 $total_amount_with_gst += $product_amount_with_gst;
 
+                $display_weight =  number_format($product->product_quantity, 3, '.', '');
+                $display_cgst = round($cgst_amount, 2);
+                $display_sgst = round($sgst_amount, 2);
+
                 $product_list .= <<<LIST
                 <div class="row m-0">
-                    <span class="col-md-4">$product->category_name - $product->product_name, HSN Code : $product->hsn_code</span>
-                    <span class="col-md-1">$product->product_quantity</span>
-                    <span class="col-md-1">&#8377;$product->product_rate</span>
-                    <span class="col-md-2">&#8377;$product_amount</span>
-                    <span class="col-md-1">$cgst_amount<br>($cgst_rate %)</span>
-                    <span class="col-md-1">$sgst_amount<br>($sgst_rate %)</span>
-                    <span class="col-md-2">&#8377;$product_amount_with_gst</span>
+                    <span class="col-md-4 jewellery-item">$product->category_name - $product->product_name, HSN Code : $product->hsn_code</span>
+                    <span class="col-md-1 jewellery-item">$display_weight</span>
+                    <span class="col-md-1 jewellery-item">&#8377;$product->product_rate</span>
+                    <span class="col-md-2 jewellery-item">&#8377;$product_amount</span>
+                    <span class="col-md-1 jewellery-item">$display_cgst<br>($cgst_rate %)</span>
+                    <span class="col-md-1 jewellery-item">$display_sgst<br>($sgst_rate %)</span>
+                    <span class="col-md-2 jewellery-item">&#8377;$product_amount_with_gst</span>
                 </div>
 LIST;
             }
@@ -143,15 +147,14 @@ LIST;
         <div class='invoice'>
             <div class='container-fluid shop-details p-0 mb-5'>
                 <div class="detail-header p-2 b-bottom">
-                    <div class="detail-1 bold">
-                        GSTIN : $shop_gst_no
-                        <h5 class='shop-name'>$s_name</h5>
-                        <h6 class='shop-address'>Address: $s_add</h6>
-                        <h6 class='shop-address'>Mob no.: $s_contact</h6>
-                        <div class='pan-no bold'>PAN NO: $pan_no</div>
-                    </div>
-                    <div class="detail-2 bold">Invoice No. : $i_no</div>
-                    <div class="detail-3 bold">Date : $i_date</div>
+                    <div class="bold">Invoice No. : $i_no</div>
+                    <div class="bold">Date : $i_date</div>
+                </div>
+                <div class="shop-detailed b-bottom p-2 text-center">
+                    <h5 class='shop-name'>$s_name</h5>
+                    <h6 class='shop-address'>Address: $s_add</h6>
+                    <h6 class='shop-address'>Mob no.: $s_contact</h6>
+                    <h6 class="bold">GSTIN: $shop_gst_no | PAN NO: $pan_no</h6>
                 </div>
                 <div class='customer-details p-2'>
                     <div class="billed-to bold">Billed To:</div>
@@ -176,7 +179,7 @@ LIST;
                         </div>
                         <div class="row b-bottom m-0 headings">
                             <span class="col-md-4 heading font-weight-bold">Particulars</span>
-                            <span class="col-md-1 heading font-weight-bold">Net Wt.</span>
+                            <span class="col-md-1 heading font-weight-bold">Net Wt.<br>(In Grams)</span>
                             <span class="col-md-1 heading font-weight-bold">Rate/gm</span>
                             <span class="col-md-2 heading font-weight-bold">Taxable Value</span>
                             <span class="col-md-1 heading font-weight-bold heading-gst">CGST<br>(Amt & Rate)</span>
