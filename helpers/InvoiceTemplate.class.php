@@ -112,6 +112,10 @@ class InvoiceTemplate
                 $display_cgst = round($cgst_amount, 2);
                 $display_sgst = round($sgst_amount, 2);
 
+                $display_total_cgst = round($total_cgst_amount, 2);
+                $display_total_sgst = round($total_sgst_amount, 2);
+                $display_total_amount_with_gst = round($total_amount_with_gst, 2);
+
                 $product_list .= <<<LIST
                 <div class="row m-0">
                     <span class="col-md-4 jewellery-item">$product->category_name - $product->product_name, HSN Code : $product->hsn_code</span>
@@ -197,10 +201,10 @@ LIST;
                 <div class="col-md-2 b-left total-amount">
                     <span class="text-14 total-amount-content">&#8377;$total_amount</span>
                 </div>
-                <div class="b-left text-14 col-md-1">&#8377;$total_cgst_amount</div>
-                <div class="b-left text-14 col-md-1">&#8377;$total_sgst_amount</div>
+                <div class="b-left text-14 col-md-1">&#8377;$display_total_cgst</div>
+                <div class="b-left text-14 col-md-1">&#8377;$display_total_sgst</div>
                 <div class="gst col-md-2 b-left">
-                    <div class="text-14">GRAND TOTAL : &#8377;$total_amount_with_gst</div>
+                    <div class="text-14">GRAND TOTAL : &#8377;$display_total_amount_with_gst</div>
                 </div>
                 </div>
                 <div class="amount-in-words b-top row m-0">
