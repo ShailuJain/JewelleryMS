@@ -61,16 +61,13 @@ try{
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title><?php echo $inv_temp->title; ?></title>
+    <title><?php echo $inv_temp->title; echo "-"; echo $inv_temp->i_date; ?></title>
     <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i'>
     <link href='css/style.css' rel='stylesheet'>
     <link rel='stylesheet' href='css/invoice-template.css'>
 </head>
 <body>
     <div class='container-fluid p-5'>
-        <div class="buttons text-center">
-            <div class="btn btn-primary print-hidden" id="printBtn">PRINT</div>
-        </div>
         <div class='label-bold'>GST Invoice</div>
         <div class='invoice'>
             <div class='container-fluid shop-details p-0 mb-5'>
@@ -171,6 +168,8 @@ try{
     </div>
     <script src='vendor/jquery/jquery.min.js'></script>
     <script src='vendor/bootstrap/js/bootstrap.bundle.min.js'></script>
-    <script src='js/invoices/print-invoice.js'></script>
+    <script type="text/javascript">
+        window.print(); 
+    </script>
 </body>
 </html>

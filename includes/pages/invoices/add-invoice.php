@@ -68,7 +68,7 @@ if (isset($_POST[ADD_INVOICE])) {
                 $invoice->total_amount = $totalAmount;
                 if ($invoice->update()) {
                     CRUD::commit();
-                    redirect_to("invoices.php?src=view-invoice&id={$invoice_id}");
+                    redirect_to("invoices.php?src=view-invoice&id={$invoice_id}&download=true");
                     setStatusAndMsg("success", "Invoice created successfully");
                 } else {
                     throw new Exception('Invoice cannot be created, please ensure values are correct.');
