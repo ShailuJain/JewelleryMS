@@ -75,20 +75,20 @@ try{
         <div class='invoice'>
             <div class='container-fluid shop-details p-0 mb-5'>
                 <div class="detail-header p-2 b-bottom">
-                    <div class="bold">Invoice No. : <?php echo $invoice_to_create->invoice_id; ?></div>
-                    <div class="bold">Date : <?php echo $invoice_to_create->invoice_date; ?></div>
+                    <div class="bold">Invoice No. : <?php echo $inv_temp->i_no; ?></div>
+                    <div class="bold">Date : <?php echo $inv_temp->i_date; ?></div>
                 </div>
                 <div class="shop-detailed b-bottom p-2 text-center">
-                    <h5 class='shop-name'><?php echo $shop->shop_name; ?></h5>
-                    <h6 class='shop-address'>Address: <?php echo $shop->shop_address; ?></h6>
-                    <h6 class='shop-address'>Mob no.: <?php echo $shop->shop_contact; ?></h6>
-                    <h6 class="bold">GSTIN: <?php echo $shop->shop_gst_no; ?> | PAN NO: <?php echo $shop->pan_no; ?></h6>
+                    <h5 class='shop-name'><?php echo $inv_temp->s_name; ?></h5>
+                    <h6 class='shop-address'>Address: <?php echo $inv_temp->s_add; ?></h6>
+                    <h6 class='shop-address'>Mob no.: <?php echo $inv_temp->s_contact; ?></h6>
+                    <h6 class="bold">GSTIN: <?php echo $inv_temp->shop_gst_no; ?> | PAN NO: <?php echo $inv_temp->pan_no; ?></h6>
                 </div>
                 <div class='customer-details p-2'>
                     <div class="billed-to bold">Billed To:</div>
-                    <div class='customer-name bold'><?php echo $customer->customer_name; ?></div>
-                    <div class='customer-address'>Address: <?php echo $customer->customer_address; ?></div>
-                    <div class='customer-address'>Contact: <?php echo $customer->customer_contact; ?></div>
+                    <div class='customer-name bold'><?php echo $inv_temp->c_name; ?></div>
+                    <div class='customer-address'>Address: <?php echo $inv_temp->c_add; ?></div>
+                    <div class='customer-address'>Contact: <?php echo $inv_temp->c_contact; ?></div>
                 </div>
             </div>
             <div class="invoice-body bord">
@@ -116,32 +116,22 @@ try{
                         </div>
                     </div>
                     <div class="invoice-body-contents">
-                        <?php foreach ($products as $product) { ?>
-                            <div class="row m-0">
-                                <div class="col-md-4"><?php echo $product->product_name; ?></div>
-                                <div class="col-md-1"><?php echo $product->net_weight; ?></div>
-                                <div class="col-md-1"><?php echo $product->rate_per_gram; ?></div>
-                                <div class="col-md-2"><?php echo $product->taxable_value; ?></div>
-                                <div class="col-md-1"><?php echo $product->cgst_amount; ?> (<?php echo $product->cgst_rate; ?>%)</div>
-                                <div class="col-md-1"><?php echo $product->sgst_amount; ?> (<?php echo $product->sgst_rate; ?>%)</div>
-                                <div class="col-md-2"><?php echo $product->total_amount_with_gst; ?></div>
-                            </div>
-                        <?php } ?>
+                        <?php echo $inv_temp->product_list; ?>
                     </div>
                 </div>
                 <div class="invoice-body-footer b-top row m-0 pr-0">
                     <div class="col-md-6 bold">Total : </div>
                     <div class="col-md-2 b-left total-amount">
-                        <span class="text-14 total-amount-content">&#8377;<?php echo $invoice_to_create->total_amount; ?></span>
+                        <span class="text-14 total-amount-content">&#8377;<?php echo $inv_temp->total_amount; ?></span>
                     </div>
-                    <div class="b-left text-14 col-md-1">&#8377;<?php echo $invoice_to_create->total_cgst; ?></div>
-                    <div class="b-left text-14 col-md-1">&#8377;<?php echo $invoice_to_create->total_sgst; ?></div>
+                    <div class="b-left text-14 col-md-1">&#8377;<?php echo  $inv_temp->display_total_cgst; ?></div>
+                    <div class="b-left text-14 col-md-1">&#8377;<?php echo $inv_temp->display_total_sgst; ?></div>
                     <div class="gst col-md-2 b-left">
-                        <div class="text-14">GRAND TOTAL : &#8377;<?php echo $invoice_to_create->grand_total_with_gst; ?></div>
+                        <div class="text-14">GRAND TOTAL : &#8377;<?php echo $inv_temp->display_total_amount_with_gst; ?></div>
                     </div>
                 </div>
                 <div class="amount-in-words b-top row m-0">
-                    <span class="col-md-12 bold">Amount in words: <?php echo $invoice_to_create->amount_in_words; ?></span>
+                    <span class="col-md-12 bold">Amount in words: <?php echo $inv_temp->total_amount_in_words; ?></span>
                 </div>
             </div>
            <br>
@@ -160,7 +150,7 @@ try{
                 </div>
                 <div class="col-md-4 b-top b-right b-bottom p-0 for-shop">
                             <div class="for-shop-heading text-center b-bottom text-uppercase">
-                                FOR <?php echo $shop->shop_name; ?>
+                                FOR <?php echo $inv_temp->s_name; ?>
                             </div>
                             <div class="for-shop-content text-center b-top">
                                 <div class="for-shop-main-content">
