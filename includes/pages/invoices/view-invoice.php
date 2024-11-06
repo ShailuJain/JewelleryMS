@@ -26,7 +26,7 @@ try{
             $shop->email = "suniljain853@gmail.com";
             //gst details :
             $shop->shop_gst_no = "27AIVPP0970D1ZX";
-            $shop->pan_no = "AIVPP0970D1ZX";
+            $shop->pan_no = "AIVPP0970D";
             //bank details :
             $shop->bank_name = "ICIC (GHATKOPAR BRANCH)";
             $shop->account_no = "002605009771";
